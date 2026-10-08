@@ -89,31 +89,33 @@
 
     <div class="nav-actions">
       <!-- Mode Toggle -->
-      <button class="nav-pill-btn nav-mode-btn active" data-mode="fluid" title="Toggle background generative graphic">
-        <span>CANVAS</span>
+      <button class="nav-pill-btn nav-mode-btn active" data-mode="fluid" title="Toggle background generative graphic" aria-label="Toggle Canvas Graphic">
+        <svg class="nav-btn-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+        <span class="nav-btn-label">CANVAS</span>
       </button>
 
       <!-- Audio Equalizer Button -->
-      <button id="audio-equalizer-btn" class="nav-pill-btn audio-equalizer-btn" title="Toggle procedural sound synthesis">
+      <button id="audio-equalizer-btn" class="nav-pill-btn audio-equalizer-btn" title="Toggle procedural sound synthesis" aria-label="Toggle Sound">
         <span class="equalizer-bar-wrap">
           <span class="equalizer-col"></span>
           <span class="equalizer-col"></span>
           <span class="equalizer-col"></span>
           <span class="equalizer-col"></span>
         </span>
-        <span>SOUND</span>
+        <span class="nav-btn-label">SOUND</span>
       </button>
 
       <!-- Command Palette Trigger -->
-      <button class="nav-pill-btn cmd-palette-trigger" title="Quick Command Palette (Ctrl+K)">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-        <span>Search</span>
-        <kbd style="font-family: var(--font-mono); font-size: 10px; opacity: 0.7;">Ctrl+K</kbd>
+      <button class="nav-pill-btn cmd-palette-trigger" title="Quick Command Palette (Ctrl+K)" aria-label="Search">
+        <svg class="nav-btn-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span class="nav-btn-label">Search</span>
+        <kbd class="nav-btn-kbd" style="font-family: var(--font-mono); font-size: 10px; opacity: 0.7;">Ctrl+K</kbd>
       </button>
 
       <!-- Terminal Trigger -->
-      <button id="nav-term-btn" class="nav-pill-btn" title="Open terminal shell (Ctrl+~)">
-        <span>Terminal</span>
+      <button id="nav-term-btn" class="nav-pill-btn" title="Open terminal shell (Ctrl+~)" aria-label="Terminal">
+        <svg class="nav-btn-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="4 17 10 12 4 7"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        <span class="nav-btn-label">Terminal</span>
       </button>
     </div>
   </header>
@@ -448,7 +450,7 @@
         </p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+      <div class="manifesto-grid">
         <div class="project-card reveal-on-scroll">
           <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); margin-bottom: 8px;">[01] COMPLETE LOGIC PATHS</div>
           <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Zero Mock Syndrome</h3>

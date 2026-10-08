@@ -244,6 +244,22 @@ assert(autocompleteRepo('peg').includes('PegRogue'), `Case-insensitive autocompl
 assert(autocompleteRepo('neon').includes('NeonDrift'), `Case-insensitive autocomplete matches 'NeonDrift' with 'neon'`);
 assert(autocompleteRepo('code').includes('codemask'), `Case-insensitive autocomplete matches 'codemask' with 'code'`);
 
+// 9. Mobile Responsiveness Layout Integrity Tests
+console.log(`\n--- Testing Mobile Layout & Navigation Responsiveness ---`);
+const tokensCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'tokens.css'), 'utf8');
+const layoutCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'layout.css'), 'utf8');
+const componentsCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'components.css'), 'utf8');
+const workbenchesCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'workbenches.css'), 'utf8');
+const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+
+assert(tokensCss.includes('overflow-x: hidden') && tokensCss.includes('max-width: 100vw'), `html and body have max-width and overflow containment in tokens.css`);
+assert(layoutCss.includes('@media (max-width: 640px)') && layoutCss.includes('@media (max-width: 380px)'), `layout.css contains comprehensive mobile media queries`);
+assert(layoutCss.includes('.nav-btn-label') && layoutCss.includes('display: none !important'), `Header hides wide text labels on mobile for compact icon pill buttons`);
+assert(layoutCss.includes('min-width: 0') && layoutCss.includes('scroll-dock-tabs'), `Floating scroll dock allows flex shrinking and touch scrolling`);
+assert(componentsCss.includes('projects-grid') && componentsCss.includes('grid-template-columns: 1fr'), `Projects grid collapses to single column on mobile`);
+assert(workbenchesCss.includes('@media (max-width: 640px)'), `Workbenches contain dedicated mobile viewports`);
+assert(indexHtml.includes('manifesto-grid'), `Manifesto uses responsive class without hardcoded 320px column minmax`);
+
 console.log(`\n========================================================`);
 if (failures === 0) {
   console.log(`  🎉 ALL TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`);

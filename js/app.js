@@ -328,12 +328,15 @@ class App {
 
     const updateGlider = (activeTab) => {
       if (!glider || !activeTab) return;
-      const bar = activeTab.parentElement;
-      const barRect = bar.getBoundingClientRect();
-      const tabRect = activeTab.getBoundingClientRect();
-      const left = tabRect.left - barRect.left;
-      glider.style.width = `${tabRect.width}px`;
-      glider.style.transform = `translateX(${left}px)`;
+      glider.style.width = `${activeTab.offsetWidth}px`;
+      glider.style.transform = `translateX(${activeTab.offsetLeft}px)`;
+      if (typeof activeTab.scrollIntoView === 'function') {
+        try {
+          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } catch (_) {
+          activeTab.scrollIntoView(false);
+        }
+      }
     };
 
     const initialActive = document.querySelector('.wb-tab-nav-btn.active');
@@ -390,12 +393,15 @@ class App {
 
     const updatePill = (activeBtn) => {
       if (!pill || !activeBtn) return;
-      const nav = activeBtn.parentElement;
-      const navRect = nav.getBoundingClientRect();
-      const btnRect = activeBtn.getBoundingClientRect();
-      const left = btnRect.left - navRect.left;
-      pill.style.width = `${btnRect.width}px`;
-      pill.style.transform = `translateX(${left}px)`;
+      pill.style.width = `${activeBtn.offsetWidth}px`;
+      pill.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
+      if (typeof activeBtn.scrollIntoView === 'function') {
+        try {
+          activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } catch (_) {
+          activeBtn.scrollIntoView(false);
+        }
+      }
     };
 
     const initialActive = document.querySelector('.dock-tab-btn.active');
