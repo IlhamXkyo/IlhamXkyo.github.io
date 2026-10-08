@@ -442,3 +442,205 @@ html[data-theme="light"] .inspector-close-btn:hover {
 html[data-theme="light"] .filter-pill-btn .pill-count {
   background: rgba(45, 40, 32, 0.06);
 }
+
+/* ==========================================================================
+   FEATURED CASE STUDIES ARCHITECTURE
+   ========================================================================== */
+.featured-cases-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.featured-case-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.featured-case-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.case-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.case-meta-badges {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.case-step-pill {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-full);
+  background: rgba(224, 90, 71, 0.12);
+  color: var(--accent-terracotta);
+  border: 1px solid rgba(224, 90, 71, 0.25);
+  letter-spacing: 0.04em;
+}
+
+.case-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.case-tagline {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.case-tech-strip {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-sage);
+  background: rgba(142, 168, 140, 0.08);
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(142, 168, 140, 0.18);
+  white-space: nowrap;
+}
+
+.case-problem-callout {
+  background: var(--bg-surface-elevated);
+  border-left: 3px solid var(--accent-terracotta);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+
+.case-problem-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--accent-terracotta);
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+
+.case-problem-text {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.case-grid-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.case-metric-box {
+  background: rgba(243, 239, 230, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.case-metric-box.highlight {
+  border-color: rgba(224, 90, 71, 0.22);
+  background: rgba(224, 90, 71, 0.03);
+}
+
+.case-box-label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--accent-terracotta);
+  letter-spacing: 0.04em;
+}
+
+.case-box-label.green { color: var(--accent-sage); }
+.case-box-label.amber { color: var(--accent-saffron); }
+
+.case-box-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.case-actions-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.case-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s ease;
+}
+
+.case-action-btn.primary {
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border: 1px solid transparent;
+}
+
+.case-action-btn.primary:hover {
+  background: var(--btn-primary-hover);
+  transform: translateY(-1px);
+}
+
+.case-action-btn.secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+.case-action-btn.secondary:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-surface-elevated);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+  .featured-case-card {
+    padding: 20px 16px;
+  }
+  .case-grid-matrix {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .case-tech-strip {
+    white-space: normal;
+  }
+}
+

@@ -46,7 +46,8 @@ const REQUIRED_FILES = [
   'js/scramble.js',
   'js/physics-toy.js',
   'js/command-palette.js',
-  'js/app.js'
+  'js/app.js',
+  'test/verify_data.js'
 ];
 
 REQUIRED_FILES.forEach(file => {
@@ -62,9 +63,10 @@ REQUIRED_FILES.forEach(file => {
 const dataFilePath = path.join(ROOT_DIR, 'js', 'data.js');
 const dataContent = fs.readFileSync(dataFilePath, 'utf8');
 
-// Check REPOSITORIES array via dynamic evaluation of export
+// Check REPOSITORIES and FEATURED_CASE_STUDIES via dynamic evaluation
 let REPOSITORIES = [];
 let DEVELOPER_PROFILE = {};
+let FEATURED_CASE_STUDIES = [];
 try {
   const cleanCode = dataContent
     .replace(/export const /g, 'global.')
@@ -72,12 +74,13 @@ try {
   eval(cleanCode);
   REPOSITORIES = global.REPOSITORIES;
   DEVELOPER_PROFILE = global.DEVELOPER_PROFILE;
+  FEATURED_CASE_STUDIES = global.FEATURED_CASE_STUDIES;
 } catch (e) {
   assert(false, `data.js evaluation failed: ${e.message}`);
 }
 
 assert(Array.isArray(REPOSITORIES), `REPOSITORIES is an array`);
-assert(REPOSITORIES.length === 25, `REPOSITORIES contains exactly 25 items (got ${REPOSITORIES.length})`);
+assert(REPOSITORIES.length === 30, `REPOSITORIES contains exactly 30 items (got ${REPOSITORIES.length})`);
 
 const VALID_CATEGORIES = ['tools', 'nlp', 'civic', 'quant', 'games'];
 
@@ -92,11 +95,29 @@ REPOSITORIES.forEach((repo, i) => {
   assert(!!repo.cliSnippet, `Repo '${repo.name}' has cliSnippet`);
 });
 
+// Validate 5 Flagship Case Studies
+assert(Array.isArray(FEATURED_CASE_STUDIES), `FEATURED_CASE_STUDIES is an array`);
+assert(FEATURED_CASE_STUDIES.length === 5, `FEATURED_CASE_STUDIES contains exactly 5 flagship studies (got ${FEATURED_CASE_STUDIES.length})`);
+
+FEATURED_CASE_STUDIES.forEach((study, idx) => {
+  assert(!!study.id, `Case study #${idx + 1} has valid id (${study.name})`);
+  assert(!!study.name, `Case study #${idx + 1} has name (${study.name})`);
+  assert(VALID_CATEGORIES.includes(study.category), `Case study '${study.name}' has valid category: '${study.category}'`);
+  assert(!!study.tagline, `Case study '${study.name}' has non-empty tagline`);
+  assert(!!study.problem, `Case study '${study.name}' has non-empty problem statement`);
+  assert(!!study.whyBuilt, `Case study '${study.name}' has whyBuilt explanation`);
+  assert(!!study.implemented, `Case study '${study.name}' has implemented explanation`);
+  assert(!!study.challenge, `Case study '${study.name}' has challenge explanation`);
+  assert(!!study.results, `Case study '${study.name}' has concrete results statement`);
+  assert(study.githubUrl && study.githubUrl.startsWith('https://github.com/IlhamXkyo/'), `Case study '${study.name}' has authentic GitHub URL`);
+});
+
 // 3. Profile Information Check
 assert(DEVELOPER_PROFILE.name === 'Ilham', `Profile name is Ilham`);
 assert(DEVELOPER_PROFILE.handle === 'IlhamXkyo', `Profile handle is IlhamXkyo`);
 assert(DEVELOPER_PROFILE.email === 'xanderilham4@gmail.com', `Profile email is authentic`);
-assert(DEVELOPER_PROFILE.stats.totalRepos === 25, `Profile stats reports 25 repos`);
+assert(DEVELOPER_PROFILE.stats.totalRepos === 30, `Profile stats reports 30 repos`);
+assert(DEVELOPER_PROFILE.location.includes('AMBON, INDONESIA'), `Profile location reports Ambon, Indonesia (${DEVELOPER_PROFILE.location})`);
 
 // 4. Verify No Prohibited Em/En Dashes in text/code
 REQUIRED_FILES.forEach(file => {
@@ -231,8 +252,8 @@ assert(detectCliches(englishSlop).length >= 3, `Detected English corporate AI cl
 const indonesianSlop = "Menyelami lanskap teknologi merupakan fondasi komprehensif.";
 assert(detectCliches(indonesianSlop).length >= 4, `Detected Indonesian corporate AI cliches in test phrase`);
 
-// 8. Functional Unit Tests: KyoTerm Case-Insensitive Tab Completion
-console.log(`\n--- Testing KyoTerm Terminal Autocompletion ---`);
+// 8. Functional Unit Tests: KyoTerm Terminal Autocompletion & Command Dispatching
+console.log(`\n--- Testing KyoTerm Terminal Autocompletion & Commands ---`);
 function autocompleteRepo(inputPrefix) {
   const repoMatches = REPOSITORIES
     .map(r => r.name)
@@ -244,13 +265,132 @@ assert(autocompleteRepo('peg').includes('PegRogue'), `Case-insensitive autocompl
 assert(autocompleteRepo('neon').includes('NeonDrift'), `Case-insensitive autocomplete matches 'NeonDrift' with 'neon'`);
 assert(autocompleteRepo('code').includes('codemask'), `Case-insensitive autocomplete matches 'codemask' with 'code'`);
 
-// 9. Mobile Responsiveness Layout Integrity Tests
-console.log(`\n--- Testing Mobile Layout & Navigation Responsiveness ---`);
+// Test KyoTerminal Command Execution
+try {
+  const termCode = fs.readFileSync(path.join(ROOT_DIR, 'js', 'terminal.js'), 'utf8')
+    .replace(/import\s+{[^}]+}\s+from\s+['"][^'"]+['"];/g, '')
+    .replace(/export\s+class\s+KyoTerminal/, 'global.KyoTerminal = class KyoTerminal');
+
+  global.sound = {
+    click: () => {},
+    chirp: () => {},
+    terminalTick: () => {},
+    toggle: () => true,
+    isEnabled: () => true
+  };
+  const mockTermContainer = {
+    querySelector: (sel) => ({
+      appendChild: () => {},
+      addEventListener: () => {},
+      focus: () => {},
+      value: '',
+      closest: () => null
+    }),
+    classList: {
+      contains: () => false,
+      add: () => {},
+      remove: () => {}
+    }
+  };
+  global.document = {
+    getElementById: () => mockTermContainer,
+    createElement: () => ({ innerHTML: '', appendChild: () => {}, classList: { add: () => {} } })
+  };
+  global.window = {
+    addEventListener: () => {}
+  };
+
+  eval(termCode);
+
+  let inspectedId = null;
+  const term = new global.KyoTerminal('terminal-drawer', (id) => { inspectedId = id; });
+  let termLogs = [];
+  term.log = (msg) => { termLogs.push(msg); };
+
+  termLogs = [];
+  term.execute('help');
+  assert(termLogs.some(l => l.includes('featured') && l.includes('repos')), `KyoTerm 'help' lists commands`);
+
+  termLogs = [];
+  term.execute('featured');
+  assert(termLogs.some(l => l.includes('CodeMask')) && termLogs.some(l => l.includes('Portwarden')), `KyoTerm 'featured' lists case studies`);
+
+  termLogs = [];
+  term.execute('repos');
+  assert(termLogs.some(l => l.includes('codemask')) && termLogs.some(l => l.includes('30+ TOTAL')), `KyoTerm 'repos' lists 30+ repositories`);
+
+  termLogs = [];
+  term.execute('about');
+  assert(termLogs.some(l => l.includes('Ilham')) && termLogs.some(l => l.toLowerCase().includes('ambon')), `KyoTerm 'about' displays developer details and location`);
+
+  termLogs = [];
+  term.execute('skills');
+  assert(termLogs.some(l => l.includes('ENGINEERING CAPABILITIES')), `KyoTerm 'skills' lists capabilities`);
+
+  termLogs = [];
+  term.execute('contact');
+  assert(termLogs.some(l => l.includes('xanderilham4@gmail.com')), `KyoTerm 'contact' displays email`);
+
+  termLogs = [];
+  term.execute('github');
+  assert(termLogs.some(l => l.includes('https://github.com/IlhamXkyo')), `KyoTerm 'github' displays profile URL`);
+
+  termLogs = [];
+  term.execute('tests');
+  assert(termLogs.some(l => l.includes('PASSING ASSERTIONS')), `KyoTerm 'tests' displays test telemetry`);
+
+  termLogs = [];
+  term.execute('principles');
+  assert(termLogs.some(l => l.includes('Build the whole path')), `KyoTerm 'principles' displays engineering principles`);
+
+  term.execute('inspect codemask');
+  assert(inspectedId === 'codemask', `KyoTerm 'inspect codemask' triggers inspector callback`);
+} catch (err) {
+  assert(false, `KyoTerm command execution failed: ${err.message}`);
+}
+
+// 9. Anti-Slop Jargon Elimination and Credibility Proof
+console.log(`\n--- Testing Anti-Slop Jargon Elimination and Credibility Proof ---`);
+const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+
+const PROHIBITED_JARGON = [
+  '100% authentic code',
+  'ast integrity: valid syntax',
+  'syntax safe',
+  'nlp stylometrics',
+  'process & system diagnostics',
+  'tactile restraint',
+  'complete logic paths',
+  'zero mock syndrome',
+  'jakarta'
+];
+PROHIBITED_JARGON.forEach(phrase => {
+  assert(!indexHtml.toLowerCase().includes(phrase), `index.html does not contain prohibited phrase: "${phrase}"`);
+});
+
+assert(indexHtml.includes('Build the whole path'), `index.html contains principle: "Build the whole path"`);
+assert(indexHtml.includes('Prefer simple dependencies'), `index.html contains principle: "Prefer simple dependencies"`);
+assert(indexHtml.includes('Polish with purpose'), `index.html contains principle: "Polish with purpose"`);
+
+assert(indexHtml.includes('href="#featured"'), `Hero early CTA links to #featured case studies`);
+assert(indexHtml.includes('href="https://github.com/IlhamXkyo"'), `Hero early CTA links to GitHub profile`);
+assert(indexHtml.includes('href="mailto:xanderilham4@gmail.com"'), `Hero early CTA links to email`);
+
+assert(indexHtml.includes('AMBON, INDONESIA'), `index.html hero states Ambon, Indonesia`);
+assert(indexHtml.includes('30+') && indexHtml.includes('Repositories'), `index.html displays 30+ Repositories metric`);
+assert(indexHtml.includes('48') && indexHtml.includes('Tests Passing'), `index.html displays 48 Tests Passing metric`);
+assert(indexHtml.includes('Runtime Dependencies'), `index.html displays Runtime Dependencies metric`);
+
+FEATURED_CASE_STUDIES.forEach(study => {
+  assert(indexHtml.includes(study.name), `Featured study '${study.name}' is rendered in index.html`);
+});
+
+// 10. Mobile Responsiveness Layout Integrity Tests
+console.log(`\n--- Testing Mobile Layout and Navigation Responsiveness ---`);
 const tokensCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'tokens.css'), 'utf8');
 const layoutCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'layout.css'), 'utf8');
 const componentsCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'components.css'), 'utf8');
 const workbenchesCss = fs.readFileSync(path.join(ROOT_DIR, 'css', 'workbenches.css'), 'utf8');
-const indexHtml = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
 
 assert(tokensCss.includes('overflow-x: hidden') && tokensCss.includes('max-width: 100vw'), `html and body have max-width and overflow containment in tokens.css`);
 assert(layoutCss.includes('@media (max-width: 640px)') && layoutCss.includes('@media (max-width: 380px)'), `layout.css contains comprehensive mobile media queries`);
@@ -258,10 +398,10 @@ assert(layoutCss.includes('.nav-btn-label') && layoutCss.includes('display: none
 assert(layoutCss.includes('min-width: 0') && layoutCss.includes('scroll-dock-tabs'), `Floating scroll dock allows flex shrinking and touch scrolling`);
 assert(componentsCss.includes('projects-grid') && componentsCss.includes('grid-template-columns: 1fr'), `Projects grid collapses to single column on mobile`);
 assert(workbenchesCss.includes('@media (max-width: 640px)'), `Workbenches contain dedicated mobile viewports`);
-assert(indexHtml.includes('manifesto-grid'), `Manifesto uses responsive class without hardcoded 320px column minmax`);
+assert(indexHtml.includes('manifesto-grid'), `Principles grid uses responsive class without hardcoded 320px column minmax`);
 
-// 10. Dual Theme Engine Verification (Dark & Light Mode)
-console.log(`\n--- Testing Dual Theme System (Dark & Light Mode) ---`);
+// 11. Dual Theme Engine Verification (Dark and Light Mode)
+console.log(`\n--- Testing Dual Theme System (Dark and Light Mode) ---`);
 const appJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'app.js'), 'utf8');
 const cmdPaletteJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'command-palette.js'), 'utf8');
 

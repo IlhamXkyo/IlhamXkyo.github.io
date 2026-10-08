@@ -305,7 +305,17 @@
   font-weight: 600;
   color: var(--accent-terracotta);
   letter-spacing: 0.04em;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
+}
+
+.hero-main-headline {
+  font-size: clamp(1.4rem, 2.7vw, 2.2rem);
+  font-weight: 800;
+  line-height: 1.25;
+  color: var(--text-primary);
+  max-width: 780px;
+  margin: 0 auto 14px auto;
+  letter-spacing: -0.025em;
 }
 
 .hero-statement-lead {

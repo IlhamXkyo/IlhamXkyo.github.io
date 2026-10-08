@@ -6,27 +6,33 @@
 export const DEVELOPER_PROFILE = {
   name: "Ilham",
   handle: "IlhamXkyo",
-  title: "Full-Stack Web Enthusiast | Minimalist Design Lover",
-  location: "Jakarta, Indonesia (UTC+7)",
+  title: "Building developer tools, automation systems, and practical web applications",
+  headline: "Building developer tools, automation systems, and practical web applications.",
+  subheadline: "I build small systems that solve annoying problems.",
+  location: "AMBON, INDONESIA · AVAILABLE REMOTELY",
   email: "xanderilham4@gmail.com",
   github: "https://github.com/IlhamXkyo",
   avatarUrl: "https://avatars.githubusercontent.com/u/263917511?v=4",
   gifUrl: "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXp1cDZrOXI5bHp4c3dzNW5hYXhkcXVzMHF4azMyY3Z3aG52NGJzMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6C0m3zHvKEsoiKYXq2/giphy.gif",
-  bio: "Passionate about building functional, aesthetically pleasing, and user-centric applications. Always exploring modern web ecosystems and practical automation tools. Just want to make something useful.",
+  bio: "I build small systems that solve annoying problems. Focused on practical developer tools, process automation, and zero-dependency utilities.",
   dailyRoutine: [
     "Developing lightweight, zero-dependency Node.js and TypeScript command line utilities",
     "Designing clean, functional interfaces with minimalist design principles",
-    "Debugging operating system process trees, port collisions, and local socket bindings",
+    "Managing operating system sockets, port collisions, and process termination",
     "Engineering offline-first civic document workflows and administrative utilities",
-    "Analyzing text cadence and stylometrics to counter repetitive corporate writing patterns"
+    "Analyzing text cadence and stylometrics to remove repetitive corporate writing patterns"
   ],
   stats: {
-    totalRepos: 25,
-    devTools: 7,
+    totalRepos: 30,
+    reposDisplay: "30+",
+    devTools: 10,
     civicApps: 5,
-    quantAndAI: 7,
+    quantAndAI: 9,
     nlpAndProse: 3,
-    antiSlopRate: "100%",
+    games: 3,
+    testsPassing: 48,
+    runtimeDeps: 0,
+    license: "MIT"
   },
   skills: [
     { category: "Developer Tools & CLI", items: ["Zero-Dependency Node.js", "Cross-Platform Socket Diagnostics", "Process Tree Introspection", "Token Masking Algorithms", "Electron Desktop Apps"] },
@@ -35,6 +41,84 @@ export const DEVELOPER_PROFILE = {
     { category: "Practical Systems & Civic", items: ["TypeScript / JavaScript", "Python Automation", "PHP & Relational SQL", "Offline-First Paged Media", "WebSockets & Event Streams"] }
   ]
 };
+
+export const FEATURED_CASE_STUDIES = [
+  {
+    id: "codemask",
+    name: "CodeMask",
+    category: "tools",
+    tagline: "Secret Redactor & LLM Egress Sanitizer",
+    techStack: "Pure JavaScript · Zero Dependencies · Memory Vault",
+    problem: "Developers frequently leak live API keys, database credentials, and Bearer tokens when pasting code snippets into LLM chats.",
+    whyBuilt: "Accidental credential leakage into cloud AI providers causes severe security exposures. Existing linters either block the prompt completely or do not provide bidirectional reversal.",
+    implemented: "A bidirectional syntax-preserving token masker in pure JavaScript. Scans code for high-entropy patterns (OpenAI, Anthropic, Stripe, AWS, Postgres URIs, JWTs) and replaces them with deterministic placeholders (__CODEMASK_API_KEY_1__), storing mappings in an isolated memory vault for instant restoration upon response ingress.",
+    challenge: "Preserving strict programming language syntax (JSON, SQL, Python, JavaScript) without corrupting quotes, commas, brackets, or string boundaries during regular expression substitution.",
+    results: "0 external dependencies. Sub-millisecond execution (< 1.2ms for 1,000 lines of code). 42 passing automated test assertions with 100% bidirectional restoration accuracy.",
+    workbenchTarget: "codemask-workbench",
+    liveUrl: null,
+    githubUrl: "https://github.com/IlhamXkyo/codemask"
+  },
+  {
+    id: "portwarden",
+    name: "Portwarden Sentinel",
+    category: "tools",
+    tagline: "Cross-Platform Port Collision Inspector & Zombie Process Terminator",
+    techStack: "Node.js Standard Library · Cross-Platform CLI · Netstat/Lsof/SS",
+    problem: "Orphaned background dev servers (Node, Vite, Next.js, Postgres) hold onto network ports and throw EADDRINUSE: port already in use errors during development.",
+    whyBuilt: "Developers waste minutes searching for obscure PIDs using multi-step shell commands (lsof -i :3000, netstat -ano, taskkill /PID ... /F) just to restart their local servers.",
+    implemented: "A lightweight, zero-dependency CLI utility written in pure Node.js standard library (child_process, net). Queries native OS socket tables across Windows (netstat), macOS (lsof), and Linux (ss), maps socket bindings to process tree PIDs, and dispatches verified graceful or force terminations.",
+    challenge: "Windows netstat and Unix lsof have vastly different column formatting, buffering characteristics, and race conditions where a killed process takes a few hundred milliseconds to fully release OS socket handles.",
+    results: "0 external npm dependencies. Executes in under 120ms. Verified release polling loop ensures port is 100% available before terminal return.",
+    workbenchTarget: "portwarden-workbench",
+    liveUrl: null,
+    githubUrl: "https://github.com/IlhamXkyo/portwarden"
+  },
+  {
+    id: "slop-lens",
+    name: "Slop-Lens Linter",
+    category: "nlp",
+    tagline: "Real-Time Stylometrics Inspector & AI Heuristic Linter",
+    techStack: "Client-Side JavaScript · Stylometrics Pipeline · Web Audio API",
+    problem: "Generic AI text generators produce monotonous, low-burstiness prose filled with predictable corporate buzzwords and robotic transitional formulas.",
+    whyBuilt: "Reviewing engineering logs, technical documentation, and proposals required a transparent, client-side tool to spot repetitive AI tropes without sending sensitive drafts to third-party SaaS checkers.",
+    implemented: "An in-browser stylometrics pipeline computing sentence length standard deviation (burstiness distribution), syllable complexity entropy, and heuristic dictionary matching across both English and Indonesian corporate cliches. Generates an optical barcode visualization representing sentence cadence.",
+    challenge: "Designing robust sentence boundary parsing that correctly handles abbreviations, decimal numbers, unpunctuated final clauses, and bilingual text without loading heavyweight NLP Python binaries into the browser.",
+    results: "Runs 100% client-side in vanilla JavaScript. Telemetry updates in under 4ms on 5,000-word documents. Accurately flags over 18 known AI cliche categories with dynamic optical rhythm graphs.",
+    workbenchTarget: "sloplens-workbench",
+    liveUrl: null,
+    githubUrl: "https://github.com/IlhamXkyo/slop-lens"
+  },
+  {
+    id: "warga-os",
+    name: "Warga-OS",
+    category: "civic",
+    tagline: "Offline-First Citizen Administration & Utility Suite",
+    techStack: "Offline-First Web App · ISO A4 Paged Media · LocalStorage",
+    problem: "Indonesian neighborhood administrators (RT/RW) and residents struggle with convoluted government portals, inaccessible printers, and manual administrative form formatting.",
+    whyBuilt: "Local neighborhood administration needs instant, offline-capable tools to generate standardized citizen letters and verify residency without relying on spotty internet or paying administrative middlemen.",
+    implemented: "An offline-first web application featuring standardized administrative letter generators (Surat Pengantar RT/RW, Keterangan Domisili) formatted to ISO A4 print standards, a PLN electricity token cost estimator, and quick-reference citizen rights documentation.",
+    challenge: "Ensuring pixel-perfect CSS @media print layout rendering that matches official Indonesian administrative templates across diverse desktop and mobile browsers with zero external PDF rendering services.",
+    results: "100% offline functionality via browser service worker and local storage. Zero database server overhead. Standard A4 print compliance verified across Chrome, Firefox, and mobile Safari.",
+    workbenchTarget: null,
+    liveUrl: "https://github.com/IlhamXkyo/warga-os",
+    githubUrl: "https://github.com/IlhamXkyo/warga-os"
+  },
+  {
+    id: "aurum-ai-terminal",
+    name: "Aurum-AI-Terminal",
+    category: "quant",
+    tagline: "Local Financial Sentiment & Quantitative Signal Engine",
+    techStack: "JavaScript Terminal UI · Financial Sentiment Lexicon · Real-Time Telemetry",
+    problem: "Retail trading algorithms often rely on heavy, opaque cloud black-boxes that cannot be inspected, run offline, or integrated into lightweight terminal setups.",
+    whyBuilt: "Built to explore rule-based quantitative signal filtering and news sentiment scoring on precious metal assets (XAU/USD) directly through an interactive terminal interface.",
+    implemented: "A terminal-based quantitative analysis dashboard that aggregates market price ticks, computes technical momentum indicators (RSI, Bollinger Bands, EMA crossovers), and matches financial headlines against an annotated market sentiment lexicon.",
+    challenge: "Preventing UI thread stutter during rapid incoming tick updates while maintaining synchronous indicator calculations and dynamic terminal ASCII telemetry.",
+    results: "Processes 500+ simulated price ticks per second with zero frame drops. Sub-10ms indicator calculation cycles and modular architecture for backtesting historical scenarios.",
+    workbenchTarget: null,
+    liveUrl: "https://github.com/IlhamXkyo/aurum-ai-terminal",
+    githubUrl: "https://github.com/IlhamXkyo/aurum-ai-terminal"
+  }
+];
 
 export const REPOSITORIES = [
   {
@@ -628,6 +712,126 @@ export const REPOSITORIES = [
     githubUrl: "https://github.com/IlhamXkyo/IlhamXkyo",
     liveUrl: null,
     topics: ["github-profile", "portfolio", "documentation", "identity"],
+    featured: false
+  },
+  {
+    id: "aeroflow-lab",
+    name: "aeroflow-lab",
+    category: "tools",
+    language: "JavaScript",
+    langColor: "#f7df1e",
+    stars: 0,
+    forks: 0,
+    updatedAt: "2026-10-08",
+    tagline: "Aerodynamic Wind Tunnel & Fluid Vortex Telemetry Simulator",
+    description: "Interactive aerodynamic wind tunnel, Eulerian Navier-Stokes fluid telemetry, and acoustic vortex shedding simulator.",
+    architecture: "Eulerian grid-based Navier-Stokes fluid solver executing real-time velocity advection, pressure Poisson Jacobi relaxation, obstacle boundary projection, and particle streakline rendering.",
+    highlights: [
+      "Eulerian Navier-Stokes grid solver with velocity advection",
+      "Real-time obstacle boundary projection and drag analysis",
+      "Vortex shedding telemetry and acoustic frequency mapping",
+      "Interactive wind tunnel velocity and obstacle controls"
+    ],
+    cliSnippet: "git clone https://github.com/IlhamXkyo/aeroflow-lab.git",
+    githubUrl: "https://github.com/IlhamXkyo/aeroflow-lab",
+    liveUrl: null,
+    topics: ["fluid-dynamics", "physics-simulation", "navier-stokes", "canvas", "interactive-tools"],
+    featured: false
+  },
+  {
+    id: "torsion-lab",
+    name: "torsion-lab",
+    category: "tools",
+    language: "JavaScript",
+    langColor: "#f7df1e",
+    stars: 0,
+    forks: 0,
+    updatedAt: "2026-10-08",
+    tagline: "Kinetic Chaos Laboratory & Vector Phase Space Telemetry",
+    description: "Interactive kinetic chaos laboratory, vector phase space telemetry, and procedural acoustic resonance workbench.",
+    architecture: "Symplectic Verlet integrator modeling non-linear coupled pendulums, Poincare surface of section mapping, Lyapunov exponent estimation, and real-time phase space orbit trajectory projection.",
+    highlights: [
+      "Symplectic Verlet physics numerical integration",
+      "Poincare phase space section mapping",
+      "Lyapunov exponent divergence estimation",
+      "Harmonic resonance audio feedback"
+    ],
+    cliSnippet: "git clone https://github.com/IlhamXkyo/torsion-lab.git",
+    githubUrl: "https://github.com/IlhamXkyo/torsion-lab",
+    liveUrl: null,
+    topics: ["physics", "chaos-theory", "simulation", "interactive", "web-audio"],
+    featured: false
+  },
+  {
+    id: "BioGenesis",
+    name: "BioGenesis",
+    category: "quant",
+    language: "JavaScript",
+    langColor: "#f7df1e",
+    stars: 0,
+    forks: 0,
+    updatedAt: "2026-10-08",
+    tagline: "Emergent Artificial Life & Primordial Particle Chemistry",
+    description: "Interactive emergent artificial life and primordial particle chemistry sandbox built with HTML5 Canvas and Web Audio API.",
+    architecture: "Spatial grid hashing algorithm partitioning thousands of interacting particle species with asymmetric attraction-repulsion force kernels, simulating primordial cellular clustering and self-organizing motility.",
+    highlights: [
+      "Spatial partition grid indexing for O(N) neighbor interaction",
+      "Multi-species asymmetric attraction-repulsion kernels",
+      "Real-time population entropy and clustering telemetry",
+      "Zero external physics libraries"
+    ],
+    cliSnippet: "git clone https://github.com/IlhamXkyo/BioGenesis.git",
+    githubUrl: "https://github.com/IlhamXkyo/BioGenesis",
+    liveUrl: null,
+    topics: ["artificial-life", "emergence", "particle-simulation", "canvas", "web-audio"],
+    featured: false
+  },
+  {
+    id: "AetherPulse",
+    name: "AetherPulse",
+    category: "quant",
+    language: "JavaScript",
+    langColor: "#f7df1e",
+    stars: 0,
+    forks: 0,
+    updatedAt: "2026-10-08",
+    tagline: "Generative Particle Symphony & Spatial Audio Sandbox",
+    description: "Interactive 3D generative particle symphony and procedural spatial audio sandbox built with Three.js and Web Audio API.",
+    architecture: "GPU-accelerated vertex shader particle system coupled to a Web Audio procedural synthesizer node graph, translating 3D particle kinematics and collision impulses into harmonic polyphonic spatial sound.",
+    highlights: [
+      "GPU particle kinematic simulation with custom vertex shaders",
+      "Web Audio API procedural sound synthesis nodes",
+      "Binaural spatial panner nodes mapped to camera distance",
+      "Zero audio assets (100% procedural waveform generation)"
+    ],
+    cliSnippet: "git clone https://github.com/IlhamXkyo/AetherPulse.git",
+    githubUrl: "https://github.com/IlhamXkyo/AetherPulse",
+    liveUrl: null,
+    topics: ["threejs", "web-audio", "generative-art", "particles", "spatial-audio"],
+    featured: false
+  },
+  {
+    id: "IlhamXkyo.github.io",
+    name: "IlhamXkyo.github.io",
+    category: "tools",
+    language: "JavaScript",
+    langColor: "#f7df1e",
+    stars: 0,
+    forks: 0,
+    updatedAt: "2026-10-08",
+    tagline: "Personal Engineering Lab & High-Density Workstation Portfolio",
+    description: "Personal engineering workstation portfolio with live interactive workbenches, zero-dependency CLI tooling, and responsive case studies.",
+    architecture: "Zero-build modular ES6 architecture. Native CSS custom properties token system, Web Audio synthesizer, canvas particle physics, and zero external runtime dependencies.",
+    highlights: [
+      "Zero runtime framework dependencies (vanilla web platform)",
+      "3 interactive developer workbenches (CodeMask, Portwarden, Slop-Lens)",
+      "Procedural Web Audio acoustic feedback engine",
+      "Integrated UNIX developer shell with autocomplete"
+    ],
+    cliSnippet: "git clone https://github.com/IlhamXkyo/IlhamXkyo.github.io.git\nnpm start",
+    githubUrl: "https://github.com/IlhamXkyo/IlhamXkyo.github.io",
+    liveUrl: "https://ilhamxkyo.github.io",
+    topics: ["portfolio", "developer-tools", "vanilla-js", "web-audio", "case-studies"],
     featured: false
   }
 ];

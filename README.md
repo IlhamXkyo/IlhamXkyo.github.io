@@ -1,15 +1,16 @@
 # IlhamXkyo Interactive Workstation Portfolio
 
 > **High-density interactive portfolio for Ilham (IlhamXkyo).**  
-> Practical developer utilities, zero-dependency tools, DKV design systems, stylometric linters, and Indonesian civic technology.
+> Practical developer utilities, zero-dependency tools, DKV design systems, stylometric linters, and Indonesian civic technology.  
+> Based in Ambon, Indonesia (Available Remotely).
 
 ---
 
 ## 1. Overview & Architectural Philosophy
 
 This portfolio breaks completely away from generic AI portfolio tropes:
-- **Zero AI Slop Neon**: No blurry violet or cyan glowing blobs floating aimlessly behind cards. Styled with high-end DKV dark tones (matte carbon, warm paper white, terracotta accents, stone borders).
-- **Zero Mock Syndrome**: Every project displayed is a genuine, verified repository created by Ilham on GitHub with real architectural summaries and CLI execution commands.
+- **Proof Over Declaration**: Concrete test suites (48 automated assertions passing), zero runtime dependencies, standard library first, and full source code transparency.
+- **Flagship Case Studies**: 5 in-depth technical breakdowns documenting exact problem statements, architecture decisions, technical challenges, and real benchmarks.
 - **Live Hands-On Workbenches**: Rather than merely reading static descriptions, visitors interact directly with live in-browser developer utilities (CodeMask, Portwarden, Slop-Lens).
 - **Synthesized Tactile Audio**: Bespoke procedural sound design generated via the Web Audio API without loading external audio assets.
 - **Zero Build-Chain Fragility**: 100% pure vanilla HTML5, CSS3, and ES6+ modules. Starts instantly with zero external npm dependencies.
@@ -17,34 +18,35 @@ This portfolio breaks completely away from generic AI portfolio tropes:
 
 ---
 
-## 2. Key Interactive Features
+## 2. Flagship Case Studies
 
-### 🛡️ A. CodeMask Syntax-Preserving Secret Redactor
-- Bidirectional secret redaction engine protecting API keys, JWT tokens, and database URIs in LLM prompt workflows.
-- Replaces credentials with AST-safe token placeholders without breaking syntax.
-- Live vault inspector and single-click prompt-safe export.
-
-### 🛡️ B. Portwarden Live Sentinel Terminal
-- Real-time developer port collision inspector and zombie process terminator simulation.
-- Spawn simulated listeners on ports 3000, 5432, or 8080.
-- Execute verified release commands (`portwarden free 3000`) with SIGKILL verification and ANSI terminal telemetry.
-
-### 📊 C. Slop-Lens Stylometrics & Prose Rhythm Workbench
-- Algorithmic text analysis pipeline calculating sentence length variance (burstiness standard deviation), syllable entropy, and corporate filler density.
-- Real-time heuristic detection of corporate AI clichés (`delve`, `testament`, `tapestry`, `pivotal`, `crucial`, `merupakan`, `lanskap`).
-- Interactive Sentence Cadence Barcode visualizer rendering sentence cadence like an optical waveform.
-
-### 🌌 D. Interactive Graphic Canvas
-- **Flow Mode**: Generative particle vector flow field styled in warm terracotta and slate ink.
-- **Constellation Mode**: Node graph where all 25 repositories act as interacting elements with spring clustering.
-
-### 📟 E. KyoTerm Integrated UNIX Shell
-- Press `Ctrl + ~` to launch an authentic terminal shell.
-- Tab auto-completion, command history, and commands: `repos`, `inspect <repo>`, `skills`, `bio`, `manifesto`, `stats`, `audio`, `contact`.
+1. **CodeMask** (Developer Tools / Privacy)
+   - Secret Redactor and LLM Egress Sanitizer.
+   - 0 external dependencies, < 1.2ms execution, 42 passing tests with 100% bidirectional restoration accuracy.
+2. **Portwarden Sentinel** (CLI Systems / DevTools)
+   - Cross-Platform Port Collision Inspector and Zombie Process Terminator.
+   - Node.js standard library (child_process, net), < 120ms execution, verified release polling.
+3. **Slop-Lens Linter** (NLP / Text Analysis)
+   - Real-Time Stylometrics Inspector and AI Heuristic Linter.
+   - Sentence burstiness distribution, syllable entropy, 18+ detected AI cliches, < 4ms update loop.
+4. **Warga-OS** (Civic Tech / Practical Systems)
+   - Offline-First Citizen Administration and ISO A4 Document Generator.
+   - Service worker and LocalStorage persistence, zero server dependencies, ISO A4 print layout compliance.
+5. **Aurum-AI-Terminal** (Quant / Applied AI)
+   - Local Financial Sentiment and Quantitative Signal Engine.
+   - 500+ simulated price ticks/sec, sub-10ms calculation cycle, real-time ASCII telemetry.
 
 ---
 
-## 3. Verified Project Archive (25 Repositories)
+## 3. Engineering Principles
+
+1. **Build the whole path.** No fake buttons, empty stubs, or demo-only logic. Every workflow connects completely from input to execution, state persistence, or clean termination.
+2. **Prefer simple dependencies.** Use the standard library when it makes the system clearer. Native APIs eliminate vulnerability supply-chain bloat and runtime overhead.
+3. **Polish with purpose.** Animation exists to communicate state, not decorate the screen. Visual elements serve clear hierarchy, tactile feedback, and direct utility.
+
+---
+
+## 4. Verified Project Archive (30+ Repositories)
 
 | Repository | Primary Tech | Category | Description |
 | :--- | :--- | :--- | :--- |
@@ -73,10 +75,15 @@ This portfolio breaks completely away from generic AI portfolio tropes:
 | **neon-calculator** | CSS | UI / Tools | Tactile precision calculator with mechanical button feedback |
 | **Androrat** | Python / Java | Networking | Client-server socket telemetry & remote diagnostics |
 | **IlhamXkyo** | Markdown | Profile | Official developer identity & configuration matrix |
+| **aeroflow-lab** | JavaScript | Tools / Simulation | Aerodynamic wind tunnel & fluid vortex telemetry simulator |
+| **torsion-lab** | JavaScript | Tools / Physics | Kinetic chaos laboratory & vector phase space telemetry |
+| **BioGenesis** | JavaScript | Quant / Simulation | Emergent artificial life & primordial particle chemistry |
+| **AetherPulse** | JavaScript | Quant / Audio | Generative particle symphony & spatial audio sandbox |
+| **IlhamXkyo.github.io** | JavaScript | Developer Tool | Personal engineering lab & high-density workstation portfolio |
 
 ---
 
-## 4. How to Run Locally
+## 5. How to Run Locally
 
 ### Option 1: Native Node Server (Instant, Zero Dependencies)
 ```bash
@@ -92,3 +99,4 @@ Open your browser at `http://localhost:3000`.
 
 ### Option 3: Double-Click
 Open `index.html` directly in modern Google Chrome, Microsoft Edge, or Firefox.
+

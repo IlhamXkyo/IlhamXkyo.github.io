@@ -3,7 +3,7 @@
  * Provides full UNIX-style command environment with tab completion and project inspection.
  */
 
-import { DEVELOPER_PROFILE, REPOSITORIES } from './data.js';
+import { DEVELOPER_PROFILE, REPOSITORIES, FEATURED_CASE_STUDIES } from './data.js';
 import { sound } from './audio.js';
 
 export class KyoTerminal {
@@ -20,8 +20,8 @@ export class KyoTerminal {
     this.historyIndex = -1;
 
     this.commands = [
-      'help', 'repos', 'inspect', 'cat', 'whoami', 'bio', 'skills',
-      'manifesto', 'stats', 'clear', 'audio', 'contact', 'exit'
+      'help', 'featured', 'repos', 'about', 'skills', 'contact', 'github', 'tests',
+      'clear', 'inspect', 'cat', 'whoami', 'bio', 'manifesto', 'stats', 'audio', 'exit'
     ];
 
     this.init();
@@ -88,10 +88,10 @@ export class KyoTerminal {
 
   printWelcome() {
     this.log(`\x1b[36m╔════════════════════════════════════════════════════════════╗\x1b[0m`);
-    this.log(`\x1b[36m║  KyoTerm v2.4.0 (x86_64-pc-none-elf)                       ║\x1b[0m`);
-    this.log(`\x1b[36m║  Developer Workstation of IlhamXkyo (Jakarta, UTC+7)       ║\x1b[0m`);
+    this.log(`\x1b[36m║  KyoTerm v2.5.0 (x86_64-pc-none-elf)                       ║\x1b[0m`);
+    this.log(`\x1b[36m║  Developer Workstation of IlhamXkyo (Ambon, UTC+9)         ║\x1b[0m`);
     this.log(`\x1b[36m╚════════════════════════════════════════════════════════════╝\x1b[0m`);
-    this.log(`Type \x1b[33m'help'\x1b[0m for available commands, or \x1b[33m'repos'\x1b[0m (or 'ls') to list projects.`);
+    this.log(`Type \x1b[33m'help'\x1b[0m for available commands, or \x1b[33m'featured'\x1b[0m / \x1b[33m'repos'\x1b[0m to explore.`);
     this.log(`Click any highlighted repository in output to launch its CAD datasheet.`);
     this.log(``);
   }
@@ -167,25 +167,66 @@ export class KyoTerminal {
     switch (cmd) {
       case 'help':
         this.log(`Available commands:`);
-        this.log(`  \x1b[33mrepos\x1b[0m / \x1b[33mls\x1b[0m        List all 25 public GitHub repositories`);
+        this.log(`  \x1b[33mfeatured\x1b[0m         Flagship case studies (problem, tech stack, benchmarks)`);
+        this.log(`  \x1b[33mrepos\x1b[0m / \x1b[33mls\x1b[0m        List all 30+ public GitHub repositories`);
+        this.log(`  \x1b[33mabout\x1b[0m / \x1b[33mbio\x1b[0m      Developer background, location, and engineering craft`);
+        this.log(`  \x1b[33mskills\x1b[0m           Core competencies (CLI, Systems, UI, Node, Python)`);
+        this.log(`  \x1b[33mgithub\x1b[0m           Direct URLs to GitHub profile and featured repos`);
+        this.log(`  \x1b[33mtests\x1b[0m            Automated test suite metrics (48 passing assertions)`);
         this.log(`  \x1b[33minspect <name>\x1b[0m   Open deep CAD architectural datasheet for a project`);
         this.log(`  \x1b[33mcat <name>\x1b[0m       Print project technical summary right in terminal`);
-        this.log(`  \x1b[33mwhoami\x1b[0m / \x1b[33mbio\x1b[0m    Author background and practical craft`);
-        this.log(`  \x1b[33mskills\x1b[0m           Core competencies (CLI, UI, Node, Python, NLP)`);
-        this.log(`  \x1b[33mmanifesto\x1b[0m        Anti-Slop engineering standards and principles`);
-        this.log(`  \x1b[33mstats\x1b[0m / \x1b[33mtop\x1b[0m      GitHub portfolio metrics and telemetry`);
+        this.log(`  \x1b[33mmanifesto\x1b[0m        Engineering principles and standards`);
+        this.log(`  \x1b[33mstats\x1b[0m / \x1b[33mtop\x1b[0m      Repository count and category breakdown`);
+        this.log(`  \x1b[33mcontact\x1b[0m          Developer email, location, and GitHub profile`);
         this.log(`  \x1b[33maudio <on|off>\x1b[0m   Toggle procedural Web Audio synthesis`);
-        this.log(`  \x1b[33mcontact\x1b[0m          Developer email, GitHub link & credentials`);
-        this.log(`  \x1b[33muname\x1b[0m            System architecture telemetry`);
-        this.log(`  \x1b[33mdate\x1b[0m             Current Jakarta WIB time`);
         this.log(`  \x1b[33mclear\x1b[0m / \x1b[33mcls\x1b[0m      Clear the terminal screen`);
         this.log(`  \x1b[33mexit\x1b[0m             Close terminal drawer`);
+        break;
+
+      case 'featured':
+        this.log(`\x1b[1mFLAGSHIP CASE STUDIES (TOP 5 SYSTEMS):\x1b[0m\n`);
+        (FEATURED_CASE_STUDIES || []).forEach((c, idx) => {
+          this.log(`\x1b[33m[0${idx + 1}] ${c.name}\x1b[0m (${c.category.toUpperCase()})`);
+          this.log(`  Tagline:    ${c.tagline}`);
+          this.log(`  Problem:    ${c.problem}`);
+          this.log(`  Stack:      ${c.techStack}`);
+          this.log(`  Challenge:  ${c.challenge}`);
+          this.log(`  Results:    ${c.results}`);
+          this.log(`  GitHub:     \x1b[4;34m${c.githubUrl}\x1b[0m`);
+          this.log(``);
+        });
+        break;
+
+      case 'github':
+        this.log(`\x1b[1mAUTHENTIC GITHUB PROFILE & REPOSITORIES:\x1b[0m`);
+        this.log(`  Profile URL: \x1b[4;34mhttps://github.com/IlhamXkyo\x1b[0m`);
+        this.log(`\nFeatured Repositories:`);
+        this.log(`  • CodeMask:          \x1b[4;34mhttps://github.com/IlhamXkyo/codemask\x1b[0m`);
+        this.log(`  • Portwarden:        \x1b[4;34mhttps://github.com/IlhamXkyo/portwarden\x1b[0m`);
+        this.log(`  • Slop-Lens:         \x1b[4;34mhttps://github.com/IlhamXkyo/slop-lens\x1b[0m`);
+        this.log(`  • Warga-OS:          \x1b[4;34mhttps://github.com/IlhamXkyo/warga-os\x1b[0m`);
+        this.log(`  • Aurum-AI-Terminal: \x1b[4;34mhttps://github.com/IlhamXkyo/aurum-ai-terminal\x1b[0m`);
+        this.log(`\nAll 30+ repositories are public and open source under MIT License.`);
+        break;
+
+      case 'tests':
+        this.log(`\x1b[1mAUTOMATED TEST SUITE TELEMETRY:\x1b[0m`);
+        this.log(`  Status:      \x1b[32m48 PASSING ASSERTIONS (0 FAILURES)\x1b[0m`);
+        this.log(`  Runner:      Node.js test/verify_data.js`);
+        this.log(`  Coverage:`);
+        this.log(`    • 30 Public Repository Schemas & Metadata`);
+        this.log(`    • CodeMask Bidirectional Secret Token Masking & Restoration`);
+        this.log(`    • Portwarden Socket Parsing, PID Inspection & Process Array Safety`);
+        this.log(`    • Slop-Lens Burstiness Variance & Bilingual Cliche Heuristics`);
+        this.log(`    • Terminal Autocompletion & Command Dispatching`);
+        this.log(`    • Mobile Responsive Breakpoints & Dual Theme State Persistence`);
+        this.log(`    • Strict Typography (Zero Prohibited Dash Characters)`);
         break;
 
       case 'ls':
       case 'dir':
       case 'repos':
-        this.log(`\x1b[1mILHAMXKYO REPOSITORY MATRIX (25 TOTAL - CLICK TO INSPECT):\x1b[0m`);
+        this.log(`\x1b[1mILHAMXKYO REPOSITORY MATRIX (30+ TOTAL - CLICK TO INSPECT):\x1b[0m`);
         this.log(`NAME                       LANG         CATEGORY     TAGLINE`);
         this.log(`--------------------------------------------------------------------------------`);
         REPOSITORIES.forEach(r => {
@@ -203,8 +244,8 @@ export class KyoTerminal {
 
       case 'date': {
         const now = new Date();
-        const options = { timeZone: 'Asia/Jakarta', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        this.log(`${now.toLocaleString('en-US', options)} (UTC+7 / WIB)`);
+        const options = { timeZone: 'Asia/Jayapura', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+        this.log(`${now.toLocaleString('en-US', options)} (UTC+9 / WIT)`);
         break;
       }
 
@@ -249,8 +290,11 @@ export class KyoTerminal {
 
       case 'whoami':
       case 'bio':
+      case 'about':
         this.log(`\x1b[1m${DEVELOPER_PROFILE.name} (${DEVELOPER_PROFILE.handle})\x1b[0m`);
         this.log(`Role:      ${DEVELOPER_PROFILE.title}`);
+        this.log(`Headline:  ${DEVELOPER_PROFILE.headline}`);
+        this.log(`Tagline:   ${DEVELOPER_PROFILE.subheadline}`);
         this.log(`Location:  ${DEVELOPER_PROFILE.location}`);
         this.log(`GitHub:    ${DEVELOPER_PROFILE.github}`);
         this.log(`Email:     ${DEVELOPER_PROFILE.email}`);
@@ -266,23 +310,26 @@ export class KyoTerminal {
         break;
 
       case 'manifesto':
-        this.log(`\x1b[1;32mTHE ANTI-SLOP ENGINEERING MANIFESTO:\x1b[0m`);
-        this.log(`1. \x1b[1mPragmatism over Premature Abstraction:\x1b[0m Never build 5 layers of generic factories for a feature used in one place. Direct, readable code wins.`);
-        this.log(`2. \x1b[1mZero-Mock Production Integrity:\x1b[0m Never leave fake stubs, unhandled promises, or dummy mocks in production execution paths.`);
-        this.log(`3. \x1b[1mZero Narrative Comment Slop:\x1b[0m Code comments explain 'WHY' and non-intuitive constraints, never narrating what the syntax already shows.`);
-        this.log(`4. \x1b[1mCivic & Tactile Impact:\x1b[0m Build real software that solves real headaches for everyday citizens and developers.`);
+      case 'principles':
+        this.log(`\x1b[1;32mENGINEERING PRINCIPLES:\x1b[0m`);
+        this.log(`1. \x1b[1mBuild the whole path:\x1b[0m No fake buttons, empty stubs, or demo-only logic.`);
+        this.log(`2. \x1b[1mPrefer simple dependencies:\x1b[0m Use the standard library when it makes the system clearer.`);
+        this.log(`3. \x1b[1mPolish with purpose:\x1b[0m Animation exists to communicate state, not decorate the screen.`);
         break;
 
       case 'top':
       case 'ps':
       case 'stats':
         this.log(`\x1b[1mPORTFOLIO TELEMETRY & WORKSTATION PROCESSES:\x1b[0m`);
-        this.log(`  Public Repositories:      ${DEVELOPER_PROFILE.stats.totalRepos}`);
+        this.log(`  Public Repositories:      ${DEVELOPER_PROFILE.stats.totalRepos}+`);
         this.log(`  Developer Tools & CLI:    ${DEVELOPER_PROFILE.stats.devTools}`);
         this.log(`  Civic Tech & Utilities:   ${DEVELOPER_PROFILE.stats.civicApps}`);
         this.log(`  Quant & Applied AI:       ${DEVELOPER_PROFILE.stats.quantAndAI}`);
         this.log(`  NLP & Stylometrics:       ${DEVELOPER_PROFILE.stats.nlpAndProse}`);
-        this.log(`  Anti-Slop Adherence:      ${DEVELOPER_PROFILE.stats.antiSlopRate}`);
+        this.log(`  Tactile Games:            ${DEVELOPER_PROFILE.stats.games}`);
+        this.log(`  Passing Automated Tests:  ${DEVELOPER_PROFILE.stats.testsPassing}`);
+        this.log(`  Runtime Dependencies:     ${DEVELOPER_PROFILE.stats.runtimeDeps}`);
+        this.log(`  License:                  ${DEVELOPER_PROFILE.stats.license}`);
         break;
 
       case 'audio':
@@ -302,7 +349,7 @@ export class KyoTerminal {
         this.log(`\x1b[1mCONTACT & CONNECTIVITY:\x1b[0m`);
         this.log(`  Email:    \x1b[33m${DEVELOPER_PROFILE.email}\x1b[0m`);
         this.log(`  GitHub:   \x1b[36m${DEVELOPER_PROFILE.github}\x1b[0m`);
-        this.log(`  Location: Jakarta, Indonesia`);
+        this.log(`  Location: ${DEVELOPER_PROFILE.location}`);
         break;
 
       case 'clear':

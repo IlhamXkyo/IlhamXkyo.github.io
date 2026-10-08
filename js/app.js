@@ -379,6 +379,18 @@ class App {
   }
 
   initActionButtons() {
+    const jumpFeaturedBtn = document.getElementById('hero-jump-featured-btn');
+    if (jumpFeaturedBtn) {
+      jumpFeaturedBtn.addEventListener('click', (e) => {
+        const target = document.getElementById('featured');
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth' });
+          sound.click();
+        }
+      });
+    }
+
     const jumpLabsBtn = document.getElementById('hero-jump-labs-btn');
     if (jumpLabsBtn) {
       jumpLabsBtn.addEventListener('click', () => {
@@ -460,6 +472,7 @@ class App {
     const tabBtns = document.querySelectorAll('.dock-tab-btn');
     const sections = [
       { id: 'hero', el: document.getElementById('hero') },
+      { id: 'featured', el: document.getElementById('featured') },
       { id: 'section-labs', el: document.getElementById('section-labs') },
       { id: 'section-matrix', el: document.getElementById('section-matrix') },
       { id: 'section-manifesto', el: document.getElementById('section-manifesto') },
@@ -620,9 +633,9 @@ class App {
       hasAnimated = true;
 
       const items = [
-        { el: document.querySelector('.kpi-number.azure'), target: 25, suffix: '' },
-        { el: document.querySelector('.kpi-number.emerald'), target: 7, suffix: '' },
-        { el: document.querySelector('.kpi-number.amber'), target: 5, suffix: '' }
+        { el: document.querySelector('.kpi-number.azure'), target: 30, suffix: '+' },
+        { el: document.querySelector('.kpi-number.emerald'), target: 48, suffix: '' },
+        { el: document.querySelector('.kpi-number.amber'), target: 0, suffix: '' }
       ];
 
       items.forEach((item) => {

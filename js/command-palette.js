@@ -56,7 +56,7 @@ export class CommandPalette {
         <div class="cp-results-list"></div>
         <div class="cp-footer-hint">
           <span>Use <kbd>↑</kbd> <kbd>↓</kbd> to navigate, <kbd>↵</kbd> to select</span>
-          <span style="color: var(--accent-terracotta);">25 Projects Indexed</span>
+          <span style="color: var(--accent-terracotta);">30+ Projects Indexed</span>
         </div>
       </div>
     `;
