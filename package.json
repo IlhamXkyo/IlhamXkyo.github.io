@@ -1,0 +1,22 @@
+{
+  "name": "ilhamxkyo-workstation-portfolio",
+  "version": "1.0.0",
+  "description": "High-density interactive portfolio for Ilham (IlhamXkyo). Practical developer utilities, zero-dependency tools, DKV design systems, stylometric linters, and civic utilities.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js 3000",
+    "dev": "node server.js 3000",
+    "test": "node test/verify_data.js"
+  },
+  "keywords": [
+    "portfolio",
+    "developer-tools",
+    "cli",
+    "anti-slop",
+    "dkv-design",
+    "civic-tech",
+    "web-audio"
+  ],
+  "author": "Ilham (IlhamXkyo) <xanderilham4@gmail.com>",
+  "license": "MIT"
+}

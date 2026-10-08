@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilham (IlhamXkyo) | Full-Stack Web Enthusiast &amp; Minimalist Design Lover</title>
+  <meta name="description" content="Personal portfolio of Ilham (IlhamXkyo). Full-Stack Web Enthusiast &amp; Minimalist Design Lover. Zero-dependency developer tools, clean interfaces, stylometric linters, and Indonesian civic technology.">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/effects.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/workbenches.css">
+  <link rel="stylesheet" href="css/terminal.css">
+</head>
+<body>
+
+  <!-- Top Razor Scroll Progress Bar -->
+  <div id="scroll-progress-line" class="scroll-progress-line"></div>
+
+  <!-- Ambient Top Glow & Mouse Spotlight -->
+  <div class="ambient-glow-top"></div>
+  <div class="mouse-spotlight"></div>
+
+  <!-- Background Simulation Canvas Layer -->
+  <div id="bg-wrapper" class="bg-wrapper mode-fluid">
+    <canvas id="bg-canvas"></canvas>
+  </div>
+
+  <!-- Floating Scroll-Triggered Navigation Island (Bidirectional & Reactive) -->
+  <aside id="floating-scroll-dock" class="floating-scroll-dock" aria-label="Quick section navigation">
+    <div class="scroll-dock-container">
+      <a href="#hero" class="scroll-dock-identity" title="Return to top">
+        <img src="https://avatars.githubusercontent.com/u/263917511?v=4" alt="Ilham" class="dock-avatar" />
+        <span class="dock-name">Ilham</span>
+      </a>
+
+      <nav class="scroll-dock-tabs" id="scroll-dock-nav">
+        <div class="scroll-dock-pill" id="scroll-dock-pill"></div>
+        <button class="dock-tab-btn active" data-target="hero" style="--tab-i: 0;">
+          <span class="dock-tab-index">[00]</span>
+          <span class="dock-tab-text">Overview</span>
+        </button>
+        <button class="dock-tab-btn" data-target="section-labs" style="--tab-i: 1;">
+          <span class="dock-tab-index">[01]</span>
+          <span class="dock-tab-text">Workbenches</span>
+        </button>
+        <button class="dock-tab-btn" data-target="section-matrix" style="--tab-i: 2;">
+          <span class="dock-tab-index">[02]</span>
+          <span class="dock-tab-text">Catalogue</span>
+          <span class="dock-counter-pill">25</span>
+        </button>
+        <button class="dock-tab-btn" data-target="section-manifesto" style="--tab-i: 3;">
+          <span class="dock-tab-index">[03]</span>
+          <span class="dock-tab-text">Manifesto</span>
+        </button>
+        <button class="dock-tab-btn" data-target="section-contact" style="--tab-i: 4;">
+          <span class="dock-tab-index">[04]</span>
+          <span class="dock-tab-text">Contact</span>
+        </button>
+      </nav>
+
+      <div class="scroll-dock-meta">
+        <div class="dock-depth-indicator" id="dock-depth-indicator">0%</div>
+        <button class="dock-icon-action cmd-palette-trigger" title="Quick Search (Ctrl+K)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button id="dock-term-trigger" class="dock-icon-action" title="Open Terminal Shell (Ctrl+~)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="4 17 10 12 4 7"></polyline><line x1="12" y1="19" x2="20" y2="19"></line></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Floating Glass Navbar Dock -->
+  <header class="master-header">
+    <a href="#" class="nav-brand">
+      <img src="https://avatars.githubusercontent.com/u/263917511?v=4" alt="Ilham" class="nav-avatar-mini" />
+      <span class="nav-brand-text">Ilham</span>
+    </a>
+
+    <ul class="nav-links-row">
+      <li><a href="#section-labs" class="nav-link">Workbenches</a></li>
+      <li><a href="#section-matrix" class="nav-link">Catalogue</a></li>
+      <li><a href="#section-manifesto" class="nav-link">Manifesto</a></li>
+      <li><a href="#section-contact" class="nav-link">Contact</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <!-- Mode Toggle -->
+      <button class="nav-pill-btn nav-mode-btn active" data-mode="fluid" title="Toggle background generative graphic">
+        <span>CANVAS</span>
+      </button>
+
+      <!-- Audio Equalizer Button -->
+      <button id="audio-equalizer-btn" class="nav-pill-btn audio-equalizer-btn" title="Toggle procedural sound synthesis">
+        <span class="equalizer-bar-wrap">
+          <span class="equalizer-col"></span>
+          <span class="equalizer-col"></span>
+          <span class="equalizer-col"></span>
+          <span class="equalizer-col"></span>
+        </span>
+        <span>SOUND</span>
+      </button>
+
+      <!-- Command Palette Trigger -->
+      <button class="nav-pill-btn cmd-palette-trigger" title="Quick Command Palette (Ctrl+K)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <span>Search</span>
+        <kbd style="font-family: var(--font-mono); font-size: 10px; opacity: 0.7;">Ctrl+K</kbd>
+      </button>
+
+      <!-- Terminal Trigger -->
+      <button id="nav-term-btn" class="nav-pill-btn" title="Open terminal shell (Ctrl+~)">
+        <span>Terminal</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Master Layout Frame -->
+  <main class="layout-container">
+
+    <!-- CENTERED PERSONAL HERO SECTION -->
+    <section class="hero-centered-section" id="hero">
+
+      <!-- Authentic GitHub Profile GIF Animation -->
+      <div class="hero-gif-container reveal-on-scroll">
+        <div class="hero-gif-card">
+          <img 
+            src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExbXp1cDZrOXI5bHp4c3dzNW5hYXhkcXVzMHF4azMyY3Z3aG52NGJzMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/6C0m3zHvKEsoiKYXq2/giphy.gif" 
+            alt="Eye Monitoring - Ilham GitHub Profile GIF" 
+            class="hero-profile-gif"
+            loading="eager"
+          />
+          <div class="hero-gif-caption">
+            <span class="status-pulse-dot"></span>
+            <span>github.com/IlhamXkyo</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prominent GitHub Avatar with Status Pulse -->
+      <div class="hero-avatar-wrap reveal-on-scroll">
+        <img src="https://avatars.githubusercontent.com/u/263917511?v=4" alt="Ilham (IlhamXkyo)" class="hero-avatar-img" />
+        <div class="hero-avatar-status-badge">
+          <span class="status-pulse-dot"></span>
+          <span>ACTIVE</span>
+        </div>
+      </div>
+
+      <!-- Verified Identity & Location Badge -->
+      <div class="hero-badge-tag reveal-on-scroll reveal-delay-1">
+        <svg class="verified-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+        <span>JAKARTA (UTC+7) · FULL-STACK WEB ENTHUSIAST</span>
+      </div>
+
+      <!-- Main Persona Headline -->
+      <h1 class="hero-person-name reveal-on-scroll reveal-delay-2">Ilham</h1>
+      <div class="hero-person-handle reveal-on-scroll reveal-delay-2">@IlhamXkyo · Full-Stack Web Enthusiast &amp; Minimalist Design Lover</div>
+
+      <!-- Authentic Description Sourced Directly from GitHub Profile -->
+      <p class="hero-statement-lead reveal-on-scroll reveal-delay-3">
+        Passionate about building functional, aesthetically pleasing, and user-centric applications. 
+        Always exploring modern web ecosystems and practical automation tools. 
+        Just want to make something useful.
+      </p>
+
+      <!-- Daily Craft Focus Grid -->
+      <div class="hero-routine-grid reveal-on-scroll reveal-delay-3">
+        <div class="routine-card">
+          <span class="routine-num">[01]</span>
+          <span class="routine-title">Zero-Dependency Tooling</span>
+          <span class="routine-desc">Writing pure Node.js and TypeScript CLI utilities using native standard libraries, eliminating unnecessary package bloat and external supply-chain dependencies.</span>
+        </div>
+        <div class="routine-card">
+          <span class="routine-num">[02]</span>
+          <span class="routine-title">Clean UI &amp; Minimalist Design</span>
+          <span class="routine-desc">Designing interfaces with clean typography, balanced layouts, high-contrast usability, and responsive micro-interactions.</span>
+        </div>
+        <div class="routine-card">
+          <span class="routine-num">[03]</span>
+          <span class="routine-title">Process &amp; System Diagnostics</span>
+          <span class="routine-desc">Tracing operating system socket bindings, investigating local port collisions, managing process trees, and ensuring clean termination of orphaned server processes.</span>
+        </div>
+        <div class="routine-card">
+          <span class="routine-num">[04]</span>
+          <span class="routine-title">Civic Apps &amp; Text Analysis</span>
+          <span class="routine-desc">Engineering offline-first administrative utilities for citizens and text linters to analyze sentence cadence and remove corporate cliches from prose.</span>
+        </div>
+      </div>
+
+      <!-- Call to Action Buttons -->
+      <div class="hero-actions-group reveal-on-scroll reveal-delay-4">
+        <button id="hero-jump-labs-btn" class="btn-magnetic primary">
+          <span>Explore Live Workbenches</span>
+          <span>▹</span>
+        </button>
+        <button id="hero-jump-matrix-btn" class="btn-magnetic secondary">
+          <span>View All 25 Repositories</span>
+        </button>
+        <a href="https://github.com/IlhamXkyo" target="_blank" rel="noopener noreferrer" class="btn-magnetic secondary">
+          <span>GitHub Profile</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+      </div>
+
+      <!-- Refined Metric Ribbon -->
+      <div class="hero-kpi-ribbon reveal-on-scroll reveal-delay-4">
+        <div class="kpi-unit">
+          <div class="kpi-number azure">25</div>
+          <div class="kpi-caption">Repositories</div>
+        </div>
+        <div class="kpi-unit">
+          <div class="kpi-number emerald">7</div>
+          <div class="kpi-caption">Dev Tools</div>
+        </div>
+        <div class="kpi-unit">
+          <div class="kpi-number amber">5</div>
+          <div class="kpi-caption">Civic Apps</div>
+        </div>
+        <div class="kpi-unit">
+          <div class="kpi-number">100%</div>
+          <div class="kpi-caption">Authentic Code</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 1: INTERACTIVE WORKBENCHES -->
+    <section id="section-labs" class="section-block">
+      <div class="section-head-editorial reveal-on-scroll">
+        <div class="section-sub-label">[01] · INTERACTIVE WORKBENCHES</div>
+        <h2 class="section-title-editorial">Flagship Workbenches</h2>
+        <p class="section-description-editorial">
+          Hands-on live implementations of tools created by Ilham. Test secret masking, process port termination, and stylometric prose linting right in the browser.
+        </p>
+      </div>
+
+      <div class="workbench-tabs-bar reveal-on-scroll">
+        <div class="wb-tab-glider" id="wb-tab-glider"></div>
+        <button class="wb-tab-nav-btn active" data-wb="all">
+          <span class="wb-tab-icon">▦</span>
+          <span>ALL LABS</span>
+        </button>
+        <button class="wb-tab-nav-btn" data-wb="codemask">
+          <span class="wb-tab-icon">◈</span>
+          <span>01 CODEMASK PRIVACY</span>
+        </button>
+        <button class="wb-tab-nav-btn" data-wb="portwarden">
+          <span class="wb-tab-icon">🛡</span>
+          <span>02 PORTWARDEN CLI</span>
+        </button>
+        <button class="wb-tab-nav-btn" data-wb="sloplens">
+          <span class="wb-tab-icon">⚡</span>
+          <span>03 SLOP-LENS LINTER</span>
+        </button>
+      </div>
+
+      <div class="workbenches-grid">
+
+        <!-- 1. CodeMask Secret Redaction Sandbox -->
+        <article id="codemask-workbench" class="workbench-card tilt-card reveal-on-scroll">
+          <div class="tilt-glare"></div>
+          <div class="workbench-top-bar">
+            <div class="workbench-meta">
+              <span class="wb-tag">TOOLS · PRIVACY</span>
+              <h3 class="wb-title">CodeMask Syntax-Preserving Secret Redactor</h3>
+            </div>
+            <div class="wb-telemetry-strip">
+              <div class="telemetry-item"><span class="telemetry-lbl">STATUS:</span> <span class="telemetry-val cm-telemetry-status" style="color: var(--accent-sage);">PROTECTED</span></div>
+              <div class="telemetry-item"><span class="telemetry-lbl">SECRETS MASKED:</span> <span class="telemetry-val cm-telemetry-count">4 SECRETS</span></div>
+              <div class="telemetry-item"><span class="telemetry-lbl">AST INTEGRITY:</span> <span class="telemetry-val cm-telemetry-ast">VALID SYNTAX</span></div>
+            </div>
+          </div>
+
+          <div class="codemask-viewport">
+            <div class="cm-dual-editor">
+              <div class="cm-pane">
+                <div class="cm-pane-header">
+                  <span>INPUT CODE (CONTAINING SECRETS)</span>
+                  <span class="cm-pane-badge raw">RAW CODE</span>
+                </div>
+                <textarea class="cm-code-editor" spellcheck="false" placeholder="Paste code with API keys, tokens, or URIs..."></textarea>
+              </div>
+
+              <div class="cm-pane">
+                <div class="cm-pane-header">
+                  <span>MASKED LLM EGRESS (SYNTAX SAFE)</span>
+                  <span class="cm-pane-badge safe">PROMPT SAFE</span>
+                </div>
+                <div class="cm-code-preview" title="Click Copy Prompt-Safe to copy this text"></div>
+              </div>
+            </div>
+
+            <div class="cm-vault-strip">
+              <div class="cm-vault-left">
+                <span class="cm-vault-lbl">LOCAL SECRET VAULT:</span>
+                <div class="cm-chips-list"></div>
+              </div>
+              <div class="cm-toast">COPIED TO CLIPBOARD</div>
+            </div>
+          </div>
+
+          <div class="wb-controls-bar">
+            <div class="wb-control-group">
+              <label class="wb-ctrl-label">PRESET TEMPLATE:</label>
+              <select class="wb-select cm-preset-select">
+                <option value="backend">Express / Node.js Production Config</option>
+                <option value="agent">LangChain / Python Agent Secrets</option>
+                <option value="docker">Microservice Docker Environment</option>
+              </select>
+            </div>
+
+            <div class="wb-btn-row">
+              <button class="wb-btn cm-mask-btn active">MASK SECRETS (EGRESS)</button>
+              <button class="wb-btn cm-unmask-btn secondary">RESTORE ORIGINAL (INGRESS)</button>
+              <button class="wb-btn cm-copy-btn">COPY PROMPT-SAFE CODE</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Portwarden Sentinel Terminal -->
+        <article id="portwarden-workbench" class="workbench-card tilt-card reveal-on-scroll">
+          <div class="tilt-glare"></div>
+          <div class="workbench-top-bar">
+            <div class="workbench-meta">
+              <span class="wb-tag green">CLI SENTINEL</span>
+              <h3 class="wb-title">Portwarden Port Sentinel &amp; Terminator</h3>
+            </div>
+            <div class="wb-telemetry-strip">
+              <div class="telemetry-item"><span class="telemetry-lbl">STATUS:</span> <span class="telemetry-val pw-telemetry-status" style="color: var(--accent-sage);">READY</span></div>
+              <div class="telemetry-item"><span class="telemetry-lbl">ACTIVE ZOMBIES:</span> <span class="telemetry-val pw-telemetry-count">3 PROCESSES</span></div>
+            </div>
+          </div>
+
+          <div class="portwarden-terminal-viewport">
+            <div class="pw-term-screen"></div>
+          </div>
+
+          <div class="wb-controls-bar">
+            <div class="wb-btn-row">
+              <button class="wb-btn pw-spawn-btn" data-port="3000">SPAWN NODE :3000</button>
+              <button class="wb-btn pw-spawn-btn" data-port="5432">SPAWN POSTGRES :5432</button>
+              <button class="wb-btn pw-spawn-btn" data-port="8080">SPAWN VITE :8080</button>
+              <button class="wb-btn pw-free-all-btn" style="border-color: rgba(224, 90, 71, 0.4); color: var(--accent-terracotta);">KILL ALL ZOMBIES</button>
+            </div>
+            <div class="pw-cli-hint">TRY TYPING: <kbd>portwarden free 3000</kbd></div>
+          </div>
+        </article>
+
+        <!-- 3. Slop-Lens Stylometrics Workbench -->
+        <article id="sloplens-workbench" class="workbench-card tilt-card reveal-on-scroll">
+          <div class="tilt-glare"></div>
+          <div class="workbench-top-bar">
+            <div class="workbench-meta">
+              <span class="wb-tag amber">NLP STYLOMETRICS</span>
+              <h3 class="wb-title">Slop-Lens Prose Rhythm &amp; Heuristic Linter</h3>
+            </div>
+            <div class="wb-telemetry-strip">
+              <div class="telemetry-item"><span class="telemetry-lbl">BURSTINESS:</span> <span class="telemetry-val sl-burstiness-val">0.42</span></div>
+              <div class="telemetry-item"><span class="telemetry-lbl">AI CLICHES:</span> <span class="telemetry-val sl-cliche-val" style="color: var(--accent-sage);">0 DETECTED</span></div>
+              <div class="telemetry-item"><span class="telemetry-lbl">SLOP RISK:</span> <span class="telemetry-val sl-score-val" style="color: var(--accent-sage);">AUTHENTIC (4%)</span></div>
+            </div>
+          </div>
+
+          <div class="sloplens-editor-viewport">
+            <textarea class="sl-input-textarea" placeholder="Type or paste prose to inspect sentence rhythm, burstiness, and AI cliches..."></textarea>
+            <div class="sl-cadence-visualizer">
+              <div class="sl-cadence-label">SENTENCE LENGTH CADENCE BARCODE:</div>
+              <div class="sl-barcode-strip"></div>
+            </div>
+          </div>
+
+          <div class="wb-controls-bar">
+            <div class="wb-control-group">
+              <label class="wb-ctrl-label">PRESET SAMPLES:</label>
+              <select class="wb-select sl-sample-select">
+                <option value="authentic">Authentic Human Dev Log</option>
+                <option value="slop">Corporate AI Assistant Slop</option>
+                <option value="id-slop">Indonesian Corporate AI Slop</option>
+                <option value="id-authentic">Indonesian Civic Craft (WargaOS)</option>
+              </select>
+            </div>
+            <button class="wb-btn sl-analyze-btn active">ANALYZE CADENCE</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECTION 2: FULL REPOSITORY MATRIX (25 REPOSITORIES) -->
+    <section id="section-matrix" class="section-block">
+      <div class="section-head-editorial reveal-on-scroll">
+        <div class="section-sub-label">[02] · OPEN SOURCE CATALOGUE</div>
+        <h2 class="section-title-editorial">All 25 Repositories</h2>
+        <p class="section-description-editorial">
+          Filter through Ilham's authentic open-source projects across CLI devtools, civic apps, NLP linters, quantitative algorithms, and tactile games.
+        </p>
+      </div>
+
+      <!-- Filter Controls Bar -->
+      <div class="matrix-filter-bar reveal-on-scroll">
+        <div class="filter-pills-row">
+          <button class="filter-pill-btn active" data-category="all">
+            <span>ALL</span>
+            <span class="pill-count">25</span>
+          </button>
+          <button class="filter-pill-btn" data-category="tools">
+            <span>DEVTOOLS</span>
+            <span class="pill-count">7</span>
+          </button>
+          <button class="filter-pill-btn" data-category="civic">
+            <span>CIVIC</span>
+            <span class="pill-count">5</span>
+          </button>
+          <button class="filter-pill-btn" data-category="quant">
+            <span>QUANT &amp; AI</span>
+            <span class="pill-count">7</span>
+          </button>
+          <button class="filter-pill-btn" data-category="nlp">
+            <span>NLP</span>
+            <span class="pill-count">3</span>
+          </button>
+          <button class="filter-pill-btn" data-category="games">
+            <span>GAMES</span>
+            <span class="pill-count">3</span>
+          </button>
+        </div>
+
+        <div class="search-input-wrap">
+          <svg class="search-input-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="projects-search-input" class="cyber-search-input catalogue-search-input" placeholder="Search 25 repositories..." />
+        </div>
+      </div>
+
+      <!-- Dynamic Cards Grid -->
+      <div id="projects-grid" class="projects-grid"></div>
+    </section>
+
+    <!-- SECTION 3: ENGINEERING PHILOSOPHY -->
+    <section id="section-manifesto" class="section-block">
+      <div class="section-head-editorial reveal-on-scroll">
+        <div class="section-sub-label">[03] · ENGINEERING MANIFESTO</div>
+        <h2 class="section-title-editorial">Anti-Slop Manifesto</h2>
+        <p class="section-description-editorial">
+          Principles formulated through hundreds of hours of CLI tool building, civic software development, and real-world system debugging.
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+        <div class="project-card reveal-on-scroll">
+          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); margin-bottom: 8px;">[01] COMPLETE LOGIC PATHS</div>
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Zero Mock Syndrome</h3>
+          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+            Never leave hollow stubs or fake data in production paths. Connect every pipeline from user input to state persistence, socket telemetry, or clean export.
+          </p>
+        </div>
+
+        <div class="project-card reveal-on-scroll reveal-delay-1">
+          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-sage); margin-bottom: 8px;">[02] STANDARD LIBRARY FIRST</div>
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Zero Dependency Bloat</h3>
+          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+            Tools like <code>portwarden</code> and <code>codemask</code> run entirely on native Node.js APIs without external npm dependencies, guaranteeing zero security vulnerability baggage.
+          </p>
+        </div>
+
+        <div class="project-card reveal-on-scroll reveal-delay-2">
+          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-saffron); margin-bottom: 8px;">[03] TACTILE RESTRAINT</div>
+          <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Purposeful UI Polish</h3>
+          <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
+            Every interaction should provide tactile physical feedback, modular typography, responsive bidirectional animations, and instant clarity without decorative clutter.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: CONTACT & COMMUNICATIONS -->
+    <section id="section-contact" class="section-block reveal-on-scroll" style="background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 56px 32px; text-align: center;">
+      <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); letter-spacing: 0.08em; margin-bottom: 10px;">[04] DIRECT COMMUNICATIONS</div>
+      <h2 style="font-size: var(--font-h2); font-weight: 800; margin-bottom: 14px; color: var(--text-primary);">
+        Let us Build Something Meaningful
+      </h2>
+      <p style="font-size: 15px; color: var(--text-secondary); max-width: 560px; margin: 0 auto 32px auto; line-height: 1.6;">
+        Open for engineering collaborations, developer tooling architecture, and civic software development.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="mailto:xanderilham4@gmail.com" class="btn-magnetic primary">
+          <span>xanderilham4@gmail.com</span>
+        </a>
+        <a href="https://github.com/IlhamXkyo" target="_blank" rel="noopener noreferrer" class="btn-magnetic secondary">
+          <span>GitHub: @IlhamXkyo</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- CAD Datasheet Project Inspector Drawer -->
+  <aside id="project-inspector-drawer" class="inspector-drawer">
+    <div class="inspector-header">
+      <div class="inspector-title-row">
+        <span style="color: var(--accent-terracotta); font-family: var(--font-mono); font-size: 14px;">◈</span>
+        <h3 class="inspector-h1">PROJECT SPECIFICATIONS</h3>
+      </div>
+      <button class="inspector-close-btn">ESC CLOSE</button>
+    </div>
+    <div class="inspector-body inspector-content">
+      <!-- Injected dynamically by inspector.js -->
+    </div>
+  </aside>
+  <div class="inspector-backdrop"></div>
+
+  <!-- KyoTerm Interactive Terminal Drawer -->
+  <aside id="terminal-drawer" class="terminal-drawer">
+    <div class="term-header">
+      <div class="term-title-block">
+        <span class="term-led"></span>
+        <span class="term-title-text">KYOTERM · ILHAMXKYO WORKSTATION SHELL</span>
+        <span class="term-shortcut-hint">Ctrl + ~</span>
+      </div>
+      <button class="term-close-btn">ESC CLOSE</button>
+    </div>
+    <div class="term-output"></div>
+    <div class="term-input-row">
+      <span class="term-prompt">ilham@workstation:~$</span>
+      <input type="text" class="term-input" spellcheck="false" autocomplete="off" placeholder="Type 'help' or 'repos'..." />
+    </div>
+  </aside>
+
+  <!-- Application Bootstrap -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

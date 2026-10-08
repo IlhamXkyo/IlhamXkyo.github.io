@@ -1,0 +1,301 @@
+/**
+ * SUBTLE AMBIENT EFFECTS & SCROLL ANIMATIONS
+ * Professional scroll reveals, smooth transitions, ambient cursor spotlight, and command palette.
+ * DKV art direction with tactile feedback and zero artificial neon.
+ */
+
+/* 1. Scroll-Triggered Reveal Animations (Bidirectional Reactive) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  filter: blur(4px);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform, filter;
+}
+
+.reveal-on-scroll.reveal-from-top {
+  transform: translateY(-24px) scale(0.98);
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1) !important;
+  filter: blur(0px);
+}
+
+.reveal-delay-1 { transition-delay: 0.06s; }
+.reveal-delay-2 { transition-delay: 0.12s; }
+.reveal-delay-3 { transition-delay: 0.18s; }
+.reveal-delay-4 { transition-delay: 0.24s; }
+
+/* Workbench card switch animation */
+@keyframes fadeInCard {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* 2. Ambient Cursor Spotlight Tracking */
+.mouse-spotlight {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(650px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(224, 90, 71, 0.025), transparent 50%);
+}
+
+/* 3. Tactile Magnetic Button Motion */
+.btn-magnetic {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.btn-magnetic.primary {
+  background: var(--accent-terracotta);
+  color: #ffffff;
+  border: 1px solid var(--accent-terracotta);
+  box-shadow: 0 4px 14px rgba(224, 90, 71, 0.25);
+}
+
+.btn-magnetic.primary:hover {
+  transform: translateY(-2px);
+  background: #e66654;
+  box-shadow: 0 6px 20px rgba(224, 90, 71, 0.35);
+}
+
+.btn-magnetic.secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+  border: 1px solid var(--border-default);
+}
+
+.btn-magnetic.secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+.btn-magnetic.ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.btn-magnetic.ghost:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.btn-magnetic:active {
+  transform: translateY(1px);
+}
+
+/* 4. 3D Card Tilt & Subtle Specular Light */
+.tilt-card {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  will-change: transform;
+}
+
+.tilt-glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.05), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 2;
+}
+
+.tilt-card:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* 5. Sound Visualizer Equalizer */
+.equalizer-bar-wrap {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2.5px;
+  height: 12px;
+}
+
+.equalizer-col {
+  width: 2px;
+  background-color: var(--accent-terracotta);
+  border-radius: 1px;
+  height: 3px;
+  transition: height 0.15s ease;
+}
+
+.equalizer-active .equalizer-col:nth-child(1) { animation: eq-anim 0.7s ease-in-out infinite alternate; }
+.equalizer-active .equalizer-col:nth-child(2) { animation: eq-anim 0.5s ease-in-out infinite alternate 0.12s; }
+.equalizer-active .equalizer-col:nth-child(3) { animation: eq-anim 0.8s ease-in-out infinite alternate 0.25s; }
+.equalizer-active .equalizer-col:nth-child(4) { animation: eq-anim 0.6s ease-in-out infinite alternate 0.18s; }
+
+@keyframes eq-anim {
+  from { height: 2px; }
+  to { height: 12px; }
+}
+
+/* 6. Spotlight Command Palette (Ctrl+K) */
+.command-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 14, 18, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 500;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.command-palette-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.command-palette-modal {
+  width: 100%;
+  max-width: 600px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  overflow: hidden;
+  transform: scale(0.97) translateY(-8px);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.command-palette-backdrop.active .command-palette-modal {
+  transform: scale(1) translateY(0);
+}
+
+.cp-search-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+}
+
+.cp-search-icon {
+  color: var(--accent-terracotta);
+}
+
+.cp-search-input {
+  flex-grow: 1;
+  background: transparent;
+  border: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+  outline: none;
+}
+
+.cp-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+.cp-shortcut-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-subtle);
+}
+
+.cp-results-list {
+  max-height: 360px;
+  overflow-y: auto;
+  padding: 6px 0;
+}
+
+.cp-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+}
+
+.cp-result-item:hover, .cp-result-item.selected {
+  background: rgba(224, 90, 71, 0.08);
+}
+
+.cp-result-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cp-result-icon {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-terracotta);
+  width: 18px;
+  text-align: center;
+}
+
+.cp-result-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.cp-result-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-left: 8px;
+}
+
+.cp-result-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+}
+
+.cp-footer-hint {
+  padding: 10px 20px;
+  border-top: 1px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

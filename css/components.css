@@ -1,0 +1,385 @@
+/**
+ * COMPONENT ARCHITECTURE & PROJECT CARDS
+ * Clean DKV editorial presentation, subtle stone borders, and drawer inspector.
+ * Pure craft and tactile elegance. Zero AI slop.
+ */
+
+/* Filter Matrix Controls */
+.matrix-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+
+.filter-pills-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  transition: transform 0.2s ease;
+}
+
+.filter-pills-row.tabs-stagger-pop {
+  animation: filterPillsStaggerPop 0.38s cubic-bezier(0.16, 1.2, 0.3, 1) both;
+}
+
+@keyframes filterPillsStaggerPop {
+  0% {
+    transform: translateY(8px) scale(0.97);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.filter-pill-btn {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 6px 14px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+
+.filter-pill-btn .pill-count {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  background: rgba(243, 239, 230, 0.06);
+  padding: 1px 5px;
+  border-radius: 99px;
+  color: var(--text-muted);
+}
+
+.filter-pill-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  background: var(--bg-surface-elevated);
+}
+
+.filter-pill-btn.active {
+  background: var(--bg-surface-elevated);
+  border-color: var(--accent-terracotta);
+  color: var(--accent-terracotta);
+}
+
+.filter-pill-btn.active .pill-count {
+  background: var(--accent-terracotta);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+/* Quick Search Box */
+.search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 260px;
+}
+
+.search-input-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.cyber-search-input,
+.catalogue-search-input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  padding: 8px 16px 8px 36px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.cyber-search-input:focus,
+.catalogue-search-input:focus {
+  border-color: var(--accent-terracotta);
+  box-shadow: 0 0 0 1px rgba(225, 67, 46, 0.3);
+}
+
+.cyber-search-input::placeholder,
+.catalogue-search-input::placeholder {
+  color: var(--text-muted);
+}
+
+/* Projects Grid Layout */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+/* Project Card */
+.project-card {
+  background: var(--bg-surface-card);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 250px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hover);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card Header */
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.card-category-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent-terracotta);
+  background: var(--accent-terracotta-soft);
+  padding: 2px 8px;
+  border-radius: var(--radius-xs);
+  border: 1px solid rgba(224, 90, 71, 0.25);
+}
+
+.card-category-tag.tools {
+  color: var(--accent-terracotta);
+  background: var(--accent-terracotta-soft);
+  border-color: rgba(224, 90, 71, 0.25);
+}
+
+.card-category-tag.civic {
+  color: var(--accent-sage);
+  background: var(--accent-sage-soft);
+  border-color: rgba(90, 130, 104, 0.25);
+}
+
+.card-category-tag.nlp {
+  color: var(--accent-saffron);
+  background: var(--accent-saffron-soft);
+  border-color: rgba(217, 155, 38, 0.25);
+}
+
+.card-category-tag.quant {
+  color: var(--accent-slate);
+  background: var(--accent-slate-soft);
+  border-color: rgba(92, 124, 153, 0.25);
+}
+
+.card-category-tag.games {
+  color: var(--accent-purple);
+  background: var(--accent-purple-soft);
+  border-color: rgba(140, 109, 137, 0.25);
+}
+
+.card-lang-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lang-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  transition: color 0.15s ease;
+}
+
+.project-card:hover .card-title {
+  color: var(--accent-terracotta);
+}
+
+.card-tagline {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.card-desc {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin-bottom: 18px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
+}
+
+.card-inspect-btn {
+  background: transparent;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.card-inspect-btn:hover {
+  color: var(--accent-terracotta);
+  transform: translateX(3px);
+}
+
+.card-links-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-icon-link {
+  color: var(--text-muted);
+  transition: color 0.15s ease;
+  display: flex;
+  align-items: center;
+}
+
+.card-icon-link:hover {
+  color: var(--text-primary);
+}
+
+/* CAD Datasheet Inspector Drawer */
+.inspector-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: 600px;
+  background: var(--bg-surface);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-left: 1px solid var(--border-default);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.8);
+  z-index: 300;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.inspector-drawer.active {
+  transform: translateX(0);
+}
+
+.inspector-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 299;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.inspector-drawer.active ~ .inspector-backdrop,
+.inspector-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.inspector-header {
+  padding: 18px 24px;
+  background: var(--bg-surface-elevated);
+  border-bottom: 1px solid var(--border-default);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inspector-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inspector-h1 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.inspector-close-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.inspector-close-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.inspector-body {
+  flex-grow: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+@media (max-width: 640px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
