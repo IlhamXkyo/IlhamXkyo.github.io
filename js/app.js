@@ -33,6 +33,11 @@ class App {
   }
 
   init() {
+    // 0. Ensure viewport starts at top on initial load if no URL anchor hash
+    if (!window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+
     // 1. Initialize Inspector and Terminal
     this.inspector = new ProjectInspector('project-inspector-drawer');
     this.terminal = new KyoTerminal('terminal-drawer', (id) => this.inspector.open(id));
@@ -326,22 +331,22 @@ class App {
       sloplens: document.getElementById('sloplens-workbench')
     };
 
-    const updateGlider = (activeTab) => {
+    const updateGlider = (activeTab, centerInBar = false) => {
       if (!glider || !activeTab) return;
       glider.style.width = `${activeTab.offsetWidth}px`;
       glider.style.transform = `translateX(${activeTab.offsetLeft}px)`;
-      if (typeof activeTab.scrollIntoView === 'function') {
-        try {
-          activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        } catch (_) {
-          activeTab.scrollIntoView(false);
+      if (centerInBar) {
+        const bar = activeTab.parentElement;
+        if (bar && bar.scrollWidth > bar.clientWidth) {
+          const target = activeTab.offsetLeft - (bar.clientWidth / 2) + (activeTab.offsetWidth / 2);
+          bar.scrollTo({ left: target, behavior: 'smooth' });
         }
       }
     };
 
     const initialActive = document.querySelector('.wb-tab-nav-btn.active');
     if (initialActive) {
-      setTimeout(() => updateGlider(initialActive), 120);
+      setTimeout(() => updateGlider(initialActive, false), 120);
     }
 
     tabs.forEach((tab) => {
@@ -351,7 +356,7 @@ class App {
 
         tabs.forEach((t) => t.classList.remove('active'));
         tab.classList.add('active');
-        updateGlider(tab);
+        updateGlider(tab, true);
 
         Object.entries(cards).forEach(([key, card]) => {
           if (!card) return;
@@ -369,7 +374,7 @@ class App {
 
     window.addEventListener('resize', () => {
       const activeTab = document.querySelector('.wb-tab-nav-btn.active');
-      if (activeTab) updateGlider(activeTab);
+      if (activeTab) updateGlider(activeTab, false);
     });
   }
 
@@ -391,22 +396,22 @@ class App {
     let scrollDirection = 'down';
     let prevDirection = 'down';
 
-    const updatePill = (activeBtn) => {
+    const updatePill = (activeBtn, centerInBar = false) => {
       if (!pill || !activeBtn) return;
       pill.style.width = `${activeBtn.offsetWidth}px`;
       pill.style.transform = `translateX(${activeBtn.offsetLeft}px)`;
-      if (typeof activeBtn.scrollIntoView === 'function') {
-        try {
-          activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        } catch (_) {
-          activeBtn.scrollIntoView(false);
+      if (centerInBar) {
+        const nav = activeBtn.parentElement;
+        if (nav && nav.scrollWidth > nav.clientWidth) {
+          const target = activeBtn.offsetLeft - (nav.clientWidth / 2) + (activeBtn.offsetWidth / 2);
+          nav.scrollTo({ left: target, behavior: 'smooth' });
         }
       }
     };
 
     const initialActive = document.querySelector('.dock-tab-btn.active');
     if (initialActive) {
-      setTimeout(() => updatePill(initialActive), 120);
+      setTimeout(() => updatePill(initialActive, false), 120);
     }
 
     tabBtns.forEach((btn) => {
@@ -416,7 +421,7 @@ class App {
 
         tabBtns.forEach((b) => b.classList.remove('active'));
         btn.classList.add('active');
-        updatePill(btn);
+        updatePill(btn, true);
 
         if (targetId === 'hero') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -513,7 +518,7 @@ class App {
         if (matchingBtn && !matchingBtn.classList.contains('active')) {
           tabBtns.forEach((b) => b.classList.remove('active'));
           matchingBtn.classList.add('active');
-          updatePill(matchingBtn);
+          updatePill(matchingBtn, true);
 
           // Subtle interactive acoustic tick on section transition
           if (scrollY > 150) {
@@ -526,7 +531,7 @@ class App {
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', () => {
       const activeBtn = document.querySelector('.dock-tab-btn.active');
-      if (activeBtn) updatePill(activeBtn);
+      if (activeBtn) updatePill(activeBtn, false);
     });
     onScroll();
   }

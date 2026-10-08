@@ -49,7 +49,7 @@ export class CommandPalette {
       <div class="command-palette-modal">
         <div class="cp-search-header">
           <svg class="cp-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" class="cp-search-input" placeholder="Type a command or jump to any project..." autofocus />
+          <input type="text" class="cp-search-input" placeholder="Type a command or jump to any project..." />
           <span class="cp-shortcut-badge">ESC to close</span>
         </div>
         <div class="cp-results-list"></div>
