@@ -161,7 +161,7 @@
 .command-palette-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(13, 14, 18, 0.85);
+  background: var(--overlay-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   z-index: 500;
@@ -299,4 +299,24 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+html[data-theme="light"] .command-palette-modal {
+  box-shadow: 0 24px 60px rgba(45, 40, 32, 0.16);
+}
+
+html[data-theme="light"] .cp-result-badge {
+  background: rgba(45, 40, 32, 0.05);
+}
+
+html[data-theme="light"] .cp-shortcut-badge {
+  background: rgba(45, 40, 32, 0.05);
+}
+
+html[data-theme="light"] .btn-magnetic.secondary {
+  background: rgba(45, 40, 32, 0.05);
+}
+
+html[data-theme="light"] .btn-magnetic.secondary:hover {
+  background: rgba(45, 40, 32, 0.09);
 }

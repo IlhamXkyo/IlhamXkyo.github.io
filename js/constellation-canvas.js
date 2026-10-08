@@ -278,8 +278,9 @@ export class ConstellationSimulator {
     const ctx = this.ctx;
     const w = this.canvas.width;
     const h = this.canvas.height;
+    const isLight = document.documentElement.dataset.theme === 'light';
 
-    ctx.fillStyle = 'rgba(12, 13, 16, 0.4)';
+    ctx.fillStyle = isLight ? 'rgba(246, 243, 235, 0.45)' : 'rgba(12, 13, 16, 0.4)';
     ctx.fillRect(0, 0, w, h);
 
     // Draw category interconnect lines

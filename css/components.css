@@ -322,7 +322,7 @@
 .inspector-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: var(--overlay-bg);
   backdrop-filter: blur(4px);
   z-index: 299;
   opacity: 0;
@@ -424,4 +424,21 @@
   .inspector-body {
     padding: 16px;
   }
+}
+
+html[data-theme="light"] .inspector-drawer {
+  box-shadow: -20px 0 60px rgba(45, 40, 32, 0.16);
+}
+
+html[data-theme="light"] .inspector-close-btn {
+  background: rgba(45, 40, 32, 0.05);
+}
+
+html[data-theme="light"] .inspector-close-btn:hover {
+  background: rgba(45, 40, 32, 0.1);
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .filter-pill-btn .pill-count {
+  background: rgba(45, 40, 32, 0.06);
 }

@@ -271,9 +271,10 @@ export class FluidSimulator {
     const ctx = this.ctx;
     const w = this.canvas.width;
     const h = this.canvas.height;
+    const isLight = document.documentElement.dataset.theme === 'light';
 
-    // Matte Sumi ink trailing clear for refined motion blur
-    ctx.fillStyle = 'rgba(12, 13, 16, 0.24)';
+    // Trailing clear for refined motion blur
+    ctx.fillStyle = isLight ? 'rgba(246, 243, 235, 0.28)' : 'rgba(12, 13, 16, 0.24)';
     ctx.fillRect(0, 0, w, h);
 
     // Render streamline particles with DKV print palette
@@ -292,13 +293,13 @@ export class FluidSimulator {
       } else if (p.style === 'slate') {
         ctx.strokeStyle = `rgba(77, 111, 133, ${alpha * 0.55})`;
       } else {
-        ctx.strokeStyle = `rgba(243, 239, 230, ${alpha * 0.45})`;
+        ctx.strokeStyle = isLight ? `rgba(45, 40, 32, ${alpha * 0.45})` : `rgba(243, 239, 230, ${alpha * 0.45})`;
       }
 
       ctx.stroke();
 
       if (speed > 2.0 && Math.random() > 0.8) {
-        ctx.fillStyle = `rgba(243, 239, 230, ${alpha * 0.8})`;
+        ctx.fillStyle = isLight ? `rgba(45, 40, 32, ${alpha * 0.75})` : `rgba(243, 239, 230, ${alpha * 0.8})`;
         ctx.fillRect(p.x - 1, p.y - 1, 2, 2);
       }
     }

@@ -10,7 +10,7 @@
   left: 0;
   right: 0;
   height: 480px;
-  background: rgba(13, 14, 18, 0.96);
+  background: var(--terminal-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-top: 1px solid var(--border-default);
@@ -149,4 +149,16 @@
   .terminal-drawer {
     height: 70vh;
   }
+}
+
+html[data-theme="light"] .terminal-drawer {
+  box-shadow: 0 -12px 40px rgba(45, 40, 32, 0.15);
+}
+
+html[data-theme="light"] .terminal-drawer::after {
+  opacity: 0.04;
+}
+
+html[data-theme="light"] .term-shortcut-hint {
+  background: var(--bg-surface);
 }

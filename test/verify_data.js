@@ -260,6 +260,17 @@ assert(componentsCss.includes('projects-grid') && componentsCss.includes('grid-t
 assert(workbenchesCss.includes('@media (max-width: 640px)'), `Workbenches contain dedicated mobile viewports`);
 assert(indexHtml.includes('manifesto-grid'), `Manifesto uses responsive class without hardcoded 320px column minmax`);
 
+// 10. Dual Theme Engine Verification (Dark & Light Mode)
+console.log(`\n--- Testing Dual Theme System (Dark & Light Mode) ---`);
+const appJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'app.js'), 'utf8');
+const cmdPaletteJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'command-palette.js'), 'utf8');
+
+assert(tokensCss.includes('html[data-theme="dark"]') && tokensCss.includes('html[data-theme="light"]'), `tokens.css defines both dark and light theme token matrices`);
+assert(indexHtml.includes('id="theme-toggle-btn"') && indexHtml.includes('id="dock-theme-trigger"'), `Theme toggle buttons present in navbar and floating dock`);
+assert(appJs.includes('initTheme()') && appJs.includes('toggleTheme()') && appJs.includes('setTheme('), `app.js implements complete theme lifecycle methods`);
+assert(appJs.includes('ilham_portfolio_theme'), `app.js persists user theme preference to localStorage`);
+assert(cmdPaletteJs.includes('act-theme'), `Command palette includes theme toggle action`);
+
 console.log(`\n========================================================`);
 if (failures === 0) {
   console.log(`  🎉 ALL TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`);

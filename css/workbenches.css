@@ -519,3 +519,26 @@
     padding: 10px 12px;
   }
 }
+
+html[data-theme="light"] .wb-btn {
+  background: rgba(45, 40, 32, 0.05);
+  color: var(--text-secondary);
+}
+
+html[data-theme="light"] .wb-btn:hover {
+  background: rgba(45, 40, 32, 0.09);
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .wb-btn.active {
+  background: var(--accent-terracotta);
+  color: #ffffff;
+}
+
+html[data-theme="light"] .cm-chip {
+  background: rgba(45, 40, 32, 0.05);
+}
+
+html[data-theme="light"] .pw-cli-hint kbd {
+  background: rgba(45, 40, 32, 0.06);
+}

@@ -130,7 +130,7 @@
 }
 
 .nav-pill-btn {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--pill-bg);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   padding: 5px 12px;
@@ -146,7 +146,7 @@
 }
 
 .nav-pill-btn:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--pill-bg-hover);
   border-color: var(--border-hover);
   color: var(--text-primary);
 }
@@ -560,17 +560,17 @@
 }
 
 .scroll-dock-container {
-  background: rgba(18, 19, 24, 0.95);
+  background: var(--dock-bg);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(243, 239, 230, 0.12);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 6px 12px 6px 16px;
   gap: 12px;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
 }
 
 .scroll-dock-identity {
@@ -600,8 +600,8 @@
   position: relative;
   display: flex;
   align-items: center;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: var(--dock-tabs-bg);
+  border: 1px solid var(--dock-tabs-border);
   border-radius: var(--radius-full);
   padding: 3px;
   gap: 2px;
@@ -613,12 +613,12 @@
   bottom: 3px;
   left: 0;
   width: 0;
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--dock-pill-bg);
+  border: 1px solid var(--dock-pill-border);
   border-radius: var(--radius-full);
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), width 0.28s cubic-bezier(0.16, 1, 0.3, 1);
   pointer-events: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
 .dock-tab-btn {
@@ -689,7 +689,7 @@
   height: 32px;
   border-radius: 50%;
   border: 1px solid var(--border-default);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--dock-meta-btn-bg);
   color: var(--text-secondary);
   display: flex;
   align-items: center;
@@ -699,7 +699,7 @@
 }
 
 .dock-icon-action:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--pill-bg-hover);
   color: var(--text-primary);
   border-color: var(--border-hover);
 }
@@ -1034,4 +1034,77 @@
     padding: 5px 8px;
     font-size: 10.5px;
   }
+}
+
+/* ==========================================================================
+   THEME TOGGLE BUTTON & DUAL THEME ADAPTATIONS
+   ========================================================================== */
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-icon-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease;
+}
+
+.theme-toggle-btn:hover .theme-icon-wrap {
+  transform: rotate(24deg) scale(1.12);
+  color: var(--accent-saffron);
+}
+
+html[data-theme="light"] .theme-icon-sun {
+  display: none !important;
+}
+
+html[data-theme="light"] .theme-icon-moon {
+  display: block !important;
+  color: var(--accent-slate);
+}
+
+html[data-theme="dark"] .theme-icon-sun {
+  display: block !important;
+  color: var(--accent-saffron);
+}
+
+html[data-theme="dark"] .theme-icon-moon {
+  display: none !important;
+}
+
+/* Light Theme Component Refinements */
+html[data-theme="light"] .master-header {
+  box-shadow: 0 8px 30px rgba(45, 40, 32, 0.1);
+}
+
+html[data-theme="light"] .hero-gif-card {
+  box-shadow: 0 16px 40px rgba(45, 40, 32, 0.1), 0 0 0 1px rgba(45, 40, 32, 0.05);
+}
+
+html[data-theme="light"] .hero-avatar-img {
+  border-color: rgba(45, 40, 32, 0.18);
+  box-shadow: 0 16px 44px rgba(45, 40, 32, 0.16), 0 0 0 1px rgba(209, 58, 38, 0.35);
+}
+
+html[data-theme="light"] .dock-tab-btn.active {
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .wb-tab-nav-btn.active {
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .routine-desc code {
+  background: rgba(45, 40, 32, 0.06);
+  color: var(--text-primary);
+}
+
+html[data-theme="light"] .mouse-spotlight {
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(209, 58, 38, 0.035), transparent 450px);
+}
+
+html[data-theme="light"] .ambient-glow-top {
+  background: radial-gradient(ellipse at 50% 0%, rgba(209, 58, 38, 0.04), transparent 70%);
 }

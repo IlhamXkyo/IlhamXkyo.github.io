@@ -6,47 +6,10 @@
  */
 
 :root {
-  /* Surface Depths (Archival Sumi Ink & Warm Charcoal Obsidian) */
-  --bg-canvas: #0c0d10;
-  --bg-surface: #121318;
-  --bg-surface-elevated: #181920;
-  --bg-surface-card: #15161c;
-  --bg-surface-glass: rgba(18, 19, 24, 0.92);
-  --bg-input: #0f1014;
-
-  /* Architectural Hairline Borders (Fine Art Uncoated Stone Rules) */
-  --border-subtle: rgba(243, 239, 230, 0.06);
-  --border-default: rgba(243, 239, 230, 0.11);
-  --border-hover: rgba(243, 239, 230, 0.24);
-  --border-accent: rgba(225, 67, 46, 0.38);
-
-  /* Warm Unbleached Cotton & Editorial Print Typography Inks */
-  --text-primary: #f3efe6;          /* Unbleached Cotton White */
-  --text-secondary: #aba497;        /* Warm Stone Kraft */
-  --text-muted: #726c61;            /* Warm Charcoal Pencil */
-  --text-dim: #4c473f;              /* Deep Carbon Etch */
-
-  /* DKV Natural Pigment Inks (Risograph & Bauhaus Matrix) */
-  --accent-terracotta: #e1432e;     /* Cinnabar Vermilion Print Ink */
-  --accent-terracotta-soft: rgba(225, 67, 46, 0.12);
-  --accent-saffron: #cca035;        /* Raw Ochre Mustard Pigment */
-  --accent-saffron-soft: rgba(204, 160, 53, 0.12);
-  --accent-slate: #4d6f85;          /* Prussian Blueprint Slate */
-  --accent-slate-soft: rgba(77, 111, 133, 0.12);
-  --accent-sage: #527961;           /* Celadon Ceramic Sage */
-  --accent-sage-soft: rgba(82, 121, 97, 0.12);
-  --accent-plum: #7e5a77;           /* Archival Woodcut Plum */
-  --accent-plum-soft: rgba(126, 90, 119, 0.12);
-
-  /* Semantic Compatibility Mappings */
-  --accent-azure: #4d6f85;          /* Blueprint Slate */
-  --accent-azure-soft: rgba(77, 111, 133, 0.12);
-  --accent-emerald: #527961;        /* Celadon Sage */
-  --accent-emerald-soft: rgba(82, 121, 97, 0.12);
-  --accent-amber: #cca035;          /* Raw Ochre */
-  --accent-amber-soft: rgba(204, 160, 53, 0.12);
-  --accent-purple: #7e5a77;         /* Archival Plum */
-  --accent-purple-soft: rgba(126, 90, 119, 0.12);
+  /* Typographic Stacks */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --font-serif: 'Playfair Display', Georgia, serif;
 
   /* DKV Modular Typographic Scale */
   --font-hero: clamp(3.2rem, 7.5vw, 5.8rem);
@@ -57,27 +20,151 @@
   --font-small: 0.85rem;
   --font-micro: 0.72rem;
 
-  /* Typographic Stacks */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  --font-serif: 'Playfair Display', Georgia, serif;
-
-  /* Geometry & Crisp Radii */
+  /* Geometry and Crisp Radii */
   --radius-xs: 4px;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
 
-  /* Tactile Drop Shadows (Soft & Restrained) */
+  /* Grid and Frame */
+  --max-width: 1200px;
+  --header-height: 64px;
+}
+
+/* ==========================================================================
+   DARK THEME (DEFAULT ARCHIVAL SUMI OBSIDIAN)
+   ========================================================================== */
+:root,
+html[data-theme="dark"] {
+  /* Surface Depths */
+  --bg-canvas: #0c0d10;
+  --bg-surface: #121318;
+  --bg-surface-elevated: #181920;
+  --bg-surface-card: #15161c;
+  --bg-surface-glass: rgba(18, 19, 24, 0.92);
+  --bg-input: #0f1014;
+
+  /* Architectural Hairline Borders */
+  --border-subtle: rgba(243, 239, 230, 0.06);
+  --border-default: rgba(243, 239, 230, 0.11);
+  --border-hover: rgba(243, 239, 230, 0.24);
+  --border-accent: rgba(225, 67, 46, 0.38);
+
+  /* Warm Unbleached Cotton Typography Inks */
+  --text-primary: #f3efe6;
+  --text-secondary: #aba497;
+  --text-muted: #726c61;
+  --text-dim: #4c473f;
+
+  /* DKV Natural Pigment Inks */
+  --accent-terracotta: #e1432e;
+  --accent-terracotta-soft: rgba(225, 67, 46, 0.12);
+  --accent-saffron: #cca035;
+  --accent-saffron-soft: rgba(204, 160, 53, 0.12);
+  --accent-slate: #4d6f85;
+  --accent-slate-soft: rgba(77, 111, 133, 0.12);
+  --accent-sage: #527961;
+  --accent-sage-soft: rgba(82, 121, 97, 0.12);
+  --accent-plum: #7e5a77;
+  --accent-plum-soft: rgba(126, 90, 119, 0.12);
+
+  /* Semantic Compatibility Mappings */
+  --accent-azure: #4d6f85;
+  --accent-azure-soft: rgba(77, 111, 133, 0.12);
+  --accent-emerald: #527961;
+  --accent-emerald-soft: rgba(82, 121, 97, 0.12);
+  --accent-amber: #cca035;
+  --accent-amber-soft: rgba(204, 160, 53, 0.12);
+  --accent-purple: #7e5a77;
+  --accent-purple-soft: rgba(126, 90, 119, 0.12);
+
+  /* Tactile Drop Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.45);
   --shadow-md: 0 12px 32px rgba(0, 0, 0, 0.55);
   --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.04);
   --shadow-glow: 0 4px 24px rgba(225, 67, 46, 0.12);
 
-  /* Grid & Frame */
-  --max-width: 1200px;
-  --header-height: 64px;
+  /* Component and Pill Tokens */
+  --pill-bg: rgba(255, 255, 255, 0.04);
+  --pill-bg-hover: rgba(255, 255, 255, 0.08);
+  --dock-bg: rgba(18, 19, 24, 0.95);
+  --dock-tabs-bg: rgba(255, 255, 255, 0.04);
+  --dock-tabs-border: rgba(255, 255, 255, 0.06);
+  --dock-pill-bg: rgba(255, 255, 255, 0.12);
+  --dock-pill-border: rgba(255, 255, 255, 0.18);
+  --dock-meta-btn-bg: rgba(255, 255, 255, 0.05);
+  --overlay-bg: rgba(13, 14, 18, 0.85);
+  --terminal-bg: rgba(13, 14, 18, 0.96);
+  --glare-color: rgba(255, 255, 255, 0.05);
+  --badge-bg: rgba(243, 239, 230, 0.04);
+}
+
+/* ==========================================================================
+   LIGHT THEME (WARM EDITORIAL WASHI PARCHMENT)
+   ========================================================================== */
+html[data-theme="light"] {
+  /* Surface Depths */
+  --bg-canvas: #f6f3eb;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #eee9dc;
+  --bg-surface-card: #ffffff;
+  --bg-surface-glass: rgba(246, 243, 235, 0.94);
+  --bg-input: #eae4d5;
+
+  /* Architectural Hairline Borders */
+  --border-subtle: rgba(45, 40, 32, 0.08);
+  --border-default: rgba(45, 40, 32, 0.15);
+  --border-hover: rgba(45, 40, 32, 0.32);
+  --border-accent: rgba(209, 58, 38, 0.45);
+
+  /* Deep Sumi Carbon Ink Typography */
+  --text-primary: #191816;
+  --text-secondary: #5a5449;
+  --text-muted: #857c6e;
+  --text-dim: #ada494;
+
+  /* DKV Natural Pigment Inks for Light Background */
+  --accent-terracotta: #d13a26;
+  --accent-terracotta-soft: rgba(209, 58, 38, 0.12);
+  --accent-saffron: #a87910;
+  --accent-saffron-soft: rgba(168, 121, 16, 0.12);
+  --accent-slate: #37566d;
+  --accent-slate-soft: rgba(55, 86, 109, 0.12);
+  --accent-sage: #386147;
+  --accent-sage-soft: rgba(56, 97, 71, 0.12);
+  --accent-plum: #6c4263;
+  --accent-plum-soft: rgba(108, 66, 99, 0.12);
+
+  /* Semantic Compatibility Mappings */
+  --accent-azure: #37566d;
+  --accent-azure-soft: rgba(55, 86, 109, 0.12);
+  --accent-emerald: #386147;
+  --accent-emerald-soft: rgba(56, 97, 71, 0.12);
+  --accent-amber: #a87910;
+  --accent-amber-soft: rgba(168, 121, 16, 0.12);
+  --accent-purple: #6c4263;
+  --accent-purple-soft: rgba(108, 66, 99, 0.12);
+
+  /* Tactile Drop Shadows for Light Paper */
+  --shadow-sm: 0 2px 8px rgba(45, 40, 32, 0.08);
+  --shadow-md: 0 12px 30px rgba(45, 40, 32, 0.12);
+  --shadow-card: 0 4px 18px rgba(45, 40, 32, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  --shadow-glow: 0 4px 20px rgba(209, 58, 38, 0.1);
+
+  /* Component and Pill Tokens */
+  --pill-bg: rgba(45, 40, 32, 0.05);
+  --pill-bg-hover: rgba(45, 40, 32, 0.09);
+  --dock-bg: rgba(255, 255, 255, 0.96);
+  --dock-tabs-bg: rgba(45, 40, 32, 0.05);
+  --dock-tabs-border: rgba(45, 40, 32, 0.08);
+  --dock-pill-bg: rgba(45, 40, 32, 0.1);
+  --dock-pill-border: rgba(45, 40, 32, 0.18);
+  --dock-meta-btn-bg: rgba(45, 40, 32, 0.05);
+  --overlay-bg: rgba(25, 23, 20, 0.5);
+  --terminal-bg: rgba(246, 243, 235, 0.97);
+  --glare-color: rgba(45, 40, 32, 0.04);
+  --badge-bg: rgba(45, 40, 32, 0.05);
 }
 
 *, *::before, *::after {

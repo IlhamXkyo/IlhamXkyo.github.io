@@ -50,10 +50,14 @@ class App {
     this.commandPalette = new CommandPalette(
       (id) => this.inspector.open(id),
       (mode) => this.setBgMode(mode),
-      () => this.toggleAudio()
+      () => this.toggleAudio(),
+      () => this.toggleTheme()
     );
 
-    // 4. Initialize Background Canvas Simulation
+    // 4. Initialize Theme Engine (Default Dark, Washi Light on Demand)
+    this.initTheme();
+
+    // 5. Initialize Background Canvas Simulation
     this.initBackgroundSimulation();
 
     // 5. Initialize Navigation Controls & Header Scroll Effect
@@ -132,6 +136,75 @@ class App {
     }
   }
 
+  initTheme() {
+    // Default is dark mode unless explicitly saved as light
+    let saved = null;
+    try {
+      saved = localStorage.getItem('ilham_portfolio_theme');
+    } catch (_) {}
+    const theme = saved === 'light' ? 'light' : 'dark';
+    this.setTheme(theme, false);
+
+    // Master header theme toggle button
+    const themeBtn = document.getElementById('theme-toggle-btn');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        this.toggleTheme();
+      });
+    }
+
+    // Floating scroll dock theme toggle button
+    const dockThemeBtn = document.getElementById('dock-theme-trigger');
+    if (dockThemeBtn) {
+      dockThemeBtn.addEventListener('click', () => {
+        this.toggleTheme();
+      });
+    }
+  }
+
+  toggleTheme() {
+    const current = document.documentElement.dataset.theme || 'dark';
+    const next = current === 'dark' ? 'light' : 'dark';
+    this.setTheme(next, true);
+  }
+
+  setTheme(theme, withSound = false) {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem('ilham_portfolio_theme', theme);
+    } catch (_) {}
+
+    if (withSound) {
+      sound.chirp(theme === 'light' ? 720 : 520, 0.05);
+    }
+
+    const isLight = theme === 'light';
+    const labelText = isLight ? 'DARK' : 'LIGHT';
+    const titleText = isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+
+    document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
+      btn.title = titleText;
+      const label = btn.querySelector('.theme-btn-label');
+      if (label) {
+        label.textContent = labelText;
+      }
+    });
+
+    // Update dynamic header styling when theme switches
+    const header = document.querySelector('.master-header');
+    if (header && !header.classList.contains('is-hidden')) {
+      if (window.scrollY > 40) {
+        header.style.background = isLight ? 'rgba(255, 255, 255, 0.96)' : 'rgba(19, 21, 27, 0.94)';
+        header.style.borderColor = isLight ? 'rgba(45, 40, 32, 0.22)' : 'rgba(240, 242, 248, 0.16)';
+        header.style.boxShadow = isLight ? '0 12px 36px rgba(45, 40, 32, 0.12)' : '0 12px 36px rgba(0, 0, 0, 0.6)';
+      } else {
+        header.style.background = 'var(--bg-surface-glass)';
+        header.style.borderColor = 'var(--border-default)';
+        header.style.boxShadow = isLight ? '0 8px 30px rgba(45, 40, 32, 0.1)' : '0 8px 30px rgba(0, 0, 0, 0.4)';
+      }
+    }
+  }
+
   initNav() {
     // Mode toggles
     document.querySelectorAll('.nav-mode-btn').forEach((btn) => {
@@ -166,14 +239,15 @@ class App {
     window.addEventListener('scroll', () => {
       const header = document.querySelector('.master-header');
       if (header && !header.classList.contains('is-hidden')) {
+        const isLight = document.documentElement.dataset.theme === 'light';
         if (window.scrollY > 40) {
-          header.style.background = 'rgba(19, 21, 27, 0.94)';
-          header.style.borderColor = 'rgba(240, 242, 248, 0.16)';
-          header.style.boxShadow = '0 12px 36px rgba(0, 0, 0, 0.6)';
+          header.style.background = isLight ? 'rgba(255, 255, 255, 0.96)' : 'rgba(19, 21, 27, 0.94)';
+          header.style.borderColor = isLight ? 'rgba(45, 40, 32, 0.22)' : 'rgba(240, 242, 248, 0.16)';
+          header.style.boxShadow = isLight ? '0 12px 36px rgba(45, 40, 32, 0.12)' : '0 12px 36px rgba(0, 0, 0, 0.6)';
         } else {
           header.style.background = 'var(--bg-surface-glass)';
           header.style.borderColor = 'var(--border-default)';
-          header.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.4)';
+          header.style.boxShadow = isLight ? '0 8px 30px rgba(45, 40, 32, 0.1)' : '0 8px 30px rgba(0, 0, 0, 0.4)';
         }
       }
     });
