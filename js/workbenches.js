@@ -150,7 +150,7 @@ SESSION_SECRET=sample_jwt_token_s3cur3_s3ss10n_t0k3n_v4lu3`
       this.countVal.textContent = `${result.count} SECRETS`;
     }
     if (this.astVal) {
-      this.astVal.textContent = 'VALID SYNTAX';
+      this.astVal.textContent = '100% RESTORABLE';
     }
 
     // Render highlighted preview
@@ -183,6 +183,9 @@ SESSION_SECRET=sample_jwt_token_s3cur3_s3ss10n_t0k3n_v4lu3`
       this.statusVal.textContent = 'ORIGINAL RESTORED';
       this.statusVal.style.color = 'var(--accent-saffron)';
     }
+    if (this.astVal) {
+      this.astVal.textContent = 'ORIGINAL RESTORED';
+    }
 
     this.preview.textContent = raw;
 
@@ -197,6 +200,9 @@ SESSION_SECRET=sample_jwt_token_s3cur3_s3ss10n_t0k3n_v4lu3`
     if (this.statusVal) {
       this.statusVal.textContent = 'MODIFIED (UNMASKED)';
       this.statusVal.style.color = 'var(--text-muted)';
+    }
+    if (this.astVal) {
+      this.astVal.textContent = 'MODIFIED';
     }
   }
 

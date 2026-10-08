@@ -1,6 +1,6 @@
 /**
  * FLOATING SPOTLIGHT COMMAND PALETTE (CTRL+K / CMD+K)
- * Fast keyboard-driven launcher for all 25 repositories, graphic modes, and audio controls.
+ * Fast keyboard-driven launcher for all 30+ repositories, graphic modes, and audio controls.
  */
 
 import { REPOSITORIES } from './data.js';

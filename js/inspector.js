@@ -11,7 +11,7 @@ export class ProjectInspector {
     this.drawer = document.getElementById(drawerId);
     if (!this.drawer) return;
 
-    this.backdrop = this.drawer.querySelector('.inspector-backdrop');
+    this.backdrop = document.querySelector('.inspector-backdrop') || this.drawer.querySelector('.inspector-backdrop');
     this.closeBtn = this.drawer.querySelector('.inspector-close-btn');
     this.content = this.drawer.querySelector('.inspector-content');
 

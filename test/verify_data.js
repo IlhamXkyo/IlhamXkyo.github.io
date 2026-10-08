@@ -8,6 +8,7 @@ const path = require('path');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
 let failures = 0;
+let passes = 0;
 
 function assert(condition, message) {
   if (!condition) {
@@ -15,6 +16,7 @@ function assert(condition, message) {
     failures++;
   } else {
     console.log(`✓ PASS: ${message}`);
+    passes++;
   }
 }
 
@@ -342,6 +344,7 @@ try {
   termLogs = [];
   term.execute('principles');
   assert(termLogs.some(l => l.includes('Build the whole path')), `KyoTerm 'principles' displays engineering principles`);
+  assert(term.commands.includes('principles'), `KyoTerm commands array includes 'principles'`);
 
   term.execute('inspect codemask');
   assert(inspectedId === 'codemask', `KyoTerm 'inspect codemask' triggers inspector callback`);
@@ -411,11 +414,27 @@ assert(appJs.includes('initTheme()') && appJs.includes('toggleTheme()') && appJs
 assert(appJs.includes('ilham_portfolio_theme'), `app.js persists user theme preference to localStorage`);
 assert(cmdPaletteJs.includes('act-theme'), `Command palette includes theme toggle action`);
 
+// 12. Deep Verification: Workbench Proof & Architectural Navigation
+console.log(`\n--- Testing Workbench Proof & Architecture Integration ---`);
+const workbenchesJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'workbenches.js'), 'utf8');
+assert(!workbenchesJs.includes("this.astVal.textContent = 'VALID SYNTAX'"), `js/workbenches.js does not set jargon 'VALID SYNTAX'`);
+assert(!layoutCss.includes('tactile restraint'), `css/layout.css does not contain prohibited phrase 'tactile restraint'`);
+
+const aurumRepo = REPOSITORIES.find(r => r.id === 'aurum-ai-terminal');
+assert(aurumRepo && aurumRepo.featured === true, `aurum-ai-terminal has featured: true in REPOSITORIES`);
+const zeroGRepo = REPOSITORIES.find(r => r.id === 'zero-g-notes');
+assert(zeroGRepo && zeroGRepo.featured === false, `zero-g-notes has featured: false in REPOSITORIES`);
+
+const inspectorJs = fs.readFileSync(path.join(ROOT_DIR, 'js', 'inspector.js'), 'utf8');
+assert(inspectorJs.includes("document.querySelector('.inspector-backdrop')"), `inspector.js queries backdrop on document for click dismissal`);
+assert(indexHtml.includes('data-id="warga-os"') && indexHtml.includes('btn-inspect'), `Warga-OS has inspect button in index.html`);
+assert(indexHtml.includes('data-id="aurum-ai-terminal"') && indexHtml.includes('btn-inspect'), `Aurum-AI-Terminal has inspect button in index.html`);
+
 console.log(`\n========================================================`);
 if (failures === 0) {
-  console.log(`  🎉 ALL TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`);
+  console.log(`  🎉 ALL ${passes} TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`);
 } else {
-  console.error(`  ⚠️ ${failures} TEST ASSERTIONS FAILED.`);
+  console.error(`  ⚠️ ${failures} TEST ASSERTIONS FAILED (${passes} passed).`);
   process.exit(1);
 }
 console.log(`========================================================\n`);

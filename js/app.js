@@ -391,21 +391,35 @@ class App {
       });
     }
 
-    const jumpLabsBtn = document.getElementById('hero-jump-labs-btn');
-    if (jumpLabsBtn) {
-      jumpLabsBtn.addEventListener('click', () => {
-        document.getElementById('section-labs').scrollIntoView({ behavior: 'smooth' });
-        sound.click();
+    // Attach inspect button handlers on featured case study cards
+    document.querySelectorAll('.featured-case-card .btn-inspect').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this.inspector.open(btn.dataset.id);
       });
-    }
+    });
 
-    const jumpMatrixBtn = document.getElementById('hero-jump-matrix-btn');
-    if (jumpMatrixBtn) {
-      jumpMatrixBtn.addEventListener('click', () => {
-        document.getElementById('section-matrix').scrollIntoView({ behavior: 'smooth' });
-        sound.click();
+    // Ensure links from featured case studies to workbenches unhide the target card
+    document.querySelectorAll('a[href^="#"][href*="-workbench"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href').replace('#', '');
+        const targetCard = document.getElementById(targetId);
+        if (targetCard) {
+          e.preventDefault();
+          const wbMode = targetId.replace('-workbench', '');
+          const matchingTab = document.querySelector(`.wb-tab-nav-btn[data-wb="${wbMode}"]`);
+          if (matchingTab) {
+            matchingTab.click();
+          } else {
+            const allTab = document.querySelector('.wb-tab-nav-btn[data-wb="all"]');
+            if (allTab) allTab.click();
+          }
+          targetCard.scrollIntoView({ behavior: 'smooth' });
+          sound.click();
+        }
       });
-    }
+    });
   }
 
   initWorkbenchTabs() {
@@ -633,9 +647,9 @@ class App {
       hasAnimated = true;
 
       const items = [
-        { el: document.querySelector('.kpi-number.azure'), target: 30, suffix: '+' },
-        { el: document.querySelector('.kpi-number.emerald'), target: 48, suffix: '' },
-        { el: document.querySelector('.kpi-number.amber'), target: 0, suffix: '' }
+        { el: document.querySelector('.kpi-number.azure'), target: DEVELOPER_PROFILE.stats.totalRepos, suffix: '+' },
+        { el: document.querySelector('.kpi-number.emerald'), target: DEVELOPER_PROFILE.stats.testsPassing, suffix: '' },
+        { el: document.querySelector('.kpi-number.amber'), target: DEVELOPER_PROFILE.stats.runtimeDeps, suffix: '' }
       ];
 
       items.forEach((item) => {

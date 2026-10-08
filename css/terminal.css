@@ -147,7 +147,33 @@
 
 @media (max-width: 640px) {
   .terminal-drawer {
-    height: 70vh;
+    height: 75vh;
+  }
+  .term-header {
+    padding: 8px 14px;
+  }
+  .term-shortcut-hint {
+    display: none;
+  }
+  .term-title-text {
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .term-output {
+    padding: 12px 14px;
+    font-size: 11px;
+  }
+  .term-input-row,
+  .term-input-bar {
+    padding: 8px 14px;
+  }
+  .term-prompt {
+    font-size: 11px;
+  }
+  .term-input {
+    font-size: 11px;
   }
 }
 

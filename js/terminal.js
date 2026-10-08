@@ -21,7 +21,7 @@ export class KyoTerminal {
 
     this.commands = [
       'help', 'featured', 'repos', 'about', 'skills', 'contact', 'github', 'tests',
-      'clear', 'inspect', 'cat', 'whoami', 'bio', 'manifesto', 'stats', 'audio', 'exit'
+      'clear', 'inspect', 'cat', 'whoami', 'bio', 'principles', 'manifesto', 'stats', 'audio', 'exit'
     ];
 
     this.init();
@@ -175,7 +175,7 @@ export class KyoTerminal {
         this.log(`  \x1b[33mtests\x1b[0m            Automated test suite metrics (48 passing assertions)`);
         this.log(`  \x1b[33minspect <name>\x1b[0m   Open deep CAD architectural datasheet for a project`);
         this.log(`  \x1b[33mcat <name>\x1b[0m       Print project technical summary right in terminal`);
-        this.log(`  \x1b[33mmanifesto\x1b[0m        Engineering principles and standards`);
+        this.log(`  \x1b[33mprinciples\x1b[0m / \x1b[33mmanifesto\x1b[0m Engineering principles and standards`);
         this.log(`  \x1b[33mstats\x1b[0m / \x1b[33mtop\x1b[0m      Repository count and category breakdown`);
         this.log(`  \x1b[33mcontact\x1b[0m          Developer email, location, and GitHub profile`);
         this.log(`  \x1b[33maudio <on|off>\x1b[0m   Toggle procedural Web Audio synthesis`);

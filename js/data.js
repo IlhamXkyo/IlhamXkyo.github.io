@@ -1,6 +1,6 @@
 /**
  * IlhamXkyo Engineering Portfolio Data Matrix
- * All 25 repositories sourced directly from https://github.com/IlhamXkyo
+ * All 30+ repositories sourced directly from https://github.com/IlhamXkyo
  */
 
 export const DEVELOPER_PROFILE = {
@@ -191,7 +191,7 @@ export const REPOSITORIES = [
     githubUrl: "https://github.com/IlhamXkyo/zero-g-notes",
     liveUrl: null,
     topics: ["electron", "desktop-app", "notes", "minimalism", "productivity"],
-    featured: true
+    featured: false
   },
   {
     id: "codemask",
@@ -287,7 +287,7 @@ export const REPOSITORIES = [
     githubUrl: "https://github.com/IlhamXkyo/aurum-ai-terminal",
     liveUrl: null,
     topics: ["python", "algorithmic-trading", "forex", "gold-trading", "smc", "terminal"],
-    featured: false
+    featured: true
   },
   {
     id: "agent-pulse",
