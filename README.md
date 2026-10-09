@@ -1,102 +1,97 @@
 # IlhamXkyo Interactive Workstation Portfolio
 
-> **High-density interactive portfolio for Ilham (IlhamXkyo).**  
-> Practical developer utilities, zero-dependency tools, DKV design systems, stylometric linters, and Indonesian civic technology.  
-> Based in Ambon, Indonesia (Available Remotely).
+[![GitHub Pages](https://img.shields.io/badge/Live-ilhamxkyo.github.io-10b981?style=flat-square&logo=github)](https://ilhamxkyo.github.io)
+[![Runtime](https://img.shields.io/badge/Runtime-Vanilla_ES6+-f59e0b?style=flat-square&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Dependencies](https://img.shields.io/badge/Dependencies-Zero_External-3b82f6?style=flat-square)](package.json)
+[![Tests](https://img.shields.io/badge/Automated_Tests-48_Passing-22c55e?style=flat-square)](test/)
+[![License](https://img.shields.io/badge/License-MIT-8b5cf6?style=flat-square)](LICENSE)
+
+> **High-density interactive portfolio and engineering workstation for Ilham (@IlhamXkyo).**  
+> Showcasing practical developer utilities, zero-dependency CLI systems, DKV-standard design systems, stylometric NLP linters, and civic technology.  
+> Live Demo: [ilhamxkyo.github.io](https://ilhamxkyo.github.io)
 
 ---
 
 ## 1. Overview & Architectural Philosophy
 
-This portfolio breaks completely away from generic AI portfolio tropes:
-- **Proof Over Declaration**: Concrete test suites (48 automated assertions passing), zero runtime dependencies, standard library first, and full source code transparency.
-- **Flagship Case Studies**: 5 in-depth technical breakdowns documenting exact problem statements, architecture decisions, technical challenges, and real benchmarks.
-- **Live Hands-On Workbenches**: Rather than merely reading static descriptions, visitors interact directly with live in-browser developer utilities (CodeMask, Portwarden, Slop-Lens).
-- **Synthesized Tactile Audio**: Bespoke procedural sound design generated via the Web Audio API without loading external audio assets.
-- **Zero Build-Chain Fragility**: 100% pure vanilla HTML5, CSS3, and ES6+ modules. Starts instantly with zero external npm dependencies.
-- **Bidirectional Reactive Motion**: Scroll dock navigation and reveals dynamically respond when scrolling up and down.
+This portfolio breaks away from generic static templates by offering a live, interactive developer workbench:
+
+- **Proof Over Declaration**: Backed by 48 automated assertion tests, zero external runtime dependencies, native Web APIs, and complete source code transparency.
+- **In-Browser Interactive Tools**: Visitors can directly run and test live utilities in the browser, including CodeMask (secret masking), Portwarden (port conflict analysis), and Slop-Lens (AI writing stylometrics).
+- **Procedural Web Audio Engine**: Integrated tactile audio feedback synthesized dynamically using the Web Audio API without loading external MP3/WAV files.
+- **Zero Build-Chain Overhead**: 100% pure vanilla HTML5, modular CSS3, and ES6+ modules. Launches instantly in any modern browser without npm build steps.
+- **Reactive Ergonomics**: Fluid bidirectional scroll-dock navigation, adaptive theme matrix, and high information-density layout.
 
 ---
 
-## 2. Flagship Case Studies
+## 2. Interactive Flagship Case Studies
 
-1. **CodeMask** (Developer Tools / Privacy)
-   - Secret Redactor and LLM Egress Sanitizer.
-   - 0 external dependencies, < 1.2ms execution, 42 passing tests with 100% bidirectional restoration accuracy.
-2. **Portwarden Sentinel** (CLI Systems / DevTools)
-   - Cross-Platform Port Collision Inspector and Zombie Process Terminator.
-   - Node.js standard library (child_process, net), < 120ms execution, verified release polling.
-3. **Slop-Lens Linter** (NLP / Text Analysis)
-   - Real-Time Stylometrics Inspector and AI Heuristic Linter.
-   - Sentence burstiness distribution, syllable entropy, 18+ detected AI cliches, < 4ms update loop.
-4. **Warga-OS** (Civic Tech / Practical Systems)
-   - Offline-First Citizen Administration and ISO A4 Document Generator.
-   - Service worker and LocalStorage persistence, zero server dependencies, ISO A4 print layout compliance.
-5. **Aurum-AI-Terminal** (Quant / Applied AI)
-   - Local Financial Sentiment and Quantitative Signal Engine.
-   - 500+ simulated price ticks/sec, sub-10ms calculation cycle, real-time ASCII telemetry.
+### 1. CodeMask (Developer Security & Privacy)
+- Bidirectional syntax-preserving secret masking for LLM prompts and code reviews.
+- 0 external dependencies, sub-1.2ms execution cycle, 100% entropy-consistent restoration accuracy.
 
----
+### 2. Portwarden Sentinel (CLI Systems & DevTools)
+- Cross-platform port collision inspector and zombie process diagnostic engine.
+- Pure Node.js standard library implementation (child_process, net), sub-120ms scan latency.
 
-## 3. Engineering Principles
+### 3. Slop-Lens Linter (NLP & Stylometrics)
+- Real-time anti-slop stylometrics inspector and AI writing heuristic analyzer.
+- Measures sentence burstiness variance, syllable entropy, and scans 18+ detected AI cliches with a sub-4ms update loop.
 
-1. **Build the whole path.** No fake buttons, empty stubs, or demo-only logic. Every workflow connects completely from input to execution, state persistence, or clean termination.
-2. **Prefer simple dependencies.** Use the standard library when it makes the system clearer. Native APIs eliminate vulnerability supply-chain bloat and runtime overhead.
-3. **Polish with purpose.** Animation exists to communicate state, not decorate the screen. Visual elements serve clear hierarchy, tactile feedback, and direct utility.
+### 4. Warga-OS (Civic Tech & Administrative Solutions)
+- Offline-first citizen administrative workflow and automated ISO A4 document generator.
+- Powered by Service Workers and LocalStorage persistence, zero mandatory server requirements.
+
+### 5. Aurum AI Terminal (Quantitative Market Telemetry)
+- Algorithmic gold (XAU/USD) and forex telemetry simulator with SMC liquidity mapping.
+- 500+ simulated price ticks per second, sub-10ms calculate cycles, real-time ASCII chart output.
 
 ---
 
-## 4. Verified Project Archive (30+ Repositories)
+## 3. Engineering Standards
 
-| Repository | Primary Tech | Category | Description |
+1. **Complete Execution Paths**: Every interactive control connects completely from user input to processing, state storage, or clean termination. No dummy buttons or placeholder alerts.
+2. **Standard Library First**: Built on native browser APIs (Web Audio, Canvas, LocalStorage, IntersectionObserver) to ensure longevity and fast load times.
+3. **Purposeful Visual Motion**: Animation is used strictly to provide tactile feedback and clarify information hierarchy.
+
+---
+
+## 4. Verified Project Matrix (Selected Archive)
+
+| Repository | Stack | Focus Area | Core Value |
 | :--- | :--- | :--- | :--- |
-| **portwarden** | JavaScript | Developer Tool | Zero-dependency port collision inspector & zombie terminator |
-| **slop-lens** | JavaScript | NLP / Stylometrics | Real-time anti-slop stylometrics inspector & heuristic linter |
-| **zero-g-notes** | JavaScript | Tools / Desktop | Tactile desktop notes app with floating card ergonomics |
-| **codemask** | JavaScript | Developer Tool | Zero-dependency syntax-preserving secret masking for LLM prompts |
-| **warga-os** | TypeScript | Civic Tech | Super-App solusi masalah nyata keseharian warga & anak kos Indonesia |
-| **cadence-forge** | JavaScript | NLP / Stylometrics | Prose rhythm sculptor, sentence DNA breaker, & anti-slop workbench |
-| **aurum-ai-terminal** | Python | Quant / Markets | Gold & Forex live terminal with multi-agent SMC liquidity mapping |
-| **agent-pulse** | TypeScript | Developer Tool | Next-Gen autonomous AI agent observability & tracing waterfall |
-| **comic-voice-reader** | Python | AI / Vision | Comic screen reader with smart scroll & instant voice |
-| **PegRogue** | JavaScript | Games / Arcade | Arcade pachinko roguelike & relic deckbuilder |
-| **NeonDrift** | JavaScript | Games / 3D | 3D arcade midnight expressway drifter & traffic dodger |
-| **prose-sentinel** | Python | NLP / CLI | CLI prose style anomaly analysis & editorial linter |
-| **roblox-store-task** | PHP | Fullstack | Roblox store e-commerce web platform with order lifecycle |
-| **custom-vton-studio**| Python | Generative AI | Virtual try-on, inpainting & background replacement |
-| **TrackingHand** | Python | Computer Vision | Real-time spatial 3D hand tracking with OpenCV |
-| **App-Forum-kls-tib-stikom** | TypeScript | Civic / Education | Academic coursework discussion platform for STIKOM |
-| **forum_apk** | TypeScript | Mobile / Civic | Mobile client for university coursework coordination |
-| **input-data-siswa** | Python | Civic / Admin | Automated student administrative data entry system |
-| **XAUUSD-Trading-Signal-simulasi** | Python | Quant | Quantitative gold signal calculation & backtesting simulator |
-| **sentimen-forex-web**| HTML | Financial | Forex market sentiment aggregation & economic calendar |
-| **TRSLT_RL_KYO_v1** | Python | Voice / Gaming | Real-time audio encryption & translation bridge for games |
-| **chiikawa-runner** | JavaScript | Games / Arcade | 2D arcade parallax runner with responsive controls |
-| **neon-calculator** | CSS | UI / Tools | Tactile precision calculator with mechanical button feedback |
-| **Androrat** | Python / Java | Networking | Client-server socket telemetry & remote diagnostics |
-| **IlhamXkyo** | Markdown | Profile | Official developer identity & configuration matrix |
-| **aeroflow-lab** | JavaScript | Tools / Simulation | Aerodynamic wind tunnel & fluid vortex telemetry simulator |
-| **torsion-lab** | JavaScript | Tools / Physics | Kinetic chaos laboratory & vector phase space telemetry |
-| **BioGenesis** | JavaScript | Quant / Simulation | Emergent artificial life & primordial particle chemistry |
-| **AetherPulse** | JavaScript | Quant / Audio | Generative particle symphony & spatial audio sandbox |
-| **IlhamXkyo.github.io** | JavaScript | Developer Tool | Personal engineering lab & high-density workstation portfolio |
+| **[slop-lens](https://github.com/IlhamXkyo/slop-lens)** | JavaScript | NLP / Stylometrics | Real-time AI writing heuristic analysis |
+| **[zero-g-notes](https://github.com/IlhamXkyo/zero-g-notes)** | Electron / Matter.js | Desktop Utility | Tactile zero-gravity physics note space |
+| **[codemask](https://github.com/IlhamXkyo/codemask)** | JavaScript | Security / CLI | Syntax-preserving token redaction for LLM |
+| **[warga-os](https://github.com/IlhamXkyo/warga-os)** | TypeScript | Civic Tech | Offline-first citizen administrative tools |
+| **[portwarden](https://github.com/IlhamXkyo/portwarden)** | JavaScript | DevTools / CLI | Port conflict diagnostics and socket monitor |
+| **[cadence-forge](https://github.com/IlhamXkyo/cadence-forge)** | JavaScript | NLP / Rhythm | Prose sentence structure & cadence sculptor |
+| **[aurum-ai-terminal](https://github.com/IlhamXkyo/aurum-ai-terminal)** | Python | Quant / Markets | Live market telemetry & multi-agent signal simulator |
+| **[comic-voice-reader](https://github.com/IlhamXkyo/comic-voice-reader)** | Python / Vision | Accessibility | Smart comic scroll watcher with voice synthesis |
+| **[PegRogue](https://github.com/IlhamXkyo/PegRogue)** | JavaScript / Canvas | Game / Roguelike | Arcade pachinko deckbuilder game mechanics |
+| **[NeonDrift](https://github.com/IlhamXkyo/NeonDrift)** | JavaScript / Three.js | 3D / Arcade | Midnight expressway drift simulator |
 
 ---
 
-## 5. How to Run Locally
+## 5. Local Setup & Testing
 
-### Option 1: Native Node Server (Instant, Zero Dependencies)
+### Option 1: Native Node.js HTTP Server
 ```bash
 node server.js 3000
 ```
-Open your browser at `http://localhost:3000`.
+Then open `http://localhost:3000` in your web browser.
 
-### Option 2: Python Built-In Server
+### Option 2: Python 3 Standard Server
 ```bash
 python -m http.server 3000
 ```
-Open your browser at `http://localhost:3000`.
 
-### Option 3: Double-Click
-Open `index.html` directly in modern Google Chrome, Microsoft Edge, or Firefox.
+### Option 3: Direct File Launch
+Double click `index.html` to open directly in Google Chrome, Microsoft Edge, or Mozilla Firefox.
 
+---
+
+## 6. License & Credits
+
+Released under the [MIT License](LICENSE).  
+Authored by **Ilham (@IlhamXkyo)**. Designed and engineered with attention to detail, precision, and pragmatic craft.
