@@ -320,3 +320,29 @@ html[data-theme="light"] .btn-magnetic.secondary {
 html[data-theme="light"] .btn-magnetic.secondary:hover {
   background: rgba(45, 40, 32, 0.09);
 }
+
+/* 6. View Transitions API (Theme & View State Smooth Cross-Fade) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.28s;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-old(root) {
+  animation-name: viewTransitionFadeOut;
+}
+
+::view-transition-new(root) {
+  animation-name: viewTransitionFadeIn;
+}
+
+@keyframes viewTransitionFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes viewTransitionFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+

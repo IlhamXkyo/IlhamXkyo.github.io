@@ -488,6 +488,25 @@
   pointer-events: none;
 }
 
+@supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
+  .scroll-progress-line {
+    width: 100% !important;
+    transform-origin: 0 50%;
+    animation: growScrollProgress auto linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0% 100%;
+    transition: none;
+  }
+  @keyframes growScrollProgress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+}
+
 /* 2. Floating Scroll-Triggered Navigation Island (Bidirectional & Reactive) */
 .floating-scroll-dock {
   position: fixed;

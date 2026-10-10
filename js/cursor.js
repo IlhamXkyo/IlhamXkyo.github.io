@@ -5,8 +5,9 @@
 
 export class MagneticCursor {
   constructor() {
-    // Only initialize on devices with fine pointer (mouse), not touchscreens
+    // Only initialize on devices with fine pointer and no reduced motion preference
     if (window.matchMedia('(pointer: coarse)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
     this.dot = document.createElement('div');
     this.dot.className = 'custom-cursor-dot';

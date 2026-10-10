@@ -10,6 +10,7 @@ export class TiltEngine {
   }
 
   init() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     this.refresh();
 
     // Re-check periodically when dynamic cards are rendered

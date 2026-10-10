@@ -55,7 +55,7 @@ html[data-theme="dark"] {
   --text-primary: #f3efe6;
   --text-secondary: #aba497;
   --text-muted: #726c61;
-  --text-dim: #4c473f;
+  --text-dim: #6b6458;
 
   /* DKV Natural Pigment Inks */
   --accent-terracotta: #e1432e;
@@ -200,7 +200,25 @@ body {
   color: #ffffff;
 }
 
-/* Custom Architectural Scrollbar */
+/* Modern Typography Wrapping Standards */
+h1, h2, h3, h4, h5, h6 {
+  text-wrap: balance;
+}
+
+p, li, blockquote {
+  text-wrap: pretty;
+}
+
+/* Custom Architectural Scrollbar (Standard and Legacy) */
+html {
+  scrollbar-color: rgba(243, 239, 230, 0.18) var(--bg-canvas);
+  scrollbar-width: thin;
+}
+
+html[data-theme="light"] {
+  scrollbar-color: rgba(45, 40, 32, 0.22) var(--bg-canvas);
+}
+
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -214,3 +232,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(243, 239, 230, 0.28);
 }
+
+/* Accessibility: Respect Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+

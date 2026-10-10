@@ -430,6 +430,23 @@ assert(inspectorJs.includes("document.querySelector('.inspector-backdrop')"), `i
 assert(indexHtml.includes('data-id="warga-os"') && indexHtml.includes('btn-inspect'), `Warga-OS has inspect button in index.html`);
 assert(indexHtml.includes('data-id="aurum-ai-terminal"') && indexHtml.includes('btn-inspect'), `Aurum-AI-Terminal has inspect button in index.html`);
 
+// 13. Modern Web Standards Verification (Metadata, Assets, Typography, CWV)
+console.log(`\n--- Testing Modern Web Standards Compliance ---`);
+assert(fs.existsSync(path.join(ROOT_DIR, 'favicon.svg')), `favicon.svg exists in repository root`);
+assert(fs.existsSync(path.join(ROOT_DIR, 'manifest.webmanifest')), `manifest.webmanifest exists in repository root`);
+assert(fs.existsSync(path.join(ROOT_DIR, 'robots.txt')), `robots.txt exists in repository root`);
+assert(fs.existsSync(path.join(ROOT_DIR, 'sitemap.xml')), `sitemap.xml exists in repository root`);
+assert(fs.existsSync(path.join(ROOT_DIR, 'assets', 'hero-profile.gif')), `assets/hero-profile.gif exists locally`);
+assert(indexHtml.includes('href="favicon.svg"'), `index.html includes favicon link`);
+assert(indexHtml.includes('href="manifest.webmanifest"'), `index.html includes manifest link`);
+assert(indexHtml.includes('assets/hero-profile.gif'), `index.html uses local hero GIF`);
+assert(indexHtml.includes('fetchpriority="high"'), `index.html sets fetchpriority high on LCP image`);
+assert(indexHtml.includes('og:title') && indexHtml.includes('twitter:card'), `index.html includes social graph cards`);
+assert(tokensCss.includes('text-wrap: balance'), `tokens.css includes text-wrap balance for headings`);
+assert(tokensCss.includes('prefers-reduced-motion'), `tokens.css respects user reduced-motion preferences`);
+assert(layoutCss.includes('animation-timeline: scroll(root)'), `layout.css uses modern CSS scroll-driven animations`);
+
+
 console.log(`\n========================================================`);
 if (failures === 0) {
   console.log(`  🎉 ALL ${passes} TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`);

@@ -165,7 +165,13 @@ class App {
   toggleTheme() {
     const current = document.documentElement.dataset.theme || 'dark';
     const next = current === 'dark' ? 'light' : 'dark';
-    this.setTheme(next, true);
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        this.setTheme(next, true);
+      });
+    } else {
+      this.setTheme(next, true);
+    }
   }
 
   setTheme(theme, withSound = false) {
@@ -181,6 +187,12 @@ class App {
     const isLight = theme === 'light';
     const labelText = isLight ? 'DARK' : 'LIGHT';
     const titleText = isLight ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+
+    // Synchronize browser theme-color meta tags
+    const activeColor = isLight ? '#f6f3eb' : '#0c0d10';
+    document.querySelectorAll('meta[name="theme-color"]').forEach((meta) => {
+      meta.setAttribute('content', activeColor);
+    });
 
     document.querySelectorAll('.theme-toggle-btn').forEach((btn) => {
       btn.title = titleText;

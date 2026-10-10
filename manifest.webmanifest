@@ -1,0 +1,17 @@
+{
+  "name": "Ilham (IlhamXkyo) - Developer Workstation Portfolio",
+  "short_name": "IlhamXkyo",
+  "description": "Building developer tools, automation systems, and practical web applications. Ambon, Indonesia.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0c0d10",
+  "theme_color": "#0c0d10",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
