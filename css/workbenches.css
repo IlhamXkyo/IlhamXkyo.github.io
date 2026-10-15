@@ -50,27 +50,27 @@
   background: var(--accent-terracotta-soft);
   padding: 2.5px 8px;
   border-radius: var(--radius-xs);
-  border: 1px solid rgba(224, 90, 71, 0.3);
+  border: 1px solid rgba(239, 35, 60, 0.35);
 }
 
 .wb-tag.green,
 .wb-tag.sage {
   color: var(--accent-sage);
   background: var(--accent-sage-soft);
-  border-color: rgba(90, 130, 104, 0.3);
+  border-color: rgba(225, 29, 72, 0.35);
 }
 
 .wb-tag.amber,
 .wb-tag.saffron {
   color: var(--accent-saffron);
   background: var(--accent-saffron-soft);
-  border-color: rgba(217, 155, 38, 0.3);
+  border-color: rgba(255, 87, 34, 0.35);
 }
 
 .wb-tag.slate {
   color: var(--accent-slate);
   background: var(--accent-slate-soft);
-  border-color: rgba(92, 124, 153, 0.3);
+  border-color: rgba(217, 4, 41, 0.35);
 }
 
 .wb-title {
@@ -173,10 +173,10 @@
 }
 
 .wb-btn.active {
-  background: linear-gradient(180deg, #ff5742 0%, #e13c26 100%);
+  background: linear-gradient(180deg, #ff1738 0%, #b91c1c 100%);
   border-color: rgba(255, 255, 255, 0.25);
   color: #ffffff;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 4px 12px rgba(225, 60, 38, 0.4);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 4px 12px rgba(239, 35, 60, 0.45);
 }
 
 .wb-btn.secondary {

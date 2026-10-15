@@ -44,9 +44,9 @@
 .term-led {
   width: 7px;
   height: 7px;
-  background: var(--accent-sage);
+  background: var(--accent-terracotta);
   border-radius: 50%;
-  box-shadow: 0 0 6px var(--accent-sage);
+  box-shadow: 0 0 8px var(--accent-terracotta);
 }
 
 .term-title-text {

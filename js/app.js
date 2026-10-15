@@ -132,8 +132,8 @@ class App {
 
     // Update Nav buttons
     const modeLabels = {
-      fluid: 'FLUID',
-      constellation: 'NODES',
+      fluid: 'EMBERS',
+      constellation: 'BRAND',
       harmonics: 'WAVES',
       off: 'OFF'
     };

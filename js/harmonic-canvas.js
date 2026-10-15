@@ -17,11 +17,11 @@ export class HarmonicWaveSimulator {
     this.ripples = [];
 
     this.layers = [
-      { baseAmp: 42, freq: 0.0035, speed: 0.018, phase: 0, color: 'rgba(255, 71, 50, 0.22)', lineWidth: 2.2 },
-      { baseAmp: 34, freq: 0.0052, speed: -0.024, phase: 1.2, color: 'rgba(56, 189, 248, 0.20)', lineWidth: 1.8 },
-      { baseAmp: 28, freq: 0.0070, speed: 0.031, phase: 2.5, color: 'rgba(52, 211, 153, 0.18)', lineWidth: 1.6 },
-      { baseAmp: 22, freq: 0.0092, speed: -0.015, phase: 3.8, color: 'rgba(245, 158, 11, 0.16)', lineWidth: 1.4 },
-      { baseAmp: 16, freq: 0.0120, speed: 0.022, phase: 5.1, color: 'rgba(243, 239, 230, 0.14)', lineWidth: 1.2 }
+      { baseAmp: 42, freq: 0.0035, speed: 0.018, phase: 0, color: 'rgba(239, 35, 60, 0.28)', lineWidth: 2.2 },
+      { baseAmp: 34, freq: 0.0052, speed: -0.024, phase: 1.2, color: 'rgba(217, 4, 41, 0.22)', lineWidth: 1.8 },
+      { baseAmp: 28, freq: 0.0070, speed: 0.031, phase: 2.5, color: 'rgba(255, 87, 34, 0.20)', lineWidth: 1.6 },
+      { baseAmp: 22, freq: 0.0092, speed: -0.015, phase: 3.8, color: 'rgba(141, 8, 1, 0.18)', lineWidth: 1.4 },
+      { baseAmp: 16, freq: 0.0120, speed: 0.022, phase: 5.1, color: 'rgba(246, 246, 249, 0.14)', lineWidth: 1.2 }
     ];
 
     this.resize = this.resize.bind(this);
@@ -161,7 +161,7 @@ export class HarmonicWaveSimulator {
       ctx.save();
       ctx.beginPath();
       ctx.arc(rip.x, rip.y, rip.radius, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 71, 50, ${rip.opacity * 0.4})`;
+      ctx.strokeStyle = `rgba(239, 35, 60, ${rip.opacity * 0.45})`;
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.restore();

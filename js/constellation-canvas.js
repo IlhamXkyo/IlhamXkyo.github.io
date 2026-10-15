@@ -81,12 +81,12 @@ export class ConstellationSimulator {
 
   getCategoryColor(cat) {
     switch (cat) {
-      case 'tools': return '#e05a47';   // Warm Terracotta
-      case 'nlp': return '#d99b26';     // Warm Saffron
-      case 'civic': return '#5a8268';   // Olive Sage Clay
-      case 'quant': return '#5c7c99';   // Bauhaus Slate Ink
-      case 'games': return '#8c6d89';   // Archival Plum
-      default: return '#a1a7b5';
+      case 'tools': return '#ef233c';   // Brand Crimson
+      case 'nlp': return '#ff5722';     // Forge Ember
+      case 'civic': return '#e11d48';   // Blood Scarlet
+      case 'quant': return '#d90429';   // Deep Crimson
+      case 'games': return '#8d0801';   // Berserker Ruby
+      default: return '#abaab8';
     }
   }
 
@@ -280,7 +280,7 @@ export class ConstellationSimulator {
     const h = this.canvas.height;
     const isLight = document.documentElement.dataset.theme === 'light';
 
-    ctx.fillStyle = isLight ? 'rgba(246, 243, 235, 0.45)' : 'rgba(12, 13, 16, 0.4)';
+    ctx.fillStyle = isLight ? 'rgba(246, 245, 239, 0.45)' : 'rgba(6, 6, 9, 0.4)';
     ctx.fillRect(0, 0, w, h);
 
     // Draw category interconnect lines

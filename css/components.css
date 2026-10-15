@@ -611,15 +611,15 @@ html[data-theme="light"] .filter-pill-btn .pill-count {
 }
 
 .case-action-btn.primary {
-  background: linear-gradient(180deg, #ff5742 0%, #e13c26 100%);
+  background: linear-gradient(180deg, #ff1738 0%, #b91c1c 100%);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 4px 14px rgba(225, 60, 38, 0.4);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 4px 14px rgba(239, 35, 60, 0.45);
 }
 
 .case-action-btn.primary:hover {
-  background: linear-gradient(180deg, #ff6b57 0%, #eb4732 100%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 8px 20px rgba(225, 60, 38, 0.55);
+  background: linear-gradient(180deg, #ff2a4b 0%, #d90429 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 8px 24px rgba(239, 35, 60, 0.65);
   transform: translateY(-2px);
 }
 
