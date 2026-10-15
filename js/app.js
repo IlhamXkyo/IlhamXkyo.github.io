@@ -753,47 +753,69 @@ class App {
     const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
     const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (hasGsap && hasScrollTrigger && !isReducedMotion) {
-      window.gsap.registerPlugin(window.ScrollTrigger);
-
-      // Hero elements entrance stagger
-      const heroItems = document.querySelectorAll('#hero .reveal-on-scroll');
-      if (heroItems.length) {
-        window.gsap.fromTo(
-          heroItems,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            stagger: 0.08,
-            ease: 'power3.out',
-            onComplete: () => {
-              heroItems.forEach((el) => el.classList.add('is-revealed'));
-            }
-          }
-        );
+    if (hasGsap && !isReducedMotion) {
+      if (hasScrollTrigger) {
+        window.gsap.registerPlugin(window.ScrollTrigger);
       }
 
-      // Featured case cards parallax and reveal
-      window.gsap.utils.toArray('.featured-case-card').forEach((card) => {
-        window.gsap.fromTo(
-          card,
-          { opacity: 0, y: 32 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 88%',
-              toggleActions: 'play none none reverse',
-              onEnter: () => card.classList.add('is-revealed')
+      // 1. Cinematic Hero Entrance Sequence
+      const heroTl = window.gsap.timeline({ defaults: { ease: 'power3.out' } });
+      heroTl
+        .fromTo('.hero-kicker-tag', { opacity: 0, y: -16, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.6 })
+        .fromTo('.hero-avatar-wrap', { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.65, ease: 'back.out(1.5)' }, '-=0.35')
+        .fromTo('.hero-badge-tag', { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+        .fromTo('.hero-person-name', { opacity: 0, y: 30, letterSpacing: '0.04em' }, { opacity: 1, y: 0, letterSpacing: '-0.05em', duration: 0.85, ease: 'power4.out' }, '-=0.4')
+        .fromTo('.hero-person-handle', { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4 }, '-=0.5')
+        .fromTo('.hero-main-headline', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.65 }, '-=0.35')
+        .fromTo('.hero-statement-lead', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.35')
+        .fromTo('.hero-actions-group .btn-magnetic', { opacity: 0, y: 16, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, stagger: 0.08, duration: 0.5 }, '-=0.3')
+        .fromTo('.hero-kpi-ribbon', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6 }, '-=0.25')
+        .fromTo('.hero-gif-card', { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.7, onComplete: () => {
+          document.querySelectorAll('#hero .reveal-on-scroll').forEach((el) => el.classList.add('is-revealed'));
+        }}, '-=0.3');
+
+      // 2. Featured case cards parallax and reveal with ScrollTrigger
+      if (hasScrollTrigger) {
+        window.gsap.utils.toArray('.featured-case-card').forEach((card) => {
+          window.gsap.fromTo(
+            card,
+            { opacity: 0, y: 32 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 88%',
+                toggleActions: 'play none none reverse',
+                onEnter: () => card.classList.add('is-revealed')
+              }
             }
-          }
-        );
-      });
+          );
+        });
+
+        // 3. Routine Arsenal cards stagger
+        window.gsap.utils.toArray('.hero-routine-grid .routine-card').forEach((rc, idx) => {
+          window.gsap.fromTo(
+            rc,
+            { opacity: 0, y: 28 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              delay: idx * 0.08,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: '.hero-routine-grid',
+                start: 'top 85%',
+                toggleActions: 'play none none reverse',
+                onEnter: () => rc.classList.add('is-revealed')
+              }
+            }
+          );
+        });
+      }
     }
 
     let lastY = window.scrollY;

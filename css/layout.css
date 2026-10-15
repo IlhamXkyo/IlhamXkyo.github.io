@@ -185,10 +185,10 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 4px 14px;
+  padding: 5px 14px;
   background: rgba(239, 35, 60, 0.08);
-  border: 1px solid rgba(239, 35, 60, 0.28);
-  border-radius: var(--radius-full);
+  border: 1px solid rgba(239, 35, 60, 0.32);
+  border-radius: var(--radius-xs);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 700;
@@ -214,7 +214,7 @@
   position: relative;
   max-width: 440px;
   width: 100%;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xs);
   overflow: hidden;
   border: 1px solid var(--border-default);
   background: var(--bg-surface);
@@ -322,10 +322,11 @@
 .hero-person-name {
   font-size: var(--font-hero);
   font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.04em;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
   color: var(--text-primary);
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .hero-person-handle {
@@ -427,13 +428,14 @@
 .routine-card {
   background: var(--bg-surface-card);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xs);
   padding: 22px 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
   box-shadow: var(--shadow-card);
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
 }
 
 .routine-card:hover {
@@ -863,7 +865,7 @@
 .featured-case-card {
   background: var(--bg-surface-card);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xs);
   padding: 32px;
   box-shadow: var(--shadow-card);
   transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.22s ease, box-shadow 0.22s ease;

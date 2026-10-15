@@ -12,7 +12,7 @@
   --font-serif: 'Playfair Display', Georgia, serif;
 
   /* Modular Typographic Scale */
-  --font-hero: clamp(3.2rem, 7.5vw, 5.8rem);
+  --font-hero: clamp(3.8rem, 9.5vw, 7.5rem);
   --font-h1: clamp(2.3rem, 4.8vw, 3.8rem);
   --font-h2: clamp(1.55rem, 3.2vw, 2.3rem);
   --font-h3: clamp(1.15rem, 2vw, 1.45rem);
