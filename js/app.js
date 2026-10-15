@@ -84,8 +84,7 @@ class App {
     // 12. Initialize Bidirectional Scroll Reveal Animations
     this.initScrollReveal();
 
-    // 13. Initialize Lenis Smooth Scrolling & Spring Physics
-    this.initSmoothScroll();
+    // 13. Initialize Spring Physics on Buttons
     this.initMagneticButtons();
   }
 
@@ -719,36 +718,6 @@ class App {
       { threshold: 0.2 }
     );
     observer.observe(kpiRibbon);
-  }
-
-  initSmoothScroll() {
-    if (typeof window.Lenis !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      try {
-        const lenis = new window.Lenis({
-          duration: 1.1,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-          touchMultiplier: 1.5
-        });
-        const raf = (time) => {
-          lenis.raf(time);
-          requestAnimationFrame(raf);
-        };
-        requestAnimationFrame(raf);
-
-        if (window.ScrollTrigger) {
-          lenis.on('scroll', window.ScrollTrigger.update);
-          if (window.gsap && window.gsap.ticker) {
-            window.gsap.ticker.add((time) => {
-              lenis.raf(time * 1000);
-            });
-            window.gsap.ticker.lagSmoothing(0);
-          }
-        }
-      } catch (err) {
-        console.warn('Smooth scroll fallback to native', err);
-      }
-    }
   }
 
   initMagneticButtons() {
