@@ -40,6 +40,7 @@ const REQUIRED_FILES = [
   'js/audio.js',
   'js/fluid-canvas.js',
   'js/constellation-canvas.js',
+  'js/harmonic-canvas.js',
   'js/workbenches.js',
   'js/terminal.js',
   'js/inspector.js',

@@ -611,26 +611,35 @@ html[data-theme="light"] .filter-pill-btn .pill-count {
 }
 
 .case-action-btn.primary {
-  background: var(--btn-primary-bg);
-  color: var(--btn-primary-text);
-  border: 1px solid transparent;
+  background: linear-gradient(180deg, #ff5742 0%, #e13c26 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 4px 14px rgba(225, 60, 38, 0.4);
 }
 
 .case-action-btn.primary:hover {
-  background: var(--btn-primary-hover);
-  transform: translateY(-1px);
+  background: linear-gradient(180deg, #ff6b57 0%, #eb4732 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 8px 20px rgba(225, 60, 38, 0.55);
+  transform: translateY(-2px);
 }
 
 .case-action-btn.secondary {
-  background: transparent;
+  background: var(--bg-surface-elevated);
   color: var(--text-primary);
   border: 1px solid var(--border-default);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
 
 .case-action-btn.secondary:hover {
   border-color: var(--border-hover);
-  background: var(--bg-surface-elevated);
-  transform: translateY(-1px);
+  background: var(--bg-surface-card);
+  color: var(--text-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.case-action-btn:active {
+  transform: translateY(1px) scale(0.98);
 }
 
 @media (max-width: 768px) {

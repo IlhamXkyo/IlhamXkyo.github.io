@@ -66,31 +66,40 @@
   position: relative;
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
   will-change: transform;
+  outline: none;
+}
+
+.btn-magnetic:focus-visible {
+  outline: 2px solid var(--accent-terracotta);
+  outline-offset: 3px;
 }
 
 .btn-magnetic.primary {
-  background: var(--accent-terracotta);
+  background: linear-gradient(180deg, #ff5742 0%, #e13c26 100%);
   color: #ffffff;
-  border: 1px solid var(--accent-terracotta);
-  box-shadow: 0 4px 14px rgba(224, 90, 71, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 8px 24px -4px rgba(225, 60, 38, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
 }
 
 .btn-magnetic.primary:hover {
-  transform: translateY(-2px);
-  background: #e66654;
-  box-shadow: 0 6px 20px rgba(224, 90, 71, 0.35);
+  transform: translateY(-2px) scale(1.02);
+  background: linear-gradient(180deg, #ff6b57 0%, #eb4732 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 12px 30px -4px rgba(225, 60, 38, 0.65), 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .btn-magnetic.secondary {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--bg-surface-elevated);
   color: var(--text-primary);
   border: 1px solid var(--border-default);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .btn-magnetic.secondary:hover {
-  background: rgba(255, 255, 255, 0.09);
+  background: var(--bg-surface-card);
   border-color: var(--border-hover);
+  color: var(--text-primary);
   transform: translateY(-2px);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
 .btn-magnetic.ghost {
@@ -102,10 +111,13 @@
 .btn-magnetic.ghost:hover {
   color: var(--text-primary);
   border-color: var(--border-hover);
+  background: var(--bg-surface-elevated);
+  transform: translateY(-1px);
 }
 
 .btn-magnetic:active {
-  transform: translateY(1px);
+  transform: translateY(1px) scale(0.97);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* 4. 3D Card Tilt & Subtle Specular Light */

@@ -8,6 +8,7 @@ import { DEVELOPER_PROFILE, REPOSITORIES } from './data.js';
 import { sound } from './audio.js';
 import { FluidSimulator } from './fluid-canvas.js';
 import { ConstellationSimulator } from './constellation-canvas.js';
+import { HarmonicWaveSimulator } from './harmonic-canvas.js';
 import { CodemaskWorkbench, PortwardenWorkbench, SlopLensWorkbench } from './workbenches.js';
 import { KyoTerminal } from './terminal.js';
 import { ProjectInspector } from './inspector.js';
@@ -17,12 +18,13 @@ import { CommandPalette } from './command-palette.js';
 
 class App {
   constructor() {
-    this.currentBgMode = 'fluid'; // 'fluid', 'constellation', 'off'
+    this.currentBgMode = 'fluid'; // 'fluid', 'constellation', 'harmonics', 'off'
     this.activeFilter = 'all';
     this.searchQuery = '';
 
     this.fluidSim = null;
     this.constellationSim = null;
+    this.harmonicSim = null;
     this.inspector = null;
     this.terminal = null;
     this.cursor = null;
@@ -60,27 +62,31 @@ class App {
     // 5. Initialize Background Canvas Simulation
     this.initBackgroundSimulation();
 
-    // 5. Initialize Navigation Controls & Header Scroll Effect
+    // 6. Initialize Navigation Controls & Header Scroll Effect
     this.initNav();
 
-    // 6. Initialize Interactive Workbenches & Tabs
+    // 7. Initialize Interactive Workbenches & Tabs
     this.initWorkbenches();
     this.initWorkbenchTabs();
 
-    // 7. Render Project Matrix & Setup Filtering
+    // 8. Render Project Matrix & Setup Filtering
     this.initProjectMatrix();
 
-    // 8. Connect Action Buttons
+    // 9. Connect Action Buttons
     this.initActionButtons();
 
-    // 9. Initialize Bidirectional Floating Scroll Dock & Progress Line
+    // 10. Initialize Bidirectional Floating Scroll Dock & Progress Line
     this.initScrollDock();
 
-    // 10. Initialize KPI Counter Animations
+    // 11. Initialize KPI Counter Animations
     this.initCounterAnimations();
 
-    // 11. Initialize Bidirectional Scroll Reveal Animations
+    // 12. Initialize Bidirectional Scroll Reveal Animations
     this.initScrollReveal();
+
+    // 13. Initialize Lenis Smooth Scrolling & Spring Physics
+    this.initSmoothScroll();
+    this.initMagneticButtons();
   }
 
   initBackgroundSimulation() {
@@ -89,6 +95,7 @@ class App {
 
     this.fluidSim = new FluidSimulator(bgCanvas);
     this.constellationSim = new ConstellationSimulator(bgCanvas, (id) => this.inspector.open(id));
+    this.harmonicSim = new HarmonicWaveSimulator(bgCanvas);
 
     // Start with fluid graphic active
     this.fluidSim.start();
@@ -106,8 +113,9 @@ class App {
     // Stop active simulators
     if (this.fluidSim) this.fluidSim.stop();
     if (this.constellationSim) this.constellationSim.stop();
+    if (this.harmonicSim) this.harmonicSim.stop();
 
-    wrapper.classList.remove('mode-fluid', 'mode-constellation', 'mode-off');
+    wrapper.classList.remove('mode-fluid', 'mode-constellation', 'mode-harmonics', 'mode-off');
     wrapper.classList.add(`mode-${mode}`);
 
     if (mode === 'fluid') {
@@ -116,13 +124,27 @@ class App {
     } else if (mode === 'constellation') {
       canvas.style.display = 'block';
       this.constellationSim.start();
+    } else if (mode === 'harmonics') {
+      canvas.style.display = 'block';
+      this.harmonicSim.start();
     } else if (mode === 'off') {
       canvas.style.display = 'none';
     }
 
     // Update Nav buttons
+    const modeLabels = {
+      fluid: 'FLUID',
+      constellation: 'NODES',
+      harmonics: 'WAVES',
+      off: 'OFF'
+    };
     document.querySelectorAll('.nav-mode-btn').forEach((btn) => {
-      btn.classList.toggle('active', btn.dataset.mode === mode);
+      btn.classList.toggle('active', mode !== 'off');
+      btn.dataset.mode = mode;
+      const lbl = btn.querySelector('.nav-btn-label');
+      if (lbl) {
+        lbl.textContent = `CANVAS: ${modeLabels[mode] || mode.toUpperCase()}`;
+      }
     });
   }
 
@@ -218,10 +240,12 @@ class App {
   }
 
   initNav() {
-    // Mode toggles
+    // Mode toggles cycle: fluid -> constellation -> harmonics -> off -> fluid
     document.querySelectorAll('.nav-mode-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
-        const nextMode = this.currentBgMode === 'fluid' ? 'constellation' : this.currentBgMode === 'constellation' ? 'off' : 'fluid';
+        const sequence = ['fluid', 'constellation', 'harmonics', 'off'];
+        const currentIdx = sequence.indexOf(this.currentBgMode);
+        const nextMode = sequence[(currentIdx + 1) % sequence.length];
         this.setBgMode(nextMode);
       });
     });
@@ -697,9 +721,111 @@ class App {
     observer.observe(kpiRibbon);
   }
 
+  initSmoothScroll() {
+    if (typeof window.Lenis !== 'undefined' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      try {
+        const lenis = new window.Lenis({
+          duration: 1.1,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          touchMultiplier: 1.5
+        });
+        const raf = (time) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+
+        if (window.ScrollTrigger) {
+          lenis.on('scroll', window.ScrollTrigger.update);
+          if (window.gsap && window.gsap.ticker) {
+            window.gsap.ticker.add((time) => {
+              lenis.raf(time * 1000);
+            });
+            window.gsap.ticker.lagSmoothing(0);
+          }
+        }
+      } catch (err) {
+        console.warn('Smooth scroll fallback to native', err);
+      }
+    }
+  }
+
+  initMagneticButtons() {
+    const btns = document.querySelectorAll('.btn-magnetic, .case-action-btn');
+    btns.forEach((btn) => {
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const x = (e.clientX - (rect.left + rect.width / 2)) * 0.32;
+        const y = (e.clientY - (rect.top + rect.height / 2)) * 0.32;
+        if (window.gsap) {
+          window.gsap.to(btn, { x, y, duration: 0.22, ease: 'power2.out' });
+        } else {
+          btn.style.transform = `translate(${x}px, ${y}px)`;
+        }
+      });
+
+      btn.addEventListener('mouseleave', () => {
+        if (window.gsap) {
+          window.gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1.1, 0.4)' });
+        } else {
+          btn.style.transform = '';
+        }
+      });
+    });
+  }
+
   initScrollReveal() {
     const elements = document.querySelectorAll('.reveal-on-scroll');
     if (!elements.length) return;
+
+    // Advanced GSAP ScrollTrigger orchestration if available
+    const hasGsap = typeof window.gsap !== 'undefined';
+    const hasScrollTrigger = typeof window.ScrollTrigger !== 'undefined';
+    const isReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (hasGsap && hasScrollTrigger && !isReducedMotion) {
+      window.gsap.registerPlugin(window.ScrollTrigger);
+
+      // Hero elements entrance stagger
+      const heroItems = document.querySelectorAll('#hero .reveal-on-scroll');
+      if (heroItems.length) {
+        window.gsap.fromTo(
+          heroItems,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.08,
+            ease: 'power3.out',
+            onComplete: () => {
+              heroItems.forEach((el) => el.classList.add('is-revealed'));
+            }
+          }
+        );
+      }
+
+      // Featured case cards parallax and reveal
+      window.gsap.utils.toArray('.featured-case-card').forEach((card) => {
+        window.gsap.fromTo(
+          card,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none reverse',
+              onEnter: () => card.classList.add('is-revealed')
+            }
+          }
+        );
+      });
+    }
 
     let lastY = window.scrollY;
 

@@ -107,6 +107,7 @@ export class CommandPalette {
       { type: 'action', id: 'act-theme', name: 'Toggle Theme (Light / Dark)', desc: 'Switch between Archival Sumi Dark and Warm Washi Light', badge: 'Theme', execute: () => this.onToggleTheme && this.onToggleTheme() },
       { type: 'action', id: 'act-fluid', name: 'Switch Background: Vector Flow', desc: 'Generative streamflow particle field', badge: 'Action', execute: () => this.onSetBgMode('fluid') },
       { type: 'action', id: 'act-const', name: 'Switch Background: Constellation', desc: 'Interactive repository node network', badge: 'Action', execute: () => this.onSetBgMode('constellation') },
+      { type: 'action', id: 'act-harmonics', name: 'Switch Background: Harmonic Waves', desc: 'Multi-layer parametric resonance wave studio', badge: 'Action', execute: () => this.onSetBgMode('harmonics') },
       { type: 'action', id: 'act-audio', name: 'Toggle Procedural Audio Engine', desc: 'Mechanical sound synthesis', badge: 'Action', execute: () => this.onToggleAudio() }
     ];
 
