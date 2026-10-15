@@ -56,13 +56,20 @@
   padding: 0 16px 0 20px;
   z-index: 200;
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(239, 35, 60, 0.1);
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s, background 0.25s ease, border-color 0.25s ease;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease, visibility 0.25s, background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   visibility: visible;
   opacity: 1;
+  box-sizing: border-box;
+}
+
+.master-header.header-scrolled {
+  background: var(--bg-surface-elevated);
+  border-color: var(--border-hover);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.75);
 }
 
 .master-header.is-hidden {
-  transform: translate(-50%, -90px) !important;
+  transform: translate(-50%, -100px) !important;
   opacity: 0 !important;
   pointer-events: none !important;
   visibility: hidden !important;
@@ -89,6 +96,8 @@
   gap: 10px;
   text-decoration: none;
   color: var(--text-primary);
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .nav-avatar-mini {
@@ -109,8 +118,10 @@
 .nav-links-row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 20px;
   list-style: none;
+  flex-shrink: 1;
+  white-space: nowrap;
 }
 
 .nav-link {
@@ -119,6 +130,7 @@
   color: var(--text-secondary);
   text-decoration: none;
   transition: color 0.15s ease;
+  white-space: nowrap;
 }
 
 .nav-link:hover {
@@ -128,7 +140,9 @@
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .nav-pill-btn {
@@ -551,7 +565,7 @@
   position: fixed;
   top: 14px;
   left: 50%;
-  transform: translate(-50%, -90px);
+  transform: translate(-50%, -120px);
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
@@ -561,26 +575,29 @@
               visibility 0.32s;
   max-width: 960px;
   width: calc(100% - 32px);
+  box-sizing: border-box;
 }
 
 .floating-scroll-dock.is-visible {
-  transform: translate(-50%, 0);
-  opacity: 1;
-  pointer-events: auto;
-  visibility: visible;
+  transform: translate(-50%, 0) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
 }
 
-.floating-scroll-dock.scroll-dir-up {
-  transform: translate(-50%, 0);
-  opacity: 1;
+.floating-scroll-dock:not(.is-visible) {
+  transform: translate(-50%, -120px) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
 }
 
-.floating-scroll-dock.scroll-dir-up .scroll-dock-container {
+.floating-scroll-dock.is-visible.scroll-dir-up .scroll-dock-container {
   border-color: rgba(239, 35, 60, 0.45);
   box-shadow: 0 20px 48px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(239, 35, 60, 0.25);
 }
 
-.floating-scroll-dock.scroll-dir-down .scroll-dock-container {
+.floating-scroll-dock.is-visible.scroll-dir-down .scroll-dock-container {
   border-color: var(--border-default);
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
 }
@@ -1050,23 +1067,50 @@
 /* ==========================================================================
    RESPONSIVE LAYOUT SYSTEM
    ========================================================================== */
-@media (max-width: 820px) {
+@media (max-width: 1140px) {
+  .nav-btn-label,
+  .nav-btn-kbd {
+    display: none !important;
+  }
+  .nav-pill-btn {
+    padding: 6px 10px;
+    border-radius: var(--radius-full);
+  }
+  .nav-links-row {
+    gap: 16px;
+  }
+  .dock-tab-index {
+    display: none;
+  }
+  .dock-tab-btn {
+    padding: 6px 10px;
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 900px) {
   .master-header {
     width: calc(100% - 24px);
     padding: 0 14px;
   }
   .nav-links-row {
+    display: none !important;
+  }
+  .scroll-dock-identity {
     display: none;
   }
+}
+
+@media (max-width: 768px) {
   .hero-routine-grid {
     grid-template-columns: 1fr 1fr;
   }
   .hero-kpi-ribbon {
-    gap: 24px;
+    gap: 20px;
     padding: 16px 20px;
   }
   .layout-container {
-    padding-top: 90px;
+    padding-top: 86px;
     padding-left: 16px;
     padding-right: 16px;
   }
@@ -1080,9 +1124,6 @@
     gap: 6px;
     width: 100%;
     box-sizing: border-box;
-  }
-  .scroll-dock-identity {
-    display: none;
   }
   .scroll-dock-tabs {
     flex: 1 1 0%;
@@ -1103,9 +1144,6 @@
     scroll-snap-align: center;
     padding: 6px 10px;
     font-size: 11.5px;
-  }
-  .dock-tab-index {
-    display: none;
   }
   .dock-depth-indicator {
     display: none;

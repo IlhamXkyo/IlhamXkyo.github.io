@@ -225,16 +225,8 @@ class App {
 
     // Update dynamic header styling when theme switches
     const header = document.querySelector('.master-header');
-    if (header && !header.classList.contains('is-hidden')) {
-      if (window.scrollY > 40) {
-        header.style.background = isLight ? 'rgba(255, 255, 255, 0.96)' : 'rgba(19, 21, 27, 0.94)';
-        header.style.borderColor = isLight ? 'rgba(45, 40, 32, 0.22)' : 'rgba(240, 242, 248, 0.16)';
-        header.style.boxShadow = isLight ? '0 12px 36px rgba(45, 40, 32, 0.12)' : '0 12px 36px rgba(0, 0, 0, 0.6)';
-      } else {
-        header.style.background = 'var(--bg-surface-glass)';
-        header.style.borderColor = 'var(--border-default)';
-        header.style.boxShadow = isLight ? '0 8px 30px rgba(45, 40, 32, 0.1)' : '0 8px 30px rgba(0, 0, 0, 0.4)';
-      }
+    if (header) {
+      header.classList.toggle('header-scrolled', window.scrollY > 40);
     }
   }
 
@@ -273,19 +265,10 @@ class App {
     // Header scroll background adaptation
     window.addEventListener('scroll', () => {
       const header = document.querySelector('.master-header');
-      if (header && !header.classList.contains('is-hidden')) {
-        const isLight = document.documentElement.dataset.theme === 'light';
-        if (window.scrollY > 40) {
-          header.style.background = isLight ? 'rgba(255, 255, 255, 0.96)' : 'rgba(19, 21, 27, 0.94)';
-          header.style.borderColor = isLight ? 'rgba(45, 40, 32, 0.22)' : 'rgba(240, 242, 248, 0.16)';
-          header.style.boxShadow = isLight ? '0 12px 36px rgba(45, 40, 32, 0.12)' : '0 12px 36px rgba(0, 0, 0, 0.6)';
-        } else {
-          header.style.background = 'var(--bg-surface-glass)';
-          header.style.borderColor = 'var(--border-default)';
-          header.style.boxShadow = isLight ? '0 8px 30px rgba(45, 40, 32, 0.1)' : '0 8px 30px rgba(0, 0, 0, 0.4)';
-        }
+      if (header) {
+        header.classList.toggle('header-scrolled', window.scrollY > 40);
       }
-    });
+    }, { passive: true });
   }
 
   initWorkbenches() {
@@ -601,36 +584,34 @@ class App {
 
       const masterHeader = document.querySelector('.master-header');
       if (dock) {
-        if (scrollY > 100) {
-          dock.classList.add('is-visible');
-          if (masterHeader) {
+        if (scrollY > 140) {
+          if (!dock.classList.contains('is-visible')) {
+            dock.classList.add('is-visible');
+          }
+          if (masterHeader && !masterHeader.classList.contains('is-hidden')) {
             masterHeader.classList.add('is-hidden');
             masterHeader.classList.remove('header-return-anim');
           }
           if (scrollDirection !== prevDirection) {
             prevDirection = scrollDirection;
             if (scrollDirection === 'up') {
-              dock.classList.remove('dock-trigger-anim');
-              void dock.offsetWidth;
-              dock.classList.add('dock-trigger-anim');
               dock.classList.add('scroll-dir-up');
               dock.classList.remove('scroll-dir-down');
               sound.chirp(640, 0.02);
             } else {
-              dock.classList.remove('dock-trigger-anim');
               dock.classList.add('scroll-dir-down');
               dock.classList.remove('scroll-dir-up');
             }
           }
-        } else {
-          dock.classList.remove('is-visible', 'dock-trigger-anim', 'scroll-dir-up', 'scroll-dir-down');
+        } else if (scrollY < 90) {
+          if (dock.classList.contains('is-visible')) {
+            dock.classList.remove('is-visible', 'dock-trigger-anim', 'scroll-dir-up', 'scroll-dir-down');
+          }
           prevDirection = 'down';
-          if (masterHeader) {
-            if (masterHeader.classList.contains('is-hidden')) {
-              masterHeader.classList.remove('is-hidden');
-              masterHeader.classList.add('header-return-anim');
-              setTimeout(() => masterHeader.classList.remove('header-return-anim'), 450);
-            }
+          if (masterHeader && masterHeader.classList.contains('is-hidden')) {
+            masterHeader.classList.remove('is-hidden');
+            masterHeader.classList.add('header-return-anim');
+            setTimeout(() => masterHeader.classList.remove('header-return-anim'), 450);
           }
         }
       }
