@@ -24,6 +24,7 @@ export class ConstellationSimulator {
     this.nodes = [];
     this.mouse = { x: -1000, y: -1000, isDown: false, draggedNode: null };
     this.hoveredNode = null;
+    this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
 
     this.resize = this.resize.bind(this);
     this.loop = this.loop.bind(this);
@@ -342,8 +343,13 @@ export class ConstellationSimulator {
     }
   }
 
-  loop() {
+  loop(now) {
     if (!this.running) return;
+
+    const currentNow = (typeof now === 'number' && now > 0) ? now : ((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now());
+    const dt = Math.min((currentNow - (this.lastTime || currentNow)) / 1000, 0.033);
+    this.lastTime = currentNow;
+
     this.update();
     this.render();
     this.animId = requestAnimationFrame(this.loop);
@@ -352,7 +358,8 @@ export class ConstellationSimulator {
   start() {
     if (this.running) return;
     this.running = true;
-    this.loop();
+    this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    this.loop(this.lastTime);
   }
 
   stop() {

@@ -122,10 +122,11 @@
   color: var(--text-muted);
 }
 
-/* Projects Grid Layout */
+/* Projects Grid Layout (Gapless Bento) */
 .projects-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  grid-auto-flow: dense;
   gap: 20px;
 }
 

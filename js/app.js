@@ -796,6 +796,25 @@ class App {
             }
           );
         });
+
+        // 4. Workbench card scale and fade scrubbing (GPT-Taste Desire Phase)
+        window.gsap.utils.toArray('.workbench-card').forEach((wbCard) => {
+          window.gsap.fromTo(
+            wbCard,
+            { scale: 0.96, opacity: 0.88 },
+            {
+              scale: 1.0,
+              opacity: 1,
+              duration: 0.6,
+              scrollTrigger: {
+                trigger: wbCard,
+                start: 'top 92%',
+                end: 'top 65%',
+                scrub: 0.5
+              }
+            }
+          );
+        });
       }
     }
 

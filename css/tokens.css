@@ -6,6 +6,25 @@
  */
 
 :root {
+  /* ==========================================================================
+     TIER 1: PRIMITIVES (OKLCH COLOR MATRIX & SPATIAL PRIMITIVES)
+     ========================================================================== */
+  /* Abyssal Obsidian Primitives */
+  --raw-obsidian-950: oklch(0.11 0.015 270);
+  --raw-obsidian-900: oklch(0.14 0.018 270);
+  --raw-obsidian-850: oklch(0.18 0.022 270);
+
+  /* Brand Blood Crimson Primitives */
+  --raw-crimson-base: oklch(0.57 0.235 25);
+  --raw-crimson-glow: oklch(0.62 0.245 27);
+  --raw-crimson-deep: oklch(0.42 0.210 22);
+
+  /* Cold Steel & Ash Inks */
+  --raw-steel-100: oklch(0.97 0.005 260);
+  --raw-steel-300: oklch(0.78 0.012 260);
+  --raw-steel-500: oklch(0.58 0.015 260);
+  --raw-steel-700: oklch(0.38 0.018 260);
+
   /* Typographic Stacks */
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
@@ -30,14 +49,36 @@
   /* Grid and Frame */
   --max-width: 1200px;
   --header-height: 64px;
+
+  /* Masterbuild Accessibility & Focus Tokens */
+  --focus-ring: #ef233c;
+  --focus-ring-offset: 2px;
+  --status-ok: #ef233c;
+  --status-warn: #ff5722;
+  --status-err: #d90429;
 }
 
 /* ==========================================================================
    DARK THEME (DEFAULT BERSERK ECLIPSE OBSIDIAN & BLOOD CRIMSON)
+   TIER 2 (SEMANTICS) & TIER 3 (COMPONENTS)
    ========================================================================== */
 :root,
 html[data-theme="dark"] {
-  /* Abyssal Surface Depths */
+  /* Tier 2: Semantics */
+  --canvas: #060609;
+  --surface-1: #0a0b10;
+  --surface-2: #12131b;
+  --hairline: rgba(239, 35, 60, 0.18);
+  --hairline-subtle: rgba(239, 35, 60, 0.10);
+  --hairline-hover: rgba(239, 35, 60, 0.44);
+  --ink: #f6f6f9;
+  --ink-secondary: #abaab8;
+  --ink-muted: #737385;
+  --primary: #ef233c;
+  --primary-hover: #ff334b;
+  --status: #ef233c;
+
+  /* Abyssal Surface Depths (Backwards Compatibility) */
   --bg-canvas: #060609;
   --bg-surface: #0a0b10;
   --bg-surface-elevated: #12131b;
@@ -85,7 +126,10 @@ html[data-theme="dark"] {
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(239, 35, 60, 0.12);
   --shadow-glow: 0 4px 34px rgba(239, 35, 60, 0.32);
 
-  /* Component and Pill Tokens */
+  /* Tier 3: Component Tokens */
+  --btn-primary-bg: #ef233c;
+  --btn-primary-ink: #ffffff;
+  --card-border: rgba(239, 35, 60, 0.18);
   --pill-bg: rgba(255, 255, 255, 0.04);
   --pill-bg-hover: rgba(239, 35, 60, 0.12);
   --dock-bg: rgba(10, 11, 16, 0.96);
@@ -104,6 +148,20 @@ html[data-theme="dark"] {
    LIGHT THEME (BERSERK MANGA INKED ON RAW TEXTURED PARCHMENT)
    ========================================================================== */
 html[data-theme="light"] {
+  /* Tier 2: Semantics */
+  --canvas: #f6f5ef;
+  --surface-1: #ffffff;
+  --surface-2: #ebe9e1;
+  --hairline: rgba(20, 20, 26, 0.16);
+  --hairline-subtle: rgba(20, 20, 26, 0.09);
+  --hairline-hover: rgba(186, 24, 27, 0.42);
+  --ink: #111116;
+  --ink-secondary: #484854;
+  --ink-muted: #757585;
+  --primary: #ba181b;
+  --primary-hover: #a4161a;
+  --status: #ba181b;
+
   /* Surface Depths */
   --bg-canvas: #f6f5ef;
   --bg-surface: #ffffff;
@@ -209,6 +267,24 @@ h1, h2, h3, h4, h5, h6 {
 
 p, li, blockquote {
   text-wrap: pretty;
+}
+
+/* Telemetry and Numbers Alignment (Prevents Layout Shifts) */
+.kpi-number,
+.dock-depth-indicator,
+.pill-count,
+.telemetry-val,
+.term-output,
+.routine-num,
+.dock-tab-index {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+}
+
+/* Masterbuild Accessible Focus Rings (6-State Matrix) */
+:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: var(--focus-ring-offset);
 }
 
 /* Custom Architectural Scrollbar */

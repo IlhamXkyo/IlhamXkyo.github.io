@@ -173,6 +173,31 @@
   box-shadow: 0 0 12px rgba(239, 35, 60, 0.25);
 }
 
+/* Masterbuild Skip Link (WCAG 2.2 AA) */
+.skip-link {
+  position: fixed;
+  top: -120px;
+  left: 24px;
+  z-index: 10000;
+  background: var(--accent-terracotta);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-md);
+  transition: top 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skip-link:focus-visible {
+  top: 20px;
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
 /* Master Layout Frame */
 .layout-container {
   position: relative;
@@ -180,6 +205,8 @@
   max-width: var(--max-width);
   margin: 0 auto;
   padding: 120px 24px 100px 24px;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* ==========================================================================
@@ -189,8 +216,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 30px 0 70px 0;
+  min-height: calc(100dvh - 64px);
+  padding: 40px 0 80px 0;
   position: relative;
 }
 
@@ -427,11 +456,12 @@
 }
 
 /* ==========================================================================
-   ENGINEERING ARSENAL & DISCIPLINES GRID
+   ENGINEERING ARSENAL & DISCIPLINES GRID (GAPLESS BENTO)
    ========================================================================== */
 .hero-routine-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense;
   gap: 16px;
   max-width: 100%;
   width: 100%;
@@ -450,6 +480,7 @@
   box-shadow: var(--shadow-card);
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
   position: relative;
+  overflow: hidden;
 }
 
 .routine-card:hover {
@@ -487,9 +518,102 @@
   color: var(--accent-terracotta);
 }
 
+/* ==========================================================================
+   INFINITE SYSTEMS TELEMETRY MARQUEE (TACTICAL HARDWARE BUS)
+   ========================================================================== */
+.systems-telemetry-marquee {
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  overflow: hidden;
+  user-select: none;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-default);
+  border-bottom: 1px solid var(--border-default);
+  padding: 12px 0;
+  margin-top: 24px;
+  margin-bottom: 80px;
+  position: relative;
+  display: flex;
+}
+
+.systems-telemetry-marquee::before,
+.systems-telemetry-marquee::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.systems-telemetry-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--bg-canvas), transparent);
+}
+
+.systems-telemetry-marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--bg-canvas), transparent);
+}
+
+.telemetry-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  white-space: nowrap;
+  animation: telemetryMarqueeScroll 38s linear infinite;
+  will-change: transform;
+}
+
+.systems-telemetry-marquee:hover .telemetry-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes telemetryMarqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-unit {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.04em;
+}
+
+.marquee-unit span {
+  color: var(--accent-terracotta);
+  font-weight: 700;
+}
+
+.marquee-sep {
+  color: var(--accent-terracotta);
+  font-size: 10px;
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .telemetry-marquee-track {
+    animation: none;
+    transform: none;
+    overflow-x: auto;
+  }
+}
+
 /* SECTION STRUCTURES */
 .section-block {
-  margin-bottom: 110px;
+  margin-bottom: clamp(120px, 15vh, 180px);
+  position: relative;
 }
 
 .section-head-editorial {
@@ -1056,11 +1180,12 @@
 }
 
 /* ==========================================================================
-   MANIFESTO GRID
+   MANIFESTO GRID (GAPLESS BENTO)
    ========================================================================== */
 .manifesto-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-auto-flow: dense;
   gap: 20px;
 }
 

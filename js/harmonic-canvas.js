@@ -13,6 +13,7 @@ export class HarmonicWaveSimulator {
     this.running = false;
 
     this.time = 0;
+    this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
     this.mouse = { x: -1000, y: -1000, px: -1000, py: -1000, isDown: false, speed: 0 };
     this.ripples = [];
 
@@ -125,7 +126,8 @@ export class HarmonicWaveSimulator {
   start() {
     if (this.running) return;
     this.running = true;
-    this.loop();
+    this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    this.loop(this.lastTime);
   }
 
   stop() {
@@ -136,15 +138,19 @@ export class HarmonicWaveSimulator {
     }
   }
 
-  loop() {
+  loop(now) {
     if (!this.running) return;
+
+    const currentNow = (typeof now === 'number' && now > 0) ? now : ((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now());
+    const dt = Math.min((currentNow - (this.lastTime || currentNow)) / 1000, 0.033);
+    this.lastTime = currentNow;
+    this.time += (dt > 0 ? dt : 0.016) * 1.5;
 
     const ctx = this.ctx;
     const w = this.canvas.width;
     const h = this.canvas.height;
     const centerY = h * 0.52;
 
-    this.time += 0.024;
     ctx.clearRect(0, 0, w, h);
 
     // Update and draw pointer shockwave ripples

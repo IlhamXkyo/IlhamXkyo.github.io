@@ -36,6 +36,7 @@ export class FluidSimulator {
     this.mouse = { x: -1000, y: -1000, px: -1000, py: -1000, down: false, speed: 0 };
     this.updraftSpeed = -0.92; // Natural upward thermal buoyancy
     this.time = 0;
+    this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
     this.scrollY = 0;
 
     this.resize = this.resize.bind(this);
@@ -357,10 +358,9 @@ export class FluidSimulator {
     return { vx, vy };
   }
 
-  updateParticles() {
+  updateParticles(dt = 0.016) {
     const w = this.canvas.width;
     const h = this.canvas.height;
-    this.time += 0.016;
 
     // 1. Update deep smoke nodes
     for (let i = 0; i < this.smokeNodes.length; i++) {
@@ -659,10 +659,15 @@ export class FluidSimulator {
     }
   }
 
-  loop() {
+  loop(now) {
     if (!this.running) return;
+    const currentNow = (typeof now === 'number' && now > 0) ? now : ((typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now());
+    const dt = Math.min((currentNow - (this.lastTime || currentNow)) / 1000, 0.033);
+    this.lastTime = currentNow;
+    this.time += dt > 0 ? dt : 0.016;
+
     this.updateGrid();
-    this.updateParticles();
+    this.updateParticles(dt);
     this.render();
     this.animId = requestAnimationFrame(this.loop);
   }
@@ -670,7 +675,8 @@ export class FluidSimulator {
   start() {
     if (this.running) return;
     this.running = true;
-    this.loop();
+    this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    this.loop(this.lastTime);
   }
 
   stop() {
