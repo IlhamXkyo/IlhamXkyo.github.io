@@ -334,7 +334,7 @@ export class ConstellationSimulator {
 
       // Label
       if (node.featured || isHovered) {
-        ctx.font = `${isHovered ? 'bold 12px' : '11px'} 'JetBrains Mono', Consolas, monospace`;
+        ctx.font = `${isHovered ? '600 12px' : '500 11px'} 'Outfit', -apple-system, sans-serif`;
         ctx.fillStyle = isHovered ? '#ffffff' : '#94a3b8';
         ctx.textAlign = 'left';
         ctx.fillText(node.name, node.x + r + 8, node.y + 4);

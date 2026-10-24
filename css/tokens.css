@@ -1,170 +1,169 @@
 /**
- * BERSERK KINETIC RESONANCE DESIGN TOKENS
- * Deep Eclipse obsidian void, forged iron steel, and Brand of Sacrifice blood crimson.
- * High-contrast dark fantasy aesthetics: blood red pigments, cold blade steel, and burning ash embers.
- * Pure craft and architectural restraint. Zero AI slop neon.
+ * MINIMALIST EDITORIAL & RESILIENT SYSTEMS DESIGN TOKENS
+ * Obsidian charcoal void, warm bone light surfaces, hairline borders, and purposeful crimson accent.
+ * High contrast, refined typography, and tactile restraint. Zero AI slop neon.
  */
 
 :root {
   /* Typographic Stacks */
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace; /* taste-skill-ignore */
+  --font-serif: 'Newsreader', Georgia, serif;
 
   /* Modular Typographic Scale */
-  --font-hero: clamp(3.8rem, 9.5vw, 7.5rem);
-  --font-h1: clamp(2.3rem, 4.8vw, 3.8rem);
-  --font-h2: clamp(1.55rem, 3.2vw, 2.3rem);
-  --font-h3: clamp(1.15rem, 2vw, 1.45rem);
+  --font-hero: clamp(3.2rem, 8vw, 6.5rem);
+  --font-h1: clamp(2.2rem, 4.4vw, 3.4rem);
+  --font-h2: clamp(1.4rem, 2.8vw, 2rem);
+  --font-h3: clamp(1.1rem, 1.8vw, 1.35rem);
   --font-body: 1rem;
-  --font-small: 0.85rem;
-  --font-micro: 0.72rem;
+  --font-small: 0.875rem;
+  --font-micro: 0.75rem;
 
   /* Geometry and Crisp Radii */
   --radius-xs: 4px;
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
   --radius-full: 9999px;
 
   /* Grid and Frame */
-  --max-width: 1200px;
-  --header-height: 64px;
+  --max-width: 1160px;
+  --header-height: 56px;
 }
 
 /* ==========================================================================
-   DARK THEME (DEFAULT BERSERK ECLIPSE OBSIDIAN & BLOOD CRIMSON)
+   DARK THEME (DEFAULT OBSIDIAN CHARCOAL & MINIMALIST CRIMSON)
    ========================================================================== */
 :root,
 html[data-theme="dark"] {
   /* Abyssal Surface Depths */
-  --bg-canvas: #060609;
-  --bg-surface: #0a0b10;
-  --bg-surface-elevated: #12131b;
-  --bg-surface-card: #0d0e14;
-  --bg-surface-glass: rgba(10, 11, 16, 0.94);
-  --bg-input: #07080c;
+  --bg-canvas: #090a0d;
+  --bg-surface: #101117;
+  --bg-surface-elevated: #151720;
+  --bg-surface-card: #12131a;
+  --bg-surface-glass: rgba(16, 17, 23, 0.88);
+  --bg-input: #0c0d12;
 
-  /* Architectural Hairline Borders (Forged Iron & Crimson Steel) */
-  --border-subtle: rgba(239, 35, 60, 0.10);
-  --border-default: rgba(239, 35, 60, 0.18);
-  --border-hover: rgba(239, 35, 60, 0.44);
-  --border-accent: rgba(239, 35, 60, 0.75);
+  /* Architectural Hairline Borders */
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-default: rgba(255, 255, 255, 0.11);
+  --border-hover: rgba(255, 255, 255, 0.22);
+  --border-accent: rgba(225, 29, 72, 0.75);
 
   /* Cold Steel & Ash Typography Inks */
-  --text-primary: #f6f6f9;
-  --text-secondary: #abaab8;
-  --text-muted: #737385;
-  --text-dim: #4f4f60;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-dim: #475569;
 
-  /* Berserk Blood & Forge Inks */
-  --accent-terracotta: #ef233c;
-  --accent-terracotta-soft: rgba(239, 35, 60, 0.15);
-  --accent-saffron: #ff5722;
-  --accent-saffron-soft: rgba(255, 87, 34, 0.15);
-  --accent-slate: #d90429;
-  --accent-slate-soft: rgba(217, 4, 41, 0.15);
-  --accent-sage: #e11d48;
-  --accent-sage-soft: rgba(225, 29, 72, 0.15);
-  --accent-plum: #8d0801;
-  --accent-plum-soft: rgba(141, 8, 1, 0.15);
+  /* Minimalist Purposeful Accents */
+  --accent-terracotta: #e11d48;
+  --accent-terracotta-soft: rgba(225, 29, 72, 0.12);
+  --accent-saffron: #f97316;
+  --accent-saffron-soft: rgba(249, 115, 22, 0.12);
+  --accent-slate: #94a3b8;
+  --accent-slate-soft: rgba(148, 163, 184, 0.12);
+  --accent-sage: #10b981;
+  --accent-sage-soft: rgba(16, 185, 129, 0.12);
+  --accent-plum: #f43f5e;
+  --accent-plum-soft: rgba(244, 63, 94, 0.12);
 
   /* Semantic Compatibility Mappings */
-  --accent-azure: #ff2a4b;
-  --accent-azure-soft: rgba(255, 42, 75, 0.15);
-  --accent-emerald: #ef233c;
-  --accent-emerald-soft: rgba(239, 35, 60, 0.15);
-  --accent-amber: #ff5722;
-  --accent-amber-soft: rgba(255, 87, 34, 0.15);
-  --accent-purple: #8d0801;
-  --accent-purple-soft: rgba(141, 8, 1, 0.15);
+  --accent-azure: #e11d48;
+  --accent-azure-soft: rgba(225, 29, 72, 0.12);
+  --accent-emerald: #10b981;
+  --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+  --accent-amber: #f59e0b;
+  --accent-amber-soft: rgba(245, 158, 11, 0.12);
+  --accent-purple: #f43f5e;
+  --accent-purple-soft: rgba(244, 63, 94, 0.12);
 
-  /* Tactile Shadows & Blood Ember Glows */
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.7);
-  --shadow-md: 0 16px 44px rgba(0, 0, 0, 0.85);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(239, 35, 60, 0.12);
-  --shadow-glow: 0 4px 34px rgba(239, 35, 60, 0.32);
+  /* Flat Surfaces at Rest (Overlays Carry Shadows) */
+  --shadow-sm: none;
+  --shadow-md: 0 16px 40px rgba(0, 0, 0, 0.65);
+  --shadow-card: none;
+  --shadow-glow: none;
 
   /* Component and Pill Tokens */
   --pill-bg: rgba(255, 255, 255, 0.04);
-  --pill-bg-hover: rgba(239, 35, 60, 0.12);
-  --dock-bg: rgba(10, 11, 16, 0.96);
+  --pill-bg-hover: rgba(255, 255, 255, 0.08);
+  --dock-bg: rgba(16, 17, 23, 0.92);
   --dock-tabs-bg: rgba(255, 255, 255, 0.04);
-  --dock-tabs-border: rgba(239, 35, 60, 0.14);
-  --dock-pill-bg: rgba(239, 35, 60, 0.18);
-  --dock-pill-border: rgba(239, 35, 60, 0.35);
-  --dock-meta-btn-bg: rgba(255, 255, 255, 0.05);
-  --overlay-bg: rgba(6, 6, 9, 0.92);
-  --terminal-bg: rgba(10, 11, 16, 0.98);
-  --glare-color: rgba(239, 35, 60, 0.08);
-  --badge-bg: rgba(239, 35, 60, 0.08);
+  --dock-tabs-border: rgba(255, 255, 255, 0.08);
+  --dock-pill-bg: rgba(255, 255, 255, 0.10);
+  --dock-pill-border: rgba(255, 255, 255, 0.16);
+  --dock-meta-btn-bg: rgba(255, 255, 255, 0.04);
+  --overlay-bg: rgba(9, 10, 13, 0.85);
+  --terminal-bg: rgba(16, 17, 23, 0.98);
+  --glare-color: rgba(255, 255, 255, 0.04);
+  --badge-bg: rgba(255, 255, 255, 0.05);
 }
 
 /* ==========================================================================
-   LIGHT THEME (BERSERK MANGA INKED ON RAW TEXTURED PARCHMENT)
+   LIGHT THEME (WARM BONE PARCHMENT & DEEP INK)
    ========================================================================== */
 html[data-theme="light"] {
   /* Surface Depths */
-  --bg-canvas: #f6f5ef;
+  --bg-canvas: #faf9f6;
   --bg-surface: #ffffff;
-  --bg-surface-elevated: #ebe9e1;
+  --bg-surface-elevated: #f2f0ea;
   --bg-surface-card: #ffffff;
-  --bg-surface-glass: rgba(246, 245, 239, 0.94);
-  --bg-input: #eae8df;
+  --bg-surface-glass: rgba(255, 255, 255, 0.92);
+  --bg-input: #f0eee8;
 
   /* Architectural Hairline Borders */
-  --border-subtle: rgba(20, 20, 26, 0.09);
-  --border-default: rgba(20, 20, 26, 0.16);
-  --border-hover: rgba(186, 24, 27, 0.42);
-  --border-accent: rgba(186, 24, 27, 0.65);
+  --border-subtle: rgba(15, 23, 42, 0.07);
+  --border-default: rgba(15, 23, 42, 0.12);
+  --border-hover: rgba(15, 23, 42, 0.24);
+  --border-accent: rgba(225, 29, 72, 0.65);
 
   /* Deep Sumi Ink Typography */
-  --text-primary: #111116;
-  --text-secondary: #484854;
-  --text-muted: #757585;
-  --text-dim: #9e9ea8;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-dim: #94a3b8;
 
-  /* Blood Red & Charcoal Inks for Light Mode */
-  --accent-terracotta: #ba181b;
-  --accent-terracotta-soft: rgba(186, 24, 27, 0.12);
-  --accent-saffron: #a4161a;
-  --accent-saffron-soft: rgba(164, 22, 26, 0.12);
-  --accent-slate: #660708;
-  --accent-slate-soft: rgba(102, 7, 8, 0.12);
-  --accent-sage: #8b0000;
-  --accent-sage-soft: rgba(139, 0, 0, 0.12);
-  --accent-plum: #480ca8;
-  --accent-plum-soft: rgba(72, 12, 168, 0.12);
+  /* Crimson & Warm Tones for Light Mode */
+  --accent-terracotta: #be123c;
+  --accent-terracotta-soft: rgba(190, 18, 60, 0.10);
+  --accent-saffron: #ea580c;
+  --accent-saffron-soft: rgba(234, 88, 12, 0.10);
+  --accent-slate: #475569;
+  --accent-slate-soft: rgba(71, 85, 105, 0.10);
+  --accent-sage: #059669;
+  --accent-sage-soft: rgba(5, 150, 105, 0.10);
+  --accent-plum: #be123c;
+  --accent-plum-soft: rgba(190, 18, 60, 0.10);
 
   /* Semantic Compatibility Mappings */
-  --accent-azure: #ba181b;
-  --accent-azure-soft: rgba(186, 24, 27, 0.12);
-  --accent-emerald: #a4161a;
-  --accent-emerald-soft: rgba(164, 22, 26, 0.12);
-  --accent-amber: #660708;
-  --accent-amber-soft: rgba(102, 7, 8, 0.12);
-  --accent-purple: #480ca8;
-  --accent-purple-soft: rgba(72, 12, 168, 0.12);
+  --accent-azure: #be123c;
+  --accent-azure-soft: rgba(190, 18, 60, 0.10);
+  --accent-emerald: #059669;
+  --accent-emerald-soft: rgba(5, 150, 105, 0.10);
+  --accent-amber: #d97706;
+  --accent-amber-soft: rgba(217, 119, 6, 0.10);
+  --accent-purple: #be123c;
+  --accent-purple-soft: rgba(190, 18, 60, 0.10);
 
-  /* Tactile Shadows */
-  --shadow-sm: 0 2px 8px rgba(20, 20, 26, 0.08);
-  --shadow-md: 0 14px 34px rgba(20, 20, 26, 0.14);
-  --shadow-card: 0 4px 18px rgba(20, 20, 26, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --shadow-glow: 0 4px 22px rgba(186, 24, 27, 0.16);
+  /* Flat Shadows */
+  --shadow-sm: none;
+  --shadow-md: 0 16px 40px rgba(15, 23, 42, 0.10);
+  --shadow-card: none;
+  --shadow-glow: none;
 
   /* Component and Pill Tokens */
-  --pill-bg: rgba(20, 20, 26, 0.05);
-  --pill-bg-hover: rgba(20, 20, 26, 0.09);
-  --dock-bg: rgba(255, 255, 255, 0.96);
-  --dock-tabs-bg: rgba(20, 20, 26, 0.05);
-  --dock-tabs-border: rgba(20, 20, 26, 0.08);
-  --dock-pill-bg: rgba(186, 24, 27, 0.12);
-  --dock-pill-border: rgba(186, 24, 27, 0.25);
-  --dock-meta-btn-bg: rgba(20, 20, 26, 0.05);
-  --overlay-bg: rgba(20, 20, 26, 0.6);
-  --terminal-bg: rgba(246, 245, 239, 0.98);
-  --glare-color: rgba(20, 20, 26, 0.04);
-  --badge-bg: rgba(20, 20, 26, 0.05);
+  --pill-bg: rgba(15, 23, 42, 0.04);
+  --pill-bg-hover: rgba(15, 23, 42, 0.08);
+  --dock-bg: rgba(255, 255, 255, 0.94);
+  --dock-tabs-bg: rgba(15, 23, 42, 0.04);
+  --dock-tabs-border: rgba(15, 23, 42, 0.08);
+  --dock-pill-bg: rgba(15, 23, 42, 0.08);
+  --dock-pill-border: rgba(15, 23, 42, 0.14);
+  --dock-meta-btn-bg: rgba(15, 23, 42, 0.04);
+  --overlay-bg: rgba(15, 23, 42, 0.4);
+  --terminal-bg: rgba(255, 255, 255, 0.98);
+  --glare-color: rgba(15, 23, 42, 0.03);
+  --badge-bg: rgba(15, 23, 42, 0.04);
 }
 
 *, *::before, *::after {
@@ -188,7 +187,7 @@ html {
 }
 
 body {
-  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;
@@ -211,14 +210,14 @@ p, li, blockquote {
   text-wrap: pretty;
 }
 
-/* Custom Architectural Scrollbar */
+/* Custom Minimalist Scrollbar */
 html {
-  scrollbar-color: rgba(239, 35, 60, 0.3) var(--bg-canvas);
+  scrollbar-color: rgba(255, 255, 255, 0.15) var(--bg-canvas);
   scrollbar-width: thin;
 }
 
 html[data-theme="light"] {
-  scrollbar-color: rgba(186, 24, 27, 0.3) var(--bg-canvas);
+  scrollbar-color: rgba(15, 23, 42, 0.15) var(--bg-canvas);
 }
 
 ::-webkit-scrollbar {
@@ -228,11 +227,18 @@ html[data-theme="light"] {
   background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(239, 35, 60, 0.28);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(239, 35, 60, 0.55);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+html[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background: rgba(15, 23, 42, 0.15);
+}
+html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 23, 42, 0.28);
 }
 
 /* Accessibility: Respect Reduced Motion Preference */

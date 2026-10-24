@@ -184,7 +184,7 @@ export class PhysicsToy {
 
       ctx.shadowColor = 'transparent';
       ctx.fillStyle = b.color;
-      ctx.font = 'bold 11px "JetBrains Mono", monospace';
+      ctx.font = '600 11px "Outfit", -apple-system, sans-serif';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(b.text, 0, 1);

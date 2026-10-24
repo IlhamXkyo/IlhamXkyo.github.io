@@ -45,6 +45,7 @@ export class CommandPalette {
   createDOM() {
     this.backdrop = document.createElement('div');
     this.backdrop.className = 'command-palette-backdrop';
+    this.backdrop.setAttribute('data-ui', 'palette');
 
     this.backdrop.innerHTML = `
       <div class="command-palette-modal">
@@ -155,7 +156,7 @@ export class CommandPalette {
 
   renderResults() {
     if (this.filteredItems.length === 0) {
-      this.resultsList.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 13px;">No matching results for "${this.input.value}"</div>`;
+      this.resultsList.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--text-muted); font-family: var(--font-sans); font-size: 13px;">No matching results for "${this.input.value}"</div>`;
       return;
     }
 
@@ -163,7 +164,7 @@ export class CommandPalette {
       .map((item, idx) => `
         <div class="cp-result-item ${idx === this.selectedIndex ? 'selected' : ''}" data-idx="${idx}">
           <div class="cp-result-left">
-            <span class="cp-result-icon">${item.type === 'action' ? '⚡' : '▹'}</span>
+            <span class="cp-result-icon">${item.type === 'action' ? '◈' : '›'}</span>
             <div>
               <span class="cp-result-name">${item.name}</span>
               <span class="cp-result-desc">${item.desc ? item.desc.slice(0, 55) : ''}</span>

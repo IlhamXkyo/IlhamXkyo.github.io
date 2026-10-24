@@ -10,21 +10,19 @@
   gap: 36px;
 }
 
-.workbench-card {
+[data-ui="workbench"].workbench-card {
   background: var(--bg-surface-card);
   border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease;
 }
 
-.workbench-card:hover {
+[data-ui="workbench"].workbench-card:hover {
   border-color: var(--border-hover);
-  box-shadow: var(--shadow-md);
 }
 
-.workbench-top-bar {
+[data-ui="workbench"] .workbench-top-bar {
   padding: 14px 20px;
   background: var(--bg-surface-elevated);
   border-bottom: 1px solid var(--border-subtle);
@@ -42,7 +40,7 @@
 }
 
 .wb-tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -84,7 +82,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
 }
 
@@ -104,7 +102,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-.wb-controls-bar {
+[data-ui="workbench"] .wb-controls-bar {
   padding: 12px 20px;
   background: var(--bg-surface);
   border-top: 1px solid var(--border-subtle);
@@ -119,7 +117,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
 }
 
@@ -131,7 +129,7 @@
   background: var(--bg-input);
   border: 1px solid var(--border-default);
   color: var(--text-primary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   padding: 5px 10px;
   border-radius: var(--radius-xs);
@@ -154,14 +152,13 @@
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-default);
   color: var(--text-secondary);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
   padding: 7px 14px;
   border-radius: var(--radius-xs);
   cursor: pointer;
   transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
 
 .wb-btn:hover {
@@ -169,14 +166,12 @@
   border-color: var(--border-hover);
   color: var(--text-primary);
   transform: translateY(-1px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 4px 10px rgba(0, 0, 0, 0.25);
 }
 
 .wb-btn.active {
-  background: linear-gradient(180deg, #ff1738 0%, #b91c1c 100%);
-  border-color: rgba(255, 255, 255, 0.25);
+  background: var(--accent-terracotta);
+  border-color: transparent;
   color: #ffffff;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 4px 12px rgba(239, 35, 60, 0.45);
 }
 
 .wb-btn.secondary {
@@ -226,14 +221,14 @@
   overflow: hidden;
 }
 
-.cm-pane-header {
+[data-ui="workbench"] .cm-pane-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 8px 12px;
   background: rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid var(--border-subtle);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   letter-spacing: 0.05em;
   color: var(--text-muted);
@@ -314,7 +309,7 @@
 }
 
 .cm-vault-lbl {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
   color: var(--text-muted);
@@ -329,7 +324,7 @@
 }
 
 .cm-chip {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   padding: 2px 7px;
   border-radius: var(--radius-xs);
@@ -345,7 +340,7 @@
 }
 
 .cm-toast {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--accent-sage);
   opacity: 0;
@@ -364,7 +359,8 @@
   background: var(--bg-canvas);
 }
 
-.pw-term-screen {
+[data-ui="workbench"] code,
+[data-ui="workbench"] .pw-term-screen {
   background: var(--bg-input);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
@@ -384,7 +380,7 @@
 }
 
 .pw-cli-hint {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--text-muted);
 }
@@ -436,7 +432,7 @@
 }
 
 .sl-cadence-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;

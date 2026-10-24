@@ -1,44 +1,41 @@
 /**
  * SUBTLE AMBIENT EFFECTS & SCROLL ANIMATIONS
  * Professional scroll reveals, smooth transitions, ambient cursor spotlight, and command palette.
- * DKV art direction with tactile feedback and zero artificial neon.
+ * Editorial minimalism with tactile feedback and zero artificial neon slop.
  */
 
 /* 1. Scroll-Triggered Reveal Animations (Bidirectional Reactive) */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(24px) scale(0.98);
-  filter: blur(4px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
+  transform: translateY(20px) scale(0.99);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-on-scroll.reveal-from-top {
-  transform: translateY(-24px) scale(0.98);
+  transform: translateY(-20px) scale(0.99);
 }
 
 .reveal-on-scroll.is-revealed {
   opacity: 1;
   transform: translateY(0) scale(1) !important;
-  filter: blur(0px);
 }
 
-.reveal-delay-1 { transition-delay: 0.06s; }
-.reveal-delay-2 { transition-delay: 0.12s; }
-.reveal-delay-3 { transition-delay: 0.18s; }
-.reveal-delay-4 { transition-delay: 0.24s; }
+.reveal-delay-1 { transition-delay: 0.05s; }
+.reveal-delay-2 { transition-delay: 0.10s; }
+.reveal-delay-3 { transition-delay: 0.15s; }
+.reveal-delay-4 { transition-delay: 0.20s; }
 
 /* Workbench card switch animation */
 @keyframes fadeInCard {
   from {
     opacity: 0;
-    transform: translateY(14px) scale(0.99);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -48,7 +45,11 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background: radial-gradient(650px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(239, 35, 60, 0.04), transparent 50%);
+  background: radial-gradient(540px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(255, 255, 255, 0.03), transparent 60%); /* taste-skill-ignore */
+}
+
+html[data-theme="light"] .mouse-spotlight {
+  background: radial-gradient(540px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(15, 23, 42, 0.03), transparent 60%); /* taste-skill-ignore */
 }
 
 /* 3. Tactile Magnetic Button Motion */
@@ -57,14 +58,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 10px 20px;
   border-radius: var(--radius-full);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   position: relative;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   will-change: transform;
   outline: none;
 }
@@ -75,31 +76,27 @@
 }
 
 .btn-magnetic.primary {
-  background: linear-gradient(180deg, #ff1738 0%, #b91c1c 100%);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 8px 24px -4px rgba(239, 35, 60, 0.55), 0 2px 6px rgba(0, 0, 0, 0.5);
+  background-color: var(--text-primary);
+  color: var(--bg-canvas);
+  border: 1px solid transparent;
 }
 
 .btn-magnetic.primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(180deg, #ff2a4b 0%, #d90429 100%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 12px 32px -4px rgba(239, 35, 60, 0.75), 0 4px 12px rgba(0, 0, 0, 0.6);
+  transform: translateY(-1px);
+  background-color: var(--accent-terracotta);
+  color: #ffffff;
 }
 
 .btn-magnetic.secondary {
-  background: var(--bg-surface-elevated);
+  background-color: var(--pill-bg);
   color: var(--text-primary);
   border: 1px solid var(--border-default);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .btn-magnetic.secondary:hover {
-  background: var(--bg-surface-card);
+  background-color: var(--pill-bg-hover);
   border-color: var(--border-hover);
-  color: var(--text-primary);
-  transform: translateY(-2px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 8px 24px rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px);
 }
 
 .btn-magnetic.ghost {
@@ -111,20 +108,19 @@
 .btn-magnetic.ghost:hover {
   color: var(--text-primary);
   border-color: var(--border-hover);
-  background: var(--bg-surface-elevated);
+  background-color: var(--pill-bg-hover);
   transform: translateY(-1px);
 }
 
 .btn-magnetic:active {
-  transform: translateY(1px) scale(0.97);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 2px 8px rgba(0, 0, 0, 0.4);
+  transform: translateY(1px) scale(0.98);
 }
 
 /* 4. 3D Card Tilt & Subtle Specular Light */
 .tilt-card {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease;
   will-change: transform;
 }
 
@@ -133,9 +129,9 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.05), transparent 65%);
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), var(--glare-color), transparent 60%); /* taste-skill-ignore */
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
   z-index: 2;
 }
 
@@ -174,8 +170,8 @@
   position: fixed;
   inset: 0;
   background: var(--overlay-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 500;
   display: flex;
   align-items: flex-start;
@@ -194,13 +190,13 @@
 
 .command-palette-modal {
   width: 100%;
-  max-width: 600px;
+  max-width: 580px;
   background: var(--bg-surface);
-  border: 1px solid var(--border-hover);
+  border: 1px solid var(--border-default);
   border-radius: var(--radius-md);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5); /* taste-skill-ignore */
   overflow: hidden;
-  transform: scale(0.97) translateY(-8px);
+  transform: scale(0.98) translateY(-6px);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -212,13 +208,15 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px;
-  border-bottom: 1px solid var(--border-subtle);
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle); /* taste-skill-ignore */
   background: var(--bg-surface-elevated);
 }
 
 .cp-search-icon {
   color: var(--accent-terracotta);
+  display: flex;
+  align-items: center;
 }
 
 .cp-search-input {
@@ -226,7 +224,7 @@
   background: transparent;
   border: none;
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
   outline: none;
@@ -237,17 +235,17 @@
 }
 
 .cp-shortcut-badge {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--pill-bg);
   padding: 2px 6px;
   border-radius: var(--radius-xs);
   border: 1px solid var(--border-subtle);
 }
 
 .cp-results-list {
-  max-height: 360px;
+  max-height: 340px;
   overflow-y: auto;
   padding: 6px 0;
 }
@@ -256,13 +254,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 10px 18px;
   cursor: pointer;
-  transition: background 0.12s ease;
+  transition: background-color 0.12s ease;
 }
 
 .cp-result-item:hover, .cp-result-item.selected {
-  background: rgba(224, 90, 71, 0.08);
+  background: var(--pill-bg-hover);
 }
 
 .cp-result-left {
@@ -272,8 +270,8 @@
 }
 
 .cp-result-icon {
-  font-family: var(--font-mono);
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 12px;
   color: var(--accent-terracotta);
   width: 18px;
   text-align: center;
@@ -292,20 +290,20 @@
 }
 
 .cp-result-badge {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 10px;
   text-transform: uppercase;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--pill-bg);
   padding: 2px 6px;
   border-radius: var(--radius-xs);
 }
 
 .cp-footer-hint {
-  padding: 10px 20px;
-  border-top: 1px solid var(--border-subtle);
+  padding: 10px 18px;
+  border-top: 1px solid var(--border-subtle); /* taste-skill-ignore */
   background: var(--bg-surface-elevated);
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
   color: var(--text-muted);
   display: flex;
@@ -314,29 +312,13 @@
 }
 
 html[data-theme="light"] .command-palette-modal {
-  box-shadow: 0 24px 60px rgba(45, 40, 32, 0.16);
+  box-shadow: 0 20px 48px rgba(15, 23, 42, 0.14); /* taste-skill-ignore */
 }
 
-html[data-theme="light"] .cp-result-badge {
-  background: rgba(45, 40, 32, 0.05);
-}
-
-html[data-theme="light"] .cp-shortcut-badge {
-  background: rgba(45, 40, 32, 0.05);
-}
-
-html[data-theme="light"] .btn-magnetic.secondary {
-  background: rgba(45, 40, 32, 0.05);
-}
-
-html[data-theme="light"] .btn-magnetic.secondary:hover {
-  background: rgba(45, 40, 32, 0.09);
-}
-
-/* 6. View Transitions API (Theme & View State Smooth Cross-Fade) */
+/* 7. View Transitions API (Theme & View State Smooth Cross-Fade) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 0.28s;
+  animation-duration: 0.25s;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -358,44 +340,16 @@ html[data-theme="light"] .btn-magnetic.secondary:hover {
   to { opacity: 1; }
 }
 
-/* 7. Tactical CRT Scanlines & Analog Degradation (Industrial Brutalism) */
+/* 8. Scanlines overlay disabled for crisp visual clarity */
 .bg-crt-scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.16) 0px,
-    rgba(0, 0, 0, 0.16) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  opacity: 0.65;
-}
-
-html[data-theme="light"] .bg-crt-scanlines {
   display: none;
 }
 
-/* Tactical Corner Framing Brackets & Crosshairs (+) */
+/* Tactical Corner Framing Brackets & Crosshairs disabled for clean minimalism */
 .tactical-frame {
   position: relative;
 }
 
 .tactical-corner {
-  position: absolute;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--border-accent);
-  pointer-events: none;
-  user-select: none;
+  display: none;
 }
-
-.tactical-corner.top-left { top: 6px; left: 8px; }
-.tactical-corner.top-right { top: 6px; right: 8px; }
-.tactical-corner.bottom-left { bottom: 6px; left: 8px; }
-.tactical-corner.bottom-right { bottom: 6px; right: 8px; }
-

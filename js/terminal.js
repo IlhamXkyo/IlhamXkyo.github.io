@@ -254,7 +254,7 @@ export class KyoTerminal {
         break;
 
       case 'sudo':
-        this.log(`\x1b[32m[✓] ilham is already in the sudoers file. Permission granted.\x1b[0m`);
+        this.log(`\x1b[32m[OK] ilham is already in the sudoers file. Permission granted.\x1b[0m`);
         if (arg) {
           this.execute(arg);
         }
@@ -273,7 +273,7 @@ export class KyoTerminal {
         }
 
         if (cmd === 'inspect' && this.onOpenInspector) {
-          this.log(`\x1b[32m[✓] Launching CAD Datasheet Drawer for ${repo.name}...\x1b[0m`);
+          this.log(`\x1b[32m[OK] Launching CAD Datasheet Drawer for ${repo.name}...\x1b[0m`);
           this.onOpenInspector(repo.id);
         } else {
           this.log(`\x1b[1;36m[PROJECT: ${repo.name}]\x1b[0m`);
@@ -335,10 +335,10 @@ export class KyoTerminal {
       case 'audio':
         if (arg === 'on') {
           if (!sound.isEnabled()) sound.toggle();
-          this.log(`\x1b[32m[✓] Procedural Web Audio synthesizer enabled.\x1b[0m`);
+          this.log(`\x1b[32m[OK] Procedural Web Audio synthesizer enabled.\x1b[0m`);
         } else if (arg === 'off') {
           if (sound.isEnabled()) sound.toggle();
-          this.log(`\x1b[33m[✓] Procedural Web Audio synthesizer muted.\x1b[0m`);
+          this.log(`\x1b[33m[OK] Procedural Web Audio synthesizer muted.\x1b[0m`);
         } else {
           const current = sound.toggle();
           this.log(`\x1b[32mAudio synthesizer is now: ${current ? 'ON' : 'MUTED'}\x1b[0m`);

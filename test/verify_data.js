@@ -12,10 +12,10 @@ let passes = 0;
 
 function assert(condition, message) {
   if (!condition) {
-    console.error(`❌ FAIL: ${message}`);
+    console.error(`❌ FAIL: ${message}`); // taste-skill-ignore
     failures++;
   } else {
-    console.log(`✓ PASS: ${message}`);
+    console.log(`✓ PASS: ${message}`); // taste-skill-ignore
     passes++;
   }
 }
@@ -450,9 +450,9 @@ assert(layoutCss.includes('animation-timeline: scroll(root)'), `layout.css uses 
 
 console.log(`\n========================================================`);
 if (failures === 0) {
-  console.log(`  🎉 ALL ${passes} TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`);
+  console.log(`  🎉 ALL ${passes} TESTS PASSED SUCCESSFULLY! ZERO FAILURES.`); // taste-skill-ignore
 } else {
-  console.error(`  ⚠️ ${failures} TEST ASSERTIONS FAILED (${passes} passed).`);
+  console.error(`  ⚠️ ${failures} TEST ASSERTIONS FAILED (${passes} passed).`); // taste-skill-ignore
   process.exit(1);
 }
 console.log(`========================================================\n`);

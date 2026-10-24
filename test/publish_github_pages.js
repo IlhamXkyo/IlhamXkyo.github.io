@@ -123,7 +123,7 @@ async function main() {
 
   const liveUrl = `https://${repoName.toLowerCase()}`;
   console.log('\n======================================================');
-  console.log(`🎉 LIVE GITHUB PAGES URL: ${liveUrl}`);
+  console.log(`[OK] LIVE GITHUB PAGES URL: ${liveUrl}`);
   console.log('======================================================\n');
 }
 

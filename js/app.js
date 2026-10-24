@@ -330,7 +330,7 @@ class App {
 
     if (repos.length === 0) {
       grid.innerHTML = `
-        <div style="grid-column: 1 / -1; padding: 60px 20px; text-align: center; color: var(--text-muted); font-family: var(--font-mono);">
+        <div style="grid-column: 1 / -1; padding: 60px 20px; text-align: center; color: var(--text-muted); font-family: var(--font-sans);">
           <div style="font-size: 24px; margin-bottom: 8px;">◈</div>
           <div>No repositories matching "${this.searchQuery}" in category '${this.activeFilter}'</div>
         </div>

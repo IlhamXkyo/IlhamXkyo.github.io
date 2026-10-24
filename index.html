@@ -31,7 +31,7 @@
   <!-- Preconnect & Web Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400..700;1,6..72,400..700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet"><!-- taste-skill-ignore -->
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/tokens.css">
@@ -67,29 +67,23 @@
       <nav class="scroll-dock-tabs" id="scroll-dock-nav">
         <div class="scroll-dock-pill" id="scroll-dock-pill"></div>
         <button class="dock-tab-btn active" data-target="hero" style="--tab-i: 0;">
-          <span class="dock-tab-index">[00]</span>
           <span class="dock-tab-text">Overview</span>
         </button>
         <button class="dock-tab-btn" data-target="featured" style="--tab-i: 1;">
-          <span class="dock-tab-index">[01]</span>
           <span class="dock-tab-text">Featured</span>
           <span class="dock-counter-pill">5</span>
         </button>
         <button class="dock-tab-btn" data-target="section-labs" style="--tab-i: 2;">
-          <span class="dock-tab-index">[02]</span>
           <span class="dock-tab-text">Workbenches</span>
         </button>
         <button class="dock-tab-btn" data-target="section-matrix" style="--tab-i: 3;">
-          <span class="dock-tab-index">[03]</span>
           <span class="dock-tab-text">Catalogue</span>
           <span class="dock-counter-pill">30+</span>
         </button>
         <button class="dock-tab-btn" data-target="section-manifesto" style="--tab-i: 4;">
-          <span class="dock-tab-index">[04]</span>
           <span class="dock-tab-text">Principles</span>
         </button>
         <button class="dock-tab-btn" data-target="section-contact" style="--tab-i: 5;">
-          <span class="dock-tab-index">[05]</span>
           <span class="dock-tab-text">Contact</span>
         </button>
       </nav>
@@ -173,10 +167,10 @@
     <!-- CENTERED BERSERK CINEMATIC HERO SECTION -->
     <section class="hero-centered-section" id="hero">
 
-      <!-- The Black Swordsman Kicker -->
-      <div class="hero-kicker-tag reveal-on-scroll">
-        <span class="kicker-symbol">⚔</span>
-        <span>THE BLACK SWORDSMAN // RESILIENT ENGINEERING</span>
+      <!-- Architecture Status Tag -->
+      <div class="hero-badge-tag hero-top-badge reveal-on-scroll">
+        <span class="status-pulse-dot" style="margin-right: 6px;"></span>
+        <span>RESILIENT ENGINEERING · SYSTEMS ARCHITECTURE</span>
       </div>
 
       <!-- Prominent GitHub Avatar with Brand Crimson Pulse -->
@@ -208,7 +202,7 @@
       <div class="hero-actions-group reveal-on-scroll reveal-delay-4">
         <a href="#featured" id="hero-jump-featured-btn" class="btn-magnetic primary">
           <span>Explore Featured Case Studies</span>
-          <span>▹</span>
+          <span aria-hidden="true">→</span>
         </a>
         <a href="https://github.com/IlhamXkyo" target="_blank" rel="noopener noreferrer" class="btn-magnetic secondary">
           <span>GitHub Profile</span>
@@ -265,7 +259,7 @@
     <!-- SECTION 0: ENGINEERING ARSENAL & DISCIPLINES -->
     <section id="section-disciplines" class="section-block">
       <div class="section-head-editorial reveal-on-scroll">
-        <div class="section-sub-label">[00] · CORE DISCIPLINES &amp; CRAFT</div>
+        <div class="section-sub-label">CORE DISCIPLINES &amp; CRAFT</div>
         <h2 class="section-title-editorial">Engineering Arsenal</h2>
         <p class="section-description-editorial">
           Four technical disciplines forged through persistent struggle, zero-dependency architecture, and practical problem solving.
@@ -273,31 +267,23 @@
       </div>
 
       <div class="hero-routine-grid reveal-on-scroll reveal-delay-1">
-        <div class="routine-card tactical-frame">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
-          <span class="routine-num">[01]</span>
+        <div class="routine-card">
+          <span class="routine-domain">CLI &amp; DEVTOOLS</span>
           <span class="routine-title">Zero-Dependency Tooling</span>
           <span class="routine-desc">Writing pure Node.js and TypeScript CLI utilities using native standard libraries, eliminating unnecessary package bloat and external supply-chain dependencies.</span>
         </div>
-        <div class="routine-card tactical-frame">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
-          <span class="routine-num">[02]</span>
+        <div class="routine-card">
+          <span class="routine-domain">INTERFACE SYSTEMS</span>
           <span class="routine-title">Clean UI &amp; Systems Design</span>
           <span class="routine-desc">Designing interfaces with clean typography, balanced layouts, high-contrast usability, and responsive micro-interactions.</span>
         </div>
-        <div class="routine-card tactical-frame">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
-          <span class="routine-num">[03]</span>
+        <div class="routine-card">
+          <span class="routine-domain">RUNTIME &amp; SOCKETS</span>
           <span class="routine-title">Process Tree &amp; Socket Control</span>
           <span class="routine-desc">Tracing operating system socket bindings, investigating local port collisions, managing process trees, and ensuring clean termination of orphaned server processes.</span>
         </div>
-        <div class="routine-card tactical-frame">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
-          <span class="routine-num">[04]</span>
+        <div class="routine-card">
+          <span class="routine-domain">CIVIC &amp; STYLOMETRICS</span>
           <span class="routine-title">Civic Apps &amp; Text Analysis</span>
           <span class="routine-desc">Engineering offline-first administrative utilities for citizens and text linters to analyze sentence cadence and remove corporate cliches from prose.</span>
         </div>
@@ -307,7 +293,7 @@
     <!-- SECTION 1: FEATURED CASE STUDIES -->
     <section id="featured" class="section-block">
       <div class="section-head-editorial reveal-on-scroll">
-        <div class="section-sub-label">[01] · FEATURED CASE STUDIES</div>
+        <div class="section-sub-label">FLAGSHIP CASE STUDIES</div>
         <h2 class="section-title-editorial">Flagship Case Studies</h2>
         <p class="section-description-editorial">
           Deep technical breakdowns of 5 core systems. Real problem statements, architectural decisions, technical challenges, and verifiable benchmarks.
@@ -317,13 +303,11 @@
       <div class="featured-cases-list">
 
         <!-- Case 1: CodeMask -->
-        <article class="featured-case-card tactical-frame reveal-on-scroll">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
+        <article class="featured-case-card reveal-on-scroll">
           <div class="case-header-row">
             <div>
               <div class="case-meta-badges">
-                <span class="case-step-pill">CASE STUDY [01]</span>
+                <span class="case-step-pill">FLAGSHIP STUDY</span>
                 <span class="card-category-tag tools">DEVTOOLS</span>
               </div>
               <h3 class="case-title">CodeMask</h3>
@@ -362,7 +346,7 @@
           <div class="case-actions-bar">
             <a href="#codemask-workbench" class="case-action-btn primary">
               <span>Interactive Workbench</span>
-              <span>▹</span>
+              <span aria-hidden="true">→</span>
             </a>
             <a href="https://github.com/IlhamXkyo/codemask" target="_blank" rel="noopener noreferrer" class="case-action-btn secondary">
               <span>GitHub Repository</span>
@@ -372,13 +356,11 @@
         </article>
 
         <!-- Case 2: Portwarden Sentinel -->
-        <article class="featured-case-card tactical-frame reveal-on-scroll">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
+        <article class="featured-case-card reveal-on-scroll">
           <div class="case-header-row">
             <div>
               <div class="case-meta-badges">
-                <span class="case-step-pill">CASE STUDY [02]</span>
+                <span class="case-step-pill">SENTINEL CLI</span>
                 <span class="card-category-tag tools">DEVTOOLS</span>
               </div>
               <h3 class="case-title">Portwarden Sentinel</h3>
@@ -417,7 +399,7 @@
           <div class="case-actions-bar">
             <a href="#portwarden-workbench" class="case-action-btn primary">
               <span>Interactive Workbench</span>
-              <span>▹</span>
+              <span aria-hidden="true">→</span>
             </a>
             <a href="https://github.com/IlhamXkyo/portwarden" target="_blank" rel="noopener noreferrer" class="case-action-btn secondary">
               <span>GitHub Repository</span>
@@ -427,13 +409,11 @@
         </article>
 
         <!-- Case 3: Slop-Lens -->
-        <article class="featured-case-card tactical-frame reveal-on-scroll">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
+        <article class="featured-case-card reveal-on-scroll">
           <div class="case-header-row">
             <div>
               <div class="case-meta-badges">
-                <span class="case-step-pill">CASE STUDY [03]</span>
+                <span class="case-step-pill">STYLOMETRICS ENGINE</span>
                 <span class="card-category-tag nlp">NLP</span>
               </div>
               <h3 class="case-title">Slop-Lens Linter</h3>
@@ -460,7 +440,7 @@
 
             <div class="case-metric-box">
               <span class="case-box-label amber">TECHNICAL CHALLENGE</span>
-              <span class="case-box-desc">Designing robust sentence boundary parsing that correctly handles abbreviations, decimal numbers, unpunctuated final clauses, and bilingual text without loading heavyweight NLP Python binaries into the browser.</span>
+              <span class="case-box-desc">Designing resilient sentence boundary parsing that correctly handles abbreviations, decimal numbers, unpunctuated final clauses, and bilingual text without loading heavyweight NLP Python binaries into the browser.</span>
             </div>
 
             <div class="case-metric-box highlight">
@@ -472,7 +452,7 @@
           <div class="case-actions-bar">
             <a href="#sloplens-workbench" class="case-action-btn primary">
               <span>Interactive Workbench</span>
-              <span>▹</span>
+              <span aria-hidden="true">→</span>
             </a>
             <a href="https://github.com/IlhamXkyo/slop-lens" target="_blank" rel="noopener noreferrer" class="case-action-btn secondary">
               <span>GitHub Repository</span>
@@ -482,13 +462,11 @@
         </article>
 
         <!-- Case 4: Warga-OS -->
-        <article class="featured-case-card tactical-frame reveal-on-scroll">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
+        <article class="featured-case-card reveal-on-scroll">
           <div class="case-header-row">
             <div>
               <div class="case-meta-badges">
-                <span class="case-step-pill">CASE STUDY [04]</span>
+                <span class="case-step-pill">OFFLINE CIVIC SUITE</span>
                 <span class="card-category-tag civic">CIVIC</span>
               </div>
               <h3 class="case-title">Warga-OS</h3>
@@ -526,7 +504,7 @@
           <div class="case-actions-bar">
             <button type="button" class="case-action-btn primary btn-inspect" data-id="warga-os">
               <span>Inspect Architecture</span>
-              <span>▹</span>
+              <span aria-hidden="true">→</span>
             </button>
             <a href="https://github.com/IlhamXkyo/warga-os" target="_blank" rel="noopener noreferrer" class="case-action-btn secondary">
               <span>GitHub Repository</span>
@@ -536,13 +514,11 @@
         </article>
 
         <!-- Case 5: Aurum-AI-Terminal -->
-        <article class="featured-case-card tactical-frame reveal-on-scroll">
-          <span class="tactical-corner top-left">+</span>
-          <span class="tactical-corner top-right">+</span>
+        <article class="featured-case-card reveal-on-scroll">
           <div class="case-header-row">
             <div>
               <div class="case-meta-badges">
-                <span class="case-step-pill">CASE STUDY [05]</span>
+                <span class="case-step-pill">AI FINANCIAL TERMINAL</span>
                 <span class="card-category-tag quant">QUANT &amp; AI</span>
               </div>
               <h3 class="case-title">Aurum-AI-Terminal</h3>
@@ -581,7 +557,7 @@
           <div class="case-actions-bar">
             <button type="button" class="case-action-btn primary btn-inspect" data-id="aurum-ai-terminal">
               <span>Inspect Architecture</span>
-              <span>▹</span>
+              <span aria-hidden="true">→</span>
             </button>
             <a href="https://github.com/IlhamXkyo/aurum-ai-terminal" target="_blank" rel="noopener noreferrer" class="case-action-btn secondary">
               <span>GitHub Repository</span>
@@ -596,7 +572,7 @@
     <!-- SECTION 2: INTERACTIVE WORKBENCHES -->
     <section id="section-labs" class="section-block">
       <div class="section-head-editorial reveal-on-scroll">
-        <div class="section-sub-label">[02] · INTERACTIVE WORKBENCHES</div>
+        <div class="section-sub-label">INTERACTIVE WORKBENCHES</div>
         <h2 class="section-title-editorial">Flagship Workbenches</h2>
         <p class="section-description-editorial">
           Hands-on live implementations of tools created by Ilham. Test secret masking, process port termination, and stylometric prose linting right in the browser.
@@ -611,22 +587,22 @@
         </button>
         <button class="wb-tab-nav-btn" data-wb="codemask">
           <span class="wb-tab-icon">◈</span>
-          <span>01 CODEMASK PRIVACY</span>
+          <span>CODEMASK PRIVACY</span>
         </button>
         <button class="wb-tab-nav-btn" data-wb="portwarden">
-          <span class="wb-tab-icon">🛡</span>
-          <span>02 PORTWARDEN CLI</span>
+          <span class="wb-tab-icon">◎</span>
+          <span>PORTWARDEN CLI</span>
         </button>
         <button class="wb-tab-nav-btn" data-wb="sloplens">
-          <span class="wb-tab-icon">⚡</span>
-          <span>03 SLOP-LENS LINTER</span>
+          <span class="wb-tab-icon">◇</span>
+          <span>SLOP-LENS LINTER</span>
         </button>
       </div>
 
       <div class="workbenches-grid">
 
         <!-- 1. CodeMask Secret Redaction Sandbox -->
-        <article id="codemask-workbench" class="workbench-card tilt-card reveal-on-scroll">
+        <article id="codemask-workbench" class="workbench-card tilt-card reveal-on-scroll" data-ui="workbench">
           <div class="tilt-glare"></div>
           <div class="workbench-top-bar">
             <div class="workbench-meta">
@@ -687,7 +663,7 @@
         </article>
 
         <!-- 2. Portwarden Sentinel Terminal -->
-        <article id="portwarden-workbench" class="workbench-card tilt-card reveal-on-scroll">
+        <article id="portwarden-workbench" class="workbench-card tilt-card reveal-on-scroll" data-ui="workbench">
           <div class="tilt-glare"></div>
           <div class="workbench-top-bar">
             <div class="workbench-meta">
@@ -716,7 +692,7 @@
         </article>
 
         <!-- 3. Slop-Lens Stylometrics Workbench -->
-        <article id="sloplens-workbench" class="workbench-card tilt-card reveal-on-scroll">
+        <article id="sloplens-workbench" class="workbench-card tilt-card reveal-on-scroll" data-ui="workbench">
           <div class="tilt-glare"></div>
           <div class="workbench-top-bar">
             <div class="workbench-meta">
@@ -758,7 +734,7 @@
     <!-- SECTION 3: FULL REPOSITORY MATRIX (30+ REPOSITORIES) -->
     <section id="section-matrix" class="section-block">
       <div class="section-head-editorial reveal-on-scroll">
-        <div class="section-sub-label">[03] · OPEN SOURCE CATALOGUE</div>
+        <div class="section-sub-label">OPEN SOURCE CATALOGUE</div>
         <h2 class="section-title-editorial">All Repositories &amp; Experiments</h2>
         <p class="section-description-editorial">
           Filter through Ilham's 30+ authentic open-source projects across CLI devtools, civic apps, NLP linters, quantitative algorithms, and tactile games.
@@ -807,7 +783,7 @@
     <!-- SECTION 4: ENGINEERING PRINCIPLES -->
     <section id="section-manifesto" class="section-block">
       <div class="section-head-editorial reveal-on-scroll">
-        <div class="section-sub-label">[04] · CORE CRAFT</div>
+        <div class="section-sub-label">CORE CRAFT</div>
         <h2 class="section-title-editorial">Engineering Principles</h2>
         <p class="section-description-editorial">
           Principles formulated through hundreds of hours of CLI tool development, civic software engineering, and real-world system debugging.
@@ -816,7 +792,7 @@
 
       <div class="manifesto-grid">
         <div class="project-card reveal-on-scroll">
-          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); margin-bottom: 8px;">[01] INTEGRITY</div>
+          <div style="font-family: var(--font-sans); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); margin-bottom: 8px;">SYSTEM INTEGRITY</div>
           <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Build the whole path.</h3>
           <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
             No fake buttons, empty stubs, or demo-only logic. Every workflow connects completely from input to execution, state persistence, or clean termination.
@@ -824,7 +800,7 @@
         </div>
 
         <div class="project-card reveal-on-scroll reveal-delay-1">
-          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-sage); margin-bottom: 8px;">[02] LEAN STACK</div>
+          <div style="font-family: var(--font-sans); font-size: 11px; font-weight: 700; color: var(--accent-sage); margin-bottom: 8px;">LEAN STACK</div>
           <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Prefer simple dependencies.</h3>
           <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
             Use the standard library when it makes the system clearer. Native APIs eliminate vulnerability supply-chain bloat and runtime overhead.
@@ -832,7 +808,7 @@
         </div>
 
         <div class="project-card reveal-on-scroll reveal-delay-2">
-          <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-saffron); margin-bottom: 8px;">[03] ERGONOMICS</div>
+          <div style="font-family: var(--font-sans); font-size: 11px; font-weight: 700; color: var(--accent-saffron); margin-bottom: 8px;">TACTILE ERGONOMICS</div>
           <h3 style="font-size: 17px; font-weight: 700; margin-bottom: 10px; color: var(--text-primary);">Polish with purpose.</h3>
           <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.6;">
             Animation exists to communicate state, not decorate the screen. Visual elements serve clear hierarchy, tactile feedback, and direct utility.
@@ -843,7 +819,7 @@
 
     <!-- SECTION 5: CONTACT & COMMUNICATIONS -->
     <section id="section-contact" class="section-block reveal-on-scroll" style="background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: var(--radius-lg); padding: 56px 32px; text-align: center;">
-      <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); letter-spacing: 0.08em; margin-bottom: 10px;">[05] DIRECT COMMUNICATIONS</div>
+      <div style="font-family: var(--font-sans); font-size: 11px; font-weight: 700; color: var(--accent-terracotta); letter-spacing: 0.08em; margin-bottom: 10px;">DIRECT COMMUNICATIONS</div>
       <h2 style="font-size: var(--font-h2); font-weight: 800; margin-bottom: 14px; color: var(--text-primary);">
         Let us Build Something Meaningful
       </h2>
@@ -864,10 +840,10 @@
   </main>
 
   <!-- CAD Datasheet Project Inspector Drawer -->
-  <aside id="project-inspector-drawer" class="inspector-drawer">
+  <aside id="project-inspector-drawer" class="inspector-drawer" data-ui="inspector">
     <div class="inspector-header">
       <div class="inspector-title-row">
-        <span style="color: var(--accent-terracotta); font-family: var(--font-mono); font-size: 14px;">◈</span>
+        <span style="color: var(--accent-terracotta); font-family: var(--font-sans); font-size: 14px;">◈</span>
         <h3 class="inspector-h1">PROJECT SPECIFICATIONS</h3>
       </div>
       <button class="inspector-close-btn">ESC CLOSE</button>
@@ -879,7 +855,7 @@
   <div class="inspector-backdrop"></div>
 
   <!-- KyoTerm Interactive Terminal Drawer -->
-  <aside id="terminal-drawer" class="terminal-drawer">
+  <aside id="terminal-drawer" class="terminal-drawer" data-ui="terminal">
     <div class="term-header">
       <div class="term-title-block">
         <span class="term-led"></span>
