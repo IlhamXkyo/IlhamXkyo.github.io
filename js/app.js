@@ -263,12 +263,14 @@ class App {
     }
 
     // Header scroll background adaptation
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('.master-header');
+    const updateHeaderScroll = () => {
+      const header = document.querySelector('.master-header, .site-header');
       if (header) {
         header.classList.toggle('header-scrolled', window.scrollY > 40);
       }
-    }, { passive: true });
+    };
+    window.addEventListener('scroll', updateHeaderScroll, { passive: true });
+    updateHeaderScroll();
   }
 
   initWorkbenches() {
@@ -582,15 +584,10 @@ class App {
         depthIndicator.textContent = `${percentVal}%`;
       }
 
-      const masterHeader = document.querySelector('.master-header');
       if (dock) {
         if (scrollY > 140) {
           if (!dock.classList.contains('is-visible')) {
             dock.classList.add('is-visible');
-          }
-          if (masterHeader && !masterHeader.classList.contains('is-hidden')) {
-            masterHeader.classList.add('is-hidden');
-            masterHeader.classList.remove('header-return-anim');
           }
           if (scrollDirection !== prevDirection) {
             prevDirection = scrollDirection;
@@ -608,11 +605,6 @@ class App {
             dock.classList.remove('is-visible', 'dock-trigger-anim', 'scroll-dir-up', 'scroll-dir-down');
           }
           prevDirection = 'down';
-          if (masterHeader && masterHeader.classList.contains('is-hidden')) {
-            masterHeader.classList.remove('is-hidden');
-            masterHeader.classList.add('header-return-anim');
-            setTimeout(() => masterHeader.classList.remove('header-return-anim'), 450);
-          }
         }
       }
 
