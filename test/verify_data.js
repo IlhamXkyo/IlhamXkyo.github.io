@@ -400,6 +400,10 @@ assert(tokensCss.includes('overflow-x: hidden') && tokensCss.includes('max-width
 assert(layoutCss.includes('@media (max-width: 640px)') && layoutCss.includes('@media (max-width: 380px)'), `layout.css contains comprehensive mobile media queries`);
 assert(layoutCss.includes('.nav-btn-label') && layoutCss.includes('display: none !important'), `Header hides wide text labels on mobile for compact icon pill buttons`);
 assert(layoutCss.includes('min-width: 0') && layoutCss.includes('scroll-dock-tabs'), `Floating scroll dock allows flex shrinking and touch scrolling`);
+assert(layoutCss.includes('bottom: calc(24px') || layoutCss.includes('bottom: 24px'), `Floating scroll dock is anchored to viewport bottom in base CSS`);
+assert(!layoutCss.match(/\.floating-scroll-dock\s*\{[^}]*top:\s*\d+/), `Floating scroll dock does not use top positioning in base CSS`);
+assert((layoutCss.includes('.master-header') || layoutCss.includes('.site-header')) && layoutCss.includes('top: 16px'), `Header navbar is fixed to viewport top`);
+assert(layoutCss.includes('body:has([data-ui="terminal"].active) .floating-scroll-dock'), `Floating scroll dock is suppressed when modal drawers are active`);
 assert(componentsCss.includes('projects-grid') && componentsCss.includes('grid-template-columns: 1fr'), `Projects grid collapses to single column on mobile`);
 assert(workbenchesCss.includes('@media (max-width: 640px)'), `Workbenches contain dedicated mobile viewports`);
 assert(indexHtml.includes('manifesto-grid'), `Principles grid uses responsive class without hardcoded 320px column minmax`);

@@ -224,7 +224,7 @@ class App {
     });
 
     // Update dynamic header styling when theme switches
-    const header = document.querySelector('.master-header');
+    const header = document.querySelector('.master-header, .site-header');
     if (header) {
       header.classList.toggle('header-scrolled', window.scrollY > 40);
     }
@@ -555,6 +555,15 @@ class App {
       });
     });
 
+    const dockIdentity = document.querySelector('.scroll-dock-identity');
+    if (dockIdentity) {
+      dockIdentity.addEventListener('click', (e) => {
+        e.preventDefault();
+        sound.click();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
     const dockTermBtn = document.getElementById('dock-term-trigger');
     if (dockTermBtn && this.terminal) {
       dockTermBtn.addEventListener('click', () => {
@@ -588,6 +597,8 @@ class App {
         if (scrollY > 140) {
           if (!dock.classList.contains('is-visible')) {
             dock.classList.add('is-visible');
+            const currentActive = document.querySelector('.dock-tab-btn.active');
+            if (currentActive) updatePill(currentActive, false);
           }
           if (scrollDirection !== prevDirection) {
             prevDirection = scrollDirection;

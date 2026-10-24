@@ -10,6 +10,7 @@
   left: 0;
   right: 0;
   height: 480px;
+  max-height: 85vh;
   background: var(--terminal-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
