@@ -711,27 +711,8 @@ class App {
   }
 
   initMagneticButtons() {
-    const btns = document.querySelectorAll('.btn-magnetic, .case-action-btn');
-    btns.forEach((btn) => {
-      btn.addEventListener('mousemove', (e) => {
-        const rect = btn.getBoundingClientRect();
-        const x = (e.clientX - (rect.left + rect.width / 2)) * 0.32;
-        const y = (e.clientY - (rect.top + rect.height / 2)) * 0.32;
-        if (window.gsap) {
-          window.gsap.to(btn, { x, y, duration: 0.22, ease: 'power2.out' });
-        } else {
-          btn.style.transform = `translate(${x}px, ${y}px)`;
-        }
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        if (window.gsap) {
-          window.gsap.to(btn, { x: 0, y: 0, duration: 0.6, ease: 'elastic.out(1.1, 0.4)' });
-        } else {
-          btn.style.transform = '';
-        }
-      });
-    });
+    // Magnetic translation disabled for clean native cursor experience
+    // Buttons rely on 50ms tactile depress feedback
   }
 
   initScrollReveal() {

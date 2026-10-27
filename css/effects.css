@@ -41,11 +41,7 @@
 
 /* 2. Ambient Cursor Spotlight Tracking */
 .mouse-spotlight {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(225, 29, 72, 0.025), transparent 50%); /* taste-skill-ignore */
+  display: none !important;
 }
 
 /* 3. Tactile Magnetic Button Motion */
