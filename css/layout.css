@@ -39,7 +39,7 @@
 /* Floating Precision Navbar */
 .master-header {
   position: fixed;
-  top: 14px;
+  top: 16px;
   left: 50%;
   transform: translate(-50%, 0);
   width: calc(100% - 40px);
@@ -648,17 +648,17 @@
 /* 2. Floating Scroll-Triggered Navigation Island (Bidirectional & Reactive) */
 .floating-scroll-dock {
   position: fixed;
-  top: 14px;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
   left: 50%;
-  transform: translate(-50%, -100px);
+  transform: translate(-50%, calc(100% + 32px));
   opacity: 0;
   pointer-events: none;
   visibility: hidden;
-  z-index: 300;
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
-              opacity 0.22s ease,
-              visibility 0.28s;
-  max-width: 900px;
+  z-index: 200;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease,
+              visibility 0.35s;
+  max-width: 960px;
   width: calc(100% - 32px);
   box-sizing: border-box;
 }
@@ -671,10 +671,20 @@
 }
 
 .floating-scroll-dock:not(.is-visible) {
-  transform: translate(-50%, -100px) !important;
+  transform: translate(-50%, calc(100% + 32px)) !important;
   opacity: 0 !important;
   pointer-events: none !important;
   visibility: hidden !important;
+}
+
+/* Suppress floating scroll dock when modal drawers or command palette are active */
+body:has([data-ui="terminal"].active) .floating-scroll-dock,
+body:has([data-ui="inspector"].active) .floating-scroll-dock,
+body:has(.command-palette-backdrop.active) .floating-scroll-dock {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+  transform: translate(-50%, calc(100% + 32px)) !important;
 }
 
 .floating-scroll-dock.is-visible .scroll-dock-container {
@@ -1136,7 +1146,7 @@
     padding-right: 16px;
   }
   .floating-scroll-dock {
-    top: 10px;
+    bottom: calc(14px + env(safe-area-inset-bottom, 0px));
     width: calc(100% - 16px);
     max-width: calc(100vw - 16px);
   }
@@ -1303,7 +1313,7 @@
     gap: 12px;
   }
   .floating-scroll-dock {
-    top: 6px;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px));
     width: calc(100% - 10px);
     max-width: calc(100vw - 10px);
   }
