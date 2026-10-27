@@ -6,7 +6,7 @@
 
 import { DEVELOPER_PROFILE, REPOSITORIES } from './data.js';
 import { sound, playTactileClick } from './audio.js';
-import { FluidSimulator } from './fluid-canvas.js';
+import { FluidSimulator } from './fluid-canvas.js?v=2.2';
 import { ConstellationSimulator } from './constellation-canvas.js';
 import { HarmonicWaveSimulator } from './harmonic-canvas.js';
 import { CodemaskWorkbench, PortwardenWorkbench, SlopLensWorkbench } from './workbenches.js';

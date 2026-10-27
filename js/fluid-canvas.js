@@ -30,7 +30,7 @@ export class FluidSimulator {
     this.v = new Float32Array(this.numCells);
 
     // Dynamic ember and ash particles (the interactive background particles)
-    this.numParticles = 520;
+    this.numParticles = 450;
     this.particles = [];
 
     // Abyssal deep smoke nebula nodes for atmospheric depth
@@ -64,7 +64,59 @@ export class FluidSimulator {
     this.onTouchEnd = this.onTouchEnd.bind(this);
     this.onScroll = this.onScroll.bind(this);
 
+    this.initSprites();
     this.init();
+  }
+
+  initSprites() {
+    // Pre-render GPU offscreen sprites for zero-allocation 60fps rendering
+    // 1. Ember Glow Dark Sprite (48x48)
+    const size = 48;
+    const half = size * 0.5;
+
+    this.emberDarkSprite = document.createElement('canvas');
+    this.emberDarkSprite.width = size;
+    this.emberDarkSprite.height = size;
+    const ctxD = this.emberDarkSprite.getContext('2d');
+    const glowD = ctxD.createRadialGradient(half, half, 0, half, half, half);
+    glowD.addColorStop(0, 'rgba(255, 250, 240, 1.0)');
+    glowD.addColorStop(0.25, 'rgba(255, 87, 34, 0.9)');
+    glowD.addColorStop(0.65, 'rgba(239, 35, 60, 0.45)');
+    glowD.addColorStop(1, 'rgba(141, 8, 1, 0)');
+    ctxD.fillStyle = glowD;
+    ctxD.beginPath();
+    ctxD.arc(half, half, half, 0, Math.PI * 2);
+    ctxD.fill();
+
+    // 2. Ember Glow Light Sprite (48x48)
+    this.emberLightSprite = document.createElement('canvas');
+    this.emberLightSprite.width = size;
+    this.emberLightSprite.height = size;
+    const ctxL = this.emberLightSprite.getContext('2d');
+    const glowL = ctxL.createRadialGradient(half, half, 0, half, half, half);
+    glowL.addColorStop(0, 'rgba(186, 24, 27, 0.95)');
+    glowL.addColorStop(0.5, 'rgba(164, 22, 26, 0.6)');
+    glowL.addColorStop(1, 'rgba(102, 7, 8, 0)');
+    ctxL.fillStyle = glowL;
+    ctxL.beginPath();
+    ctxL.arc(half, half, half, 0, Math.PI * 2);
+    ctxL.fill();
+
+    // 3. Smoke Nebula Sprite (128x128)
+    const sSize = 128;
+    const sHalf = sSize * 0.5;
+    this.smokeSprite = document.createElement('canvas');
+    this.smokeSprite.width = sSize;
+    this.smokeSprite.height = sSize;
+    const ctxS = this.smokeSprite.getContext('2d');
+    const sGrad = ctxS.createRadialGradient(sHalf, sHalf, 0, sHalf, sHalf, sHalf);
+    sGrad.addColorStop(0, 'rgba(141, 8, 1, 0.22)');
+    sGrad.addColorStop(0.45, 'rgba(40, 10, 15, 0.12)');
+    sGrad.addColorStop(1, 'rgba(6, 6, 9, 0)');
+    ctxS.fillStyle = sGrad;
+    ctxS.beginPath();
+    ctxS.arc(sHalf, sHalf, sHalf, 0, Math.PI * 2);
+    ctxS.fill();
   }
 
   init() {
@@ -304,8 +356,8 @@ export class FluidSimulator {
       this.gaze.targetY = Math.cos(this.time * 0.45) * (3 * (scale / dpr) * dpr);
     }
 
-    // Smooth spring interpolation for organic lifelike eye movement
-    const gazeEase = 0.11;
+    // Snappy responsive eye movement: swiftly tracks cursor without sluggish delay
+    const gazeEase = 0.30;
     this.gaze.currentX += (this.gaze.targetX - this.gaze.currentX) * gazeEase;
     this.gaze.currentY += (this.gaze.targetY - this.gaze.currentY) * gazeEase;
 
@@ -619,32 +671,51 @@ export class FluidSimulator {
       ctx.arc(ix + 9 * s, iy + 10 * s, ir * 0.72, 0, Math.PI * 2);
       ctx.fill();
 
-      // 48 High-Detail Fibrous Iris Trabeculae (Branched biological radial fibers)
-      const numStriations = 48;
-      for (let st = 0; st < numStriations; st++) {
+      // 32 High-Detail Fibrous Iris Trabeculae (Batched GPU rendering for peak 60fps)
+      const numStriations = 32;
+      // Batch 1: Primary golden electric filaments
+      ctx.beginPath();
+      for (let st = 0; st < numStriations; st += 2) {
         const stAngle = (st / numStriations) * Math.PI * 2;
         const breath = Math.sin(st * 4.6 + this.time * 2.2);
         const rInner = ir * (0.34 + 0.04 * breath);
         const rOuter = ir * (0.84 + 0.10 * Math.cos(st * 3.2 + this.time));
-
-        ctx.strokeStyle = (st % 2 === 0)
-          ? (!isLight ? 'rgba(255, 245, 120, 0.45)' : 'rgba(180, 83, 9, 0.38)')
-          : (!isLight ? 'rgba(245, 158, 11, 0.30)' : 'rgba(220, 38, 38, 0.25)');
-        ctx.lineWidth = ((st % 3 === 0) ? 1.4 : 0.75) * s;
-
-        ctx.beginPath();
-        ctx.moveTo(ix + Math.cos(stAngle) * rInner, iy + Math.sin(stAngle) * rInner);
-        // Subtle micro-curve in the radial fibers
         const midAngle = stAngle + 0.05 * Math.sin(st);
         const rMid = (rInner + rOuter) * 0.5;
+
+        ctx.moveTo(ix + Math.cos(stAngle) * rInner, iy + Math.sin(stAngle) * rInner);
         ctx.quadraticCurveTo(
           ix + Math.cos(midAngle) * rMid,
           iy + Math.sin(midAngle) * rMid,
           ix + Math.cos(stAngle) * rOuter,
           iy + Math.sin(stAngle) * rOuter
         );
-        ctx.stroke();
       }
+      ctx.strokeStyle = !isLight ? 'rgba(255, 245, 120, 0.45)' : 'rgba(180, 83, 9, 0.38)';
+      ctx.lineWidth = 1.2 * s;
+      ctx.stroke();
+
+      // Batch 2: Secondary warm amber filaments
+      ctx.beginPath();
+      for (let st = 1; st < numStriations; st += 2) {
+        const stAngle = (st / numStriations) * Math.PI * 2;
+        const breath = Math.sin(st * 4.6 + this.time * 2.2);
+        const rInner = ir * (0.34 + 0.04 * breath);
+        const rOuter = ir * (0.84 + 0.10 * Math.cos(st * 3.2 + this.time));
+        const midAngle = stAngle + 0.05 * Math.sin(st);
+        const rMid = (rInner + rOuter) * 0.5;
+
+        ctx.moveTo(ix + Math.cos(stAngle) * rInner, iy + Math.sin(stAngle) * rInner);
+        ctx.quadraticCurveTo(
+          ix + Math.cos(midAngle) * rMid,
+          iy + Math.sin(midAngle) * rMid,
+          ix + Math.cos(stAngle) * rOuter,
+          iy + Math.sin(stAngle) * rOuter
+        );
+      }
+      ctx.strokeStyle = !isLight ? 'rgba(245, 158, 11, 0.30)' : 'rgba(220, 38, 38, 0.25)';
+      ctx.lineWidth = 0.8 * s;
+      ctx.stroke();
 
       // Concentric Contraction Furrows (Two delicate rings of pupil expansion)
       ctx.strokeStyle = !isLight ? 'rgba(217, 119, 6, 0.28)' : 'rgba(180, 83, 9, 0.22)';
@@ -811,26 +882,22 @@ export class FluidSimulator {
     // Dynamic Parallax Offset from Page Scroll
     const scrollParallax = (this.scrollY * (this.dpr || 1)) * 0.14;
 
-    // 1. Render Deep Abyssal Smoke Nebula
-    if (!isLight) {
+    // 1. Render Deep Abyssal Smoke Nebula (Hardware-accelerated sprite blit)
+    if (!isLight && this.smokeSprite) {
       for (let i = 0; i < this.smokeNodes.length; i++) {
         const sm = this.smokeNodes[i];
-        const radGrd = ctx.createRadialGradient(sm.x, sm.y - scrollParallax * 0.5, 0, sm.x, sm.y - scrollParallax * 0.5, sm.radius);
-        radGrd.addColorStop(0, `rgba(141, 8, 1, ${sm.baseAlpha * 1.4})`);
-        radGrd.addColorStop(0.5, `rgba(40, 10, 15, ${sm.baseAlpha})`);
-        radGrd.addColorStop(1, 'rgba(6, 6, 9, 0)');
-
-        ctx.fillStyle = radGrd;
-        ctx.beginPath();
-        ctx.arc(sm.x, sm.y - scrollParallax * 0.5, sm.radius, 0, Math.PI * 2);
-        ctx.fill();
+        const r = sm.radius;
+        ctx.globalAlpha = sm.baseAlpha * 1.5;
+        ctx.drawImage(this.smokeSprite, sm.x - r, (sm.y - scrollParallax * 0.5) - r, r * 2, r * 2);
       }
+      ctx.globalAlpha = 1.0;
     }
 
     // 2. Render Hyper-Realistic Demonic Berserk Eyes
     this.drawBerserkEyes(ctx, w, h, isLight, scrollParallax);
 
-    // 3. Render Rising Ash Flakes & Burning Embers (Interactive background particles reacting to cursor)
+    // 3. Render Rising Ash Flakes & Burning Embers (Hardware-accelerated 60fps sprite blit)
+    const emberSprite = !isLight ? this.emberDarkSprite : this.emberLightSprite;
     for (let i = 0; i < this.particles.length; i++) {
       const p = this.particles[i];
       const lifeRatio = p.age / p.maxAge;
@@ -838,22 +905,11 @@ export class FluidSimulator {
       const alpha = Math.min(1, Math.sin(lifeRatio * Math.PI));
 
       if (p.type === 'ember') {
-        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.radius * 2.8);
-        if (!isLight) {
-          glow.addColorStop(0, `rgba(255, 250, 240, ${alpha * 0.98})`);
-          glow.addColorStop(0.3, `rgba(255, 87, 34, ${alpha * 0.88})`);
-          glow.addColorStop(0.7, `rgba(239, 35, 60, ${alpha * 0.48})`);
-          glow.addColorStop(1, 'rgba(141, 8, 1, 0)');
-        } else {
-          glow.addColorStop(0, `rgba(186, 24, 27, ${alpha * 0.88})`);
-          glow.addColorStop(0.5, `rgba(164, 22, 26, ${alpha * 0.58})`);
-          glow.addColorStop(1, 'rgba(102, 7, 8, 0)');
+        const drawRadius = p.radius * 2.8;
+        ctx.globalAlpha = alpha;
+        if (emberSprite) {
+          ctx.drawImage(emberSprite, p.x - drawRadius, p.y - drawRadius, drawRadius * 2, drawRadius * 2);
         }
-
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius * 2.8, 0, Math.PI * 2);
-        ctx.fill();
 
         // Incandescent core
         ctx.fillStyle = !isLight ? `rgba(255, 255, 255, ${alpha * 0.95})` : `rgba(102, 7, 8, ${alpha * 0.9})`;
@@ -878,6 +934,7 @@ export class FluidSimulator {
         ctx.fillRect(p.x - 0.6, p.y - 0.6, 1.2, 1.2);
       }
     }
+    ctx.globalAlpha = 1.0;
   }
 
   loop(now) {
