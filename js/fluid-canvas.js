@@ -49,6 +49,24 @@ export class FluidSimulator {
     this.eyelidRight = 1.0;
     this.baseEyelidOpen = 1.0;
 
+    // 1. Beast of Darkness Rage state (furious crimson flare on rapid motion or rapid clicks)
+    this.rageIntensity = 0.0;
+    this.lastClickTime = 0;
+    this.clickCountRecent = 0;
+
+    // 2. Saccadic micro-tremors (organic biological twitch of eyeball when steady)
+    this.idleTimer = 0;
+    this.saccadeTimer = 0.6;
+    this.saccadeOffset = { x: 0, y: 0 };
+
+    // 3. Shockwave ripples on click (kinetic dragon-slayer blow pressure)
+    this.shockwaves = [];
+    this.pupilTwitch = 0.0;
+
+    // 4. Ambient awareness & section focus (adapts eyelid squint and aura depth to viewport reading)
+    this.sectionDim = 1.0;
+    this.sectionSquint = 1.0;
+
     this.updraftSpeed = -0.92; // Natural upward thermal buoyancy
     this.time = 0;
     this.lastTime = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
@@ -279,6 +297,11 @@ export class FluidSimulator {
 
       // Transfer interactive motion momentum directly into background fluid particles
       this.injectForce(mx, my, dx, dy);
+
+      // 1. Beast of Darkness Rage trigger: rapid slashing cursor triggers bloodlust flare
+      if (dist > 30 * (this.dpr || 1)) {
+        this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.26);
+      }
     }
 
     this.mouse.px = this.mouse.x;
@@ -287,8 +310,40 @@ export class FluidSimulator {
     this.mouse.y = my;
   }
 
-  onMouseDown() {
+  triggerShockwave(x, y) {
+    const dpr = this.dpr || 1;
+    this.shockwaves.push({
+      x: x,
+      y: y,
+      radius: 6 * dpr,
+      maxRadius: 340 * dpr,
+      speed: 720 * dpr,
+      alpha: 0.95
+    });
+    this.pupilTwitch = 1.0; // Sudden constriction reflex from impact shock
+  }
+
+  onMouseDown(e) {
     this.mouse.down = true;
+    const rect = this.canvas.getBoundingClientRect();
+    const mx = (e.clientX - rect.left) * (this.dpr || 1);
+    const my = (e.clientY - rect.top) * (this.dpr || 1);
+
+    // 4. Shockwave ripple on click (Dragonslayer blow pressure)
+    this.triggerShockwave(mx, my);
+
+    // 1. Double click or rapid clicking triggers furious crimson rage
+    const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+    if (now - this.lastClickTime < 340) {
+      this.clickCountRecent++;
+      if (this.clickCountRecent >= 2) {
+        this.rageIntensity = 1.0;
+      }
+    } else {
+      this.clickCountRecent = 1;
+    }
+    this.lastClickTime = now;
+    this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.16);
   }
 
   onMouseUp() {
@@ -299,9 +354,25 @@ export class FluidSimulator {
     if (e.touches.length > 0) {
       const touch = e.touches[0];
       const rect = this.canvas.getBoundingClientRect();
-      this.mouse.x = (touch.clientX - rect.left) * (this.dpr || 1);
-      this.mouse.y = (touch.clientY - rect.top) * (this.dpr || 1);
+      const mx = (touch.clientX - rect.left) * (this.dpr || 1);
+      const my = (touch.clientY - rect.top) * (this.dpr || 1);
+      this.mouse.x = mx;
+      this.mouse.y = my;
       this.mouse.down = true;
+
+      this.triggerShockwave(mx, my);
+
+      const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
+      if (now - this.lastClickTime < 340) {
+        this.clickCountRecent++;
+        if (this.clickCountRecent >= 2) {
+          this.rageIntensity = 1.0;
+        }
+      } else {
+        this.clickCountRecent = 1;
+      }
+      this.lastClickTime = now;
+      this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.20);
     }
   }
 
@@ -313,8 +384,13 @@ export class FluidSimulator {
       const my = (touch.clientY - rect.top) * (this.dpr || 1);
       const dx = mx - this.mouse.x;
       const dy = my - this.mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
 
       this.injectForce(mx, my, dx, dy);
+      if (dist > 28 * (this.dpr || 1)) {
+        this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.24);
+      }
+
       this.mouse.x = mx;
       this.mouse.y = my;
     }
@@ -361,7 +437,55 @@ export class FluidSimulator {
     this.gaze.currentX += (this.gaze.targetX - this.gaze.currentX) * gazeEase;
     this.gaze.currentY += (this.gaze.targetY - this.gaze.currentY) * gazeEase;
 
-    // 2. Periodic natural blink timer
+    // 2. Saccadic micro-tremors (organic biological twitch of eyeball when steady)
+    if (this.mouse.speed < 2.5) {
+      this.idleTimer += dt;
+      if (this.idleTimer > 0.65) {
+        this.saccadeTimer -= dt;
+        if (this.saccadeTimer <= 0) {
+          const sAngle = Math.random() * Math.PI * 2;
+          const sMag = (0.7 + Math.random() * 0.9) * (scale / dpr) * dpr;
+          this.saccadeOffset.x = Math.cos(sAngle) * sMag;
+          this.saccadeOffset.y = Math.sin(sAngle) * sMag;
+          this.saccadeTimer = 0.45 + Math.random() * 0.65;
+        }
+      }
+    } else {
+      this.idleTimer = 0;
+      this.saccadeOffset.x *= 0.72;
+      this.saccadeOffset.y *= 0.72;
+    }
+
+    // 5. Ambient awareness & section focus (adapts eyelid squint and aura depth to viewport reading)
+    let targetDim = 1.0;
+    let targetSquint = 1.0;
+    if (this.scrollY < 380) {
+      targetDim = 1.0;
+      targetSquint = 1.0;
+    } else if (this.scrollY >= 380 && this.scrollY < 2600) {
+      targetDim = 0.46;
+      targetSquint = 0.76;
+    } else {
+      targetDim = 0.62;
+      targetSquint = 0.88;
+    }
+
+    const termDrawer = typeof document !== 'undefined' ? document.getElementById('terminal-drawer') : null;
+    if (termDrawer && termDrawer.classList.contains('active')) {
+      targetSquint *= 0.65;
+      this.gaze.targetY = Math.max(this.gaze.targetY, 14 * (scale / dpr) * dpr);
+    }
+
+    this.sectionDim += (targetDim - this.sectionDim) * 0.08;
+    this.sectionSquint += (targetSquint - this.sectionSquint) * 0.08;
+
+    // Decay Rage Intensity and Impact Shock Twitch
+    this.rageIntensity *= Math.pow(0.93, dt / 0.016);
+    if (this.rageIntensity < 0.002) this.rageIntensity = 0.0;
+    this.pupilTwitch *= Math.pow(0.85, dt / 0.016);
+    if (this.pupilTwitch < 0.002) this.pupilTwitch = 0.0;
+
+    // Periodic natural blink timer
     this.blinkTimer -= dt;
     if (this.blinkTimer <= 0) {
       this.isBlinking = true;
@@ -377,8 +501,8 @@ export class FluidSimulator {
       }
     }
 
-    // 3. Dynamic eyelid opening baseline (open wider when looking up, narrow when looking down)
-    let openTarget = 1.0;
+    // Dynamic eyelid opening baseline (open wider when looking up, narrow when looking down, factored by section squint)
+    let openTarget = 1.0 * this.sectionSquint;
     if (this.gaze.currentY < 0) {
       openTarget += Math.min(0.22, Math.abs(this.gaze.currentY / (maxGazeRadius || 1)) * 0.22);
     } else {
@@ -468,6 +592,30 @@ export class FluidSimulator {
         p.heat = 0.45 + Math.random() * 0.55;
       }
     }
+
+    // 3. Update kinetic shockwaves and radiate outward force pushing embers
+    for (let i = this.shockwaves.length - 1; i >= 0; i--) {
+      const sw = this.shockwaves[i];
+      sw.radius += sw.speed * dt;
+      sw.alpha = Math.max(0, 0.95 * (1 - sw.radius / sw.maxRadius));
+
+      const waveBand = 38 * (this.dpr || 1);
+      for (let pIdx = 0; pIdx < this.particles.length; pIdx++) {
+        const p = this.particles[pIdx];
+        const dx = p.x - sw.x;
+        const dy = p.y - sw.y;
+        const dist = Math.hypot(dx, dy);
+        if (Math.abs(dist - sw.radius) < waveBand && dist > 1) {
+          const force = (1 - Math.abs(dist - sw.radius) / waveBand) * 12;
+          p.vx += (dx / dist) * force;
+          p.vy += (dy / dist) * force;
+        }
+      }
+
+      if (sw.radius >= sw.maxRadius || sw.alpha <= 0.01) {
+        this.shockwaves.splice(i, 1);
+      }
+    }
   }
 
   drawBerserkEyes(ctx, w, h, isLight, scrollParallax) {
@@ -480,10 +628,11 @@ export class FluidSimulator {
     const leftX = eyeCenterX - eyeDistance * 0.5;
     const rightX = eyeCenterX + eyeDistance * 0.5;
 
-    // 1. Outer Crimson Aura: Multi-stage deep breathing halo surrounding both eye sockets
+    // 1. Outer Crimson Aura: Multi-stage deep breathing halo surrounding both eye sockets (flares with rage)
     const auraPulse = 0.94 + 0.06 * Math.sin(this.time * 2.0);
-    const auraRadiusX = 155 * scale;
-    const auraRadiusY = 100 * scale;
+    const auraRadiusX = (155 + 45 * this.rageIntensity) * scale;
+    const auraRadiusY = (100 + 28 * this.rageIntensity) * scale;
+    const auraAlphaMult = (1.0 + 0.75 * this.rageIntensity) * this.sectionDim;
 
     if (!isLight) {
       [leftX, rightX].forEach((ex) => {
@@ -491,9 +640,9 @@ export class FluidSimulator {
         ctx.translate(ex, eyeCenterY);
         ctx.scale(1, auraRadiusY / auraRadiusX);
         const auraGrad = ctx.createRadialGradient(0, 0, 15 * scale, 0, 0, auraRadiusX * auraPulse);
-        auraGrad.addColorStop(0, 'rgba(220, 20, 30, 0.42)');
-        auraGrad.addColorStop(0.35, 'rgba(160, 10, 15, 0.22)');
-        auraGrad.addColorStop(0.68, 'rgba(65, 6, 9, 0.07)');
+        auraGrad.addColorStop(0, `rgba(220, 20, 30, ${0.42 * auraAlphaMult})`);
+        auraGrad.addColorStop(0.35, `rgba(160, 10, 15, ${0.22 * auraAlphaMult})`);
+        auraGrad.addColorStop(0.68, `rgba(65, 6, 9, ${0.07 * auraAlphaMult})`);
         auraGrad.addColorStop(1, 'rgba(6, 6, 9, 0)');
 
         ctx.fillStyle = auraGrad;
@@ -504,11 +653,13 @@ export class FluidSimulator {
       });
     }
 
-    // 2. Render Left Eye (Natural, using eyelidLeft)
-    this.renderSingleEye(ctx, leftX, eyeCenterY, scale, true, this.gaze.currentX, this.gaze.currentY, this.eyelidLeft, isLight);
+    // 2. Render Left Eye (Natural, using eyelidLeft + saccade micro-tremor)
+    const effGazeX = this.gaze.currentX + this.saccadeOffset.x;
+    const effGazeY = this.gaze.currentY + this.saccadeOffset.y;
+    this.renderSingleEye(ctx, leftX, eyeCenterY, scale, true, effGazeX, effGazeY, this.eyelidLeft, isLight);
 
-    // 3. Render Right Eye (Mirrored horizontally, using eyelidRight)
-    this.renderSingleEye(ctx, rightX, eyeCenterY, scale, false, this.gaze.currentX, this.gaze.currentY, this.eyelidRight, isLight);
+    // 3. Render Right Eye (Mirrored horizontally, using eyelidRight + saccade micro-tremor)
+    this.renderSingleEye(ctx, rightX, eyeCenterY, scale, false, effGazeX, effGazeY, this.eyelidRight, isLight);
   }
 
   renderSingleEye(ctx, cx, cy, scale, isLeft, gazeX, gazeY, eyelidOpen, isLight) {
@@ -543,18 +694,20 @@ export class FluidSimulator {
       ctx.closePath();
     };
 
-    // Berserker Miasma: Subtle dark smoke tendrils drifting from the outer canthus
+    // Berserker Miasma: Subtle dark smoke tendrils drifting from the outer canthus (intensifies with rage)
     if (!isLight && !isClosed) {
-      for (let m = 0; m < 3; m++) {
-        const mPhase = this.time * 1.8 + m * 2.1;
-        const mLen = (26 + m * 14) * s;
-        const mX = -58 * s - Math.sin(mPhase) * (8 * s) - m * 6 * s;
+      const numTendrils = 3 + Math.floor(this.rageIntensity * 2.5);
+      for (let m = 0; m < numTendrils; m++) {
+        const mPhase = this.time * (1.8 + 1.2 * this.rageIntensity) + m * 2.1;
+        const mLen = (26 + m * 14) * s * (1.0 + 0.65 * this.rageIntensity);
+        const mX = -58 * s - Math.sin(mPhase) * (8 * s + 6 * s * this.rageIntensity) - m * 6 * s;
         const mY = -4 * s - mLen;
         ctx.beginPath();
         ctx.moveTo(-58 * s, -4 * s);
         ctx.quadraticCurveTo(-65 * s - Math.cos(mPhase) * 10 * s, -12 * s - mLen * 0.5, mX, mY);
-        ctx.strokeStyle = `rgba(186, 24, 27, ${0.18 - m * 0.04})`;
-        ctx.lineWidth = (3.5 - m * 0.8) * s;
+        const mAlpha = Math.max(0.04, (0.20 + 0.30 * this.rageIntensity - m * 0.035) * this.sectionDim);
+        ctx.strokeStyle = `rgba(220, 20, 30, ${mAlpha})`;
+        ctx.lineWidth = (3.5 - m * 0.6 + this.rageIntensity * 1.5) * s;
         ctx.lineCap = 'round';
         ctx.stroke();
       }
@@ -616,12 +769,13 @@ export class FluidSimulator {
       const ix = lx;
       const iy = ly;
 
-      // Ocular Bloom: Radiant golden light scattering onto surrounding sclera
+      // Ocular Bloom: Radiant light scattering onto surrounding sclera (flares during rage)
+      const rI = this.rageIntensity;
       const irisBloom = ctx.createRadialGradient(ix, iy, ir * 0.35, ix, iy, ir * 2.1);
       if (!isLight) {
-        irisBloom.addColorStop(0.0, 'rgba(255, 235, 60, 0.52)');
-        irisBloom.addColorStop(0.42, 'rgba(245, 158, 11, 0.32)');
-        irisBloom.addColorStop(0.75, 'rgba(225, 29, 72, 0.15)');
+        irisBloom.addColorStop(0.0, rI > 0.45 ? `rgba(255, 60, 60, ${0.65 * this.sectionDim})` : `rgba(255, 235, 60, ${0.52 * this.sectionDim})`);
+        irisBloom.addColorStop(0.42, rI > 0.45 ? `rgba(220, 20, 30, ${0.42 * this.sectionDim})` : `rgba(245, 158, 11, ${0.32 * this.sectionDim})`);
+        irisBloom.addColorStop(0.75, `rgba(225, 29, 72, ${0.15 * this.sectionDim})`);
         irisBloom.addColorStop(1.0, 'rgba(186, 24, 27, 0)');
       } else {
         irisBloom.addColorStop(0.0, 'rgba(234, 179, 8, 0.38)');
@@ -639,20 +793,20 @@ export class FluidSimulator {
       ctx.fillStyle = !isLight ? '#120002' : '#3d0508';
       ctx.fill();
 
-      // Iris Stroma Body: Luminous multi-tone golden gradations
+      // 1. Iris Stroma Body: Dynamic morphing between Golden Demonic and Beast of Darkness Crimson Rage
       const irisGrad = ctx.createRadialGradient(ix, iy, 0, ix, iy, ir * 0.98);
       if (!isLight) {
         irisGrad.addColorStop(0.00, '#ffffff'); // Blinding incandescent white pupil edge
-        irisGrad.addColorStop(0.12, '#ffff70'); // Pure electric yellow
-        irisGrad.addColorStop(0.32, '#fff01f'); // Intense golden fire
-        irisGrad.addColorStop(0.55, '#f59e0b'); // Warm amber stroma
-        irisGrad.addColorStop(0.76, '#d97706'); // Deep golden-orange collarette
-        irisGrad.addColorStop(0.90, '#991b1b'); // Blood-crimson limbal border
-        irisGrad.addColorStop(1.00, '#2b0206'); // Dark rim boundary
+        irisGrad.addColorStop(0.12, rI > 0.45 ? '#ff7070' : '#ffff70'); // Electric yellow or scarlet flare
+        irisGrad.addColorStop(0.32, rI > 0.45 ? '#ff1a2e' : '#fff01f'); // Golden fire or blood crimson
+        irisGrad.addColorStop(0.55, rI > 0.45 ? '#dc2626' : '#f59e0b'); // Amber stroma or deep blood red
+        irisGrad.addColorStop(0.76, rI > 0.45 ? '#991b1b' : '#d97706'); // Deep golden-orange or crimson collarette
+        irisGrad.addColorStop(0.90, '#7f1d1d'); // Blood-crimson limbal border
+        irisGrad.addColorStop(1.00, '#1c0205'); // Dark rim boundary
       } else {
         irisGrad.addColorStop(0.00, '#fffbeb');
-        irisGrad.addColorStop(0.20, '#fde047');
-        irisGrad.addColorStop(0.60, '#d97706');
+        irisGrad.addColorStop(0.20, rI > 0.45 ? '#f87171' : '#fde047');
+        irisGrad.addColorStop(0.60, rI > 0.45 ? '#dc2626' : '#d97706');
         irisGrad.addColorStop(0.90, '#991b1b');
         irisGrad.addColorStop(1.00, '#380407');
       }
@@ -663,8 +817,8 @@ export class FluidSimulator {
 
       // Internal Caustics (Subsurface scattering: light refracts warmly to lower-right iris)
       const causticGlow = ctx.createRadialGradient(ix + 9 * s, iy + 10 * s, 2 * s, ix + 9 * s, iy + 10 * s, ir * 0.72);
-      causticGlow.addColorStop(0.0, 'rgba(255, 245, 140, 0.55)');
-      causticGlow.addColorStop(0.6, 'rgba(251, 191, 36, 0.28)');
+      causticGlow.addColorStop(0.0, rI > 0.45 ? 'rgba(255, 140, 140, 0.60)' : 'rgba(255, 245, 140, 0.55)');
+      causticGlow.addColorStop(0.6, rI > 0.45 ? 'rgba(239, 68, 68, 0.32)' : 'rgba(251, 191, 36, 0.28)');
       causticGlow.addColorStop(1.0, 'rgba(217, 119, 6, 0)');
       ctx.fillStyle = causticGlow;
       ctx.beginPath();
@@ -673,7 +827,7 @@ export class FluidSimulator {
 
       // 32 High-Detail Fibrous Iris Trabeculae (Batched GPU rendering for peak 60fps)
       const numStriations = 32;
-      // Batch 1: Primary golden electric filaments
+      // Batch 1: Primary golden or scarlet electric filaments
       ctx.beginPath();
       for (let st = 0; st < numStriations; st += 2) {
         const stAngle = (st / numStriations) * Math.PI * 2;
@@ -691,11 +845,13 @@ export class FluidSimulator {
           iy + Math.sin(stAngle) * rOuter
         );
       }
-      ctx.strokeStyle = !isLight ? 'rgba(255, 245, 120, 0.45)' : 'rgba(180, 83, 9, 0.38)';
+      ctx.strokeStyle = !isLight
+        ? (rI > 0.45 ? 'rgba(255, 120, 130, 0.55)' : 'rgba(255, 245, 120, 0.45)')
+        : 'rgba(180, 83, 9, 0.38)';
       ctx.lineWidth = 1.2 * s;
       ctx.stroke();
 
-      // Batch 2: Secondary warm amber filaments
+      // Batch 2: Secondary warm amber or deep crimson filaments
       ctx.beginPath();
       for (let st = 1; st < numStriations; st += 2) {
         const stAngle = (st / numStriations) * Math.PI * 2;
@@ -713,7 +869,9 @@ export class FluidSimulator {
           iy + Math.sin(stAngle) * rOuter
         );
       }
-      ctx.strokeStyle = !isLight ? 'rgba(245, 158, 11, 0.30)' : 'rgba(220, 38, 38, 0.25)';
+      ctx.strokeStyle = !isLight
+        ? (rI > 0.45 ? 'rgba(220, 38, 38, 0.40)' : 'rgba(245, 158, 11, 0.30)')
+        : 'rgba(220, 38, 38, 0.25)';
       ctx.lineWidth = 0.8 * s;
       ctx.stroke();
 
@@ -727,10 +885,10 @@ export class FluidSimulator {
       ctx.arc(ix, iy, ir * 0.74, 0, Math.PI * 2);
       ctx.stroke();
 
-      // 5. Breathing Demonic Slit Pupil with Sphincter Rim
-      // Slit pupil constricts during focused gaze and dilates subtly in darkness
+      // 5. Breathing Demonic Slit Pupil with Sphincter Rim & Impact Constriction
+      // Slit pupil constricts during focused gaze, impact shocks, and rapid rage
       const pupilBreath = 0.92 + 0.08 * Math.sin(this.time * 1.6);
-      const pw = 5.4 * s * pupilBreath;
+      const pw = Math.max(1.8 * s, (5.4 * (1 - 0.42 * this.rageIntensity) - 1.4 * this.pupilTwitch) * s * pupilBreath);
       const ph = 39 * s * Math.max(0.42, effOpen);
 
       // Dark red pupil sphincter margin
@@ -750,6 +908,46 @@ export class FluidSimulator {
       ctx.closePath();
       ctx.fillStyle = !isLight ? '#020001' : '#140002';
       ctx.fill();
+
+      // 2. Brand of Sacrifice in the demonic slit pupil depth
+      const absEyeX = cx;
+      const distToEye = Math.hypot(this.mouse.x - absEyeX, this.mouse.y - cy);
+      const brandProximity = Math.max(0, Math.min(1.0, 1 - (distToEye / (380 * s))));
+      const brandAlpha = Math.max(0.08 * (!isLight ? 1 : 0), brandProximity * 0.82 + this.rageIntensity * 0.65) * Math.min(1.0, effOpen * 1.5) * this.sectionDim;
+
+      if (brandAlpha > 0.03 && !isClosed) {
+        ctx.save();
+        ctx.translate(ix, iy);
+        const bs = 0.50 * s;
+        ctx.beginPath();
+        // Central vertical trunk
+        ctx.moveTo(0, -14 * bs);
+        ctx.lineTo(0, 14 * bs);
+        // Upper horned chevron
+        ctx.moveTo(-7 * bs, -13 * bs);
+        ctx.lineTo(0, -6 * bs);
+        ctx.lineTo(7 * bs, -13 * bs);
+        // Central diamond intersection
+        ctx.moveTo(-6 * bs, -4 * bs);
+        ctx.lineTo(0, 1 * bs);
+        ctx.lineTo(6 * bs, -4 * bs);
+        ctx.moveTo(-6 * bs, 4 * bs);
+        ctx.lineTo(0, -1 * bs);
+        ctx.lineTo(6 * bs, 4 * bs);
+        // Lower chevron
+        ctx.moveTo(-6 * bs, 8 * bs);
+        ctx.lineTo(0, 13 * bs);
+        ctx.lineTo(6 * bs, 8 * bs);
+
+        ctx.strokeStyle = `rgba(239, 35, 60, ${brandAlpha})`;
+        ctx.lineWidth = 1.35 * bs;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        ctx.shadowColor = 'rgba(255, 30, 45, 0.9)';
+        ctx.shadowBlur = 4 * s;
+        ctx.stroke();
+        ctx.restore();
+      }
 
       // 6. Multi-Specular Corneal Highlights (Liquid Wet Eyeball Reflections)
       // Primary Corneal Specular Arc (Crescent sheen in upper-left quadrant)
@@ -935,6 +1133,24 @@ export class FluidSimulator {
       }
     }
     ctx.globalAlpha = 1.0;
+
+    // 4. Render Kinetic Shockwaves (Impact pressure ripples from Dragonslayer swings)
+    if (this.shockwaves.length > 0) {
+      ctx.save();
+      for (let i = 0; i < this.shockwaves.length; i++) {
+        const sw = this.shockwaves[i];
+        ctx.beginPath();
+        ctx.arc(sw.x, sw.y, sw.radius, 0, Math.PI * 2);
+        ctx.strokeStyle = !isLight
+          ? `rgba(255, 45, 60, ${sw.alpha * 0.72})`
+          : `rgba(186, 24, 27, ${sw.alpha * 0.58})`;
+        ctx.lineWidth = Math.max(1, (1 - sw.radius / sw.maxRadius) * 4.2 * (this.dpr || 1));
+        ctx.shadowColor = 'rgba(255, 30, 45, 0.85)';
+        ctx.shadowBlur = 6 * (this.dpr || 1);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
   }
 
   loop(now) {
