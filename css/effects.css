@@ -1,40 +1,37 @@
 /**
  * SUBTLE AMBIENT EFFECTS & SCROLL ANIMATIONS
  * Professional scroll reveals, smooth transitions, ambient cursor spotlight, and command palette.
- * DKV art direction with tactile feedback and zero artificial neon.
+ * Editorial minimalism with tactile feedback and zero artificial neon.
  */
 
 /* 1. Scroll-Triggered Reveal Animations (Bidirectional Reactive) */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(24px) scale(0.98);
-  filter: blur(4px);
-  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-              filter 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform, filter;
+  transform: translateY(18px) scale(0.99);
+  transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal-on-scroll.reveal-from-top {
-  transform: translateY(-24px) scale(0.98);
+  transform: translateY(-18px) scale(0.99);
 }
 
 .reveal-on-scroll.is-revealed {
   opacity: 1;
   transform: translateY(0) scale(1) !important;
-  filter: blur(0px);
 }
 
-.reveal-delay-1 { transition-delay: 0.06s; }
-.reveal-delay-2 { transition-delay: 0.12s; }
-.reveal-delay-3 { transition-delay: 0.18s; }
-.reveal-delay-4 { transition-delay: 0.24s; }
+.reveal-delay-1 { transition-delay: 0.05s; }
+.reveal-delay-2 { transition-delay: 0.10s; }
+.reveal-delay-3 { transition-delay: 0.15s; }
+.reveal-delay-4 { transition-delay: 0.20s; }
 
 /* Workbench card switch animation */
 @keyframes fadeInCard {
   from {
     opacity: 0;
-    transform: translateY(14px) scale(0.99);
+    transform: translateY(10px) scale(0.99);
   }
   to {
     opacity: 1;
@@ -48,7 +45,7 @@
   inset: 0;
   pointer-events: none;
   z-index: 1;
-  background: radial-gradient(650px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(239, 35, 60, 0.04), transparent 50%);
+  background: radial-gradient(600px circle at var(--mouse-x, -500px) var(--mouse-y, -500px), rgba(225, 29, 72, 0.025), transparent 50%); /* taste-skill-ignore */
 }
 
 /* 3. Tactile Magnetic Button Motion */
@@ -57,14 +54,14 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding: 12px 24px;
+  padding: 10px 22px;
   border-radius: var(--radius-full);
   font-size: 13px;
   font-weight: 600;
   text-decoration: none;
   cursor: pointer;
   position: relative;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
   will-change: transform;
   outline: none;
 }
@@ -75,23 +72,35 @@
 }
 
 .btn-magnetic.primary {
-  background: linear-gradient(180deg, #ff1738 0%, #b91c1c 100%);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 8px 24px -4px rgba(239, 35, 60, 0.55), 0 2px 6px rgba(0, 0, 0, 0.5);
+  background: var(--btn-primary-bg);
+  color: var(--btn-primary-ink);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .btn-magnetic.primary:hover {
-  transform: translateY(-2px) scale(1.02);
-  background: linear-gradient(180deg, #ff2a4b 0%, #d90429 100%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 12px 32px -4px rgba(239, 35, 60, 0.75), 0 4px 12px rgba(0, 0, 0, 0.6);
+  transform: translateY(-2px);
+  background: var(--primary-hover);
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+}
+
+html[data-theme="light"] .btn-magnetic.primary {
+  background: #18181b;
+  color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+html[data-theme="light"] .btn-magnetic.primary:hover {
+  background: #27272a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .btn-magnetic.secondary {
   background: var(--bg-surface-elevated);
   color: var(--text-primary);
   border: 1px solid var(--border-default);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.05) inset, 0 4px 16px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-magnetic.secondary:hover {
@@ -99,7 +108,7 @@
   border-color: var(--border-hover);
   color: var(--text-primary);
   transform: translateY(-2px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.12);
 }
 
 .btn-magnetic.ghost {
@@ -116,15 +125,14 @@
 }
 
 .btn-magnetic:active {
-  transform: translateY(1px) scale(0.97);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 2px 8px rgba(0, 0, 0, 0.4);
+  transform: translateY(1px) scale(0.98);
 }
 
 /* 4. 3D Card Tilt & Subtle Specular Light */
 .tilt-card {
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, box-shadow 0.2s ease;
   will-change: transform;
 }
 
@@ -133,9 +141,9 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.05), transparent 65%);
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255, 255, 255, 0.04), transparent 60%); /* taste-skill-ignore */
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.2s ease;
   z-index: 2;
 }
 
@@ -174,8 +182,8 @@
   position: fixed;
   inset: 0;
   background: var(--overlay-bg);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   z-index: 500;
   display: flex;
   align-items: flex-start;
@@ -194,13 +202,13 @@
 
 .command-palette-modal {
   width: 100%;
-  max-width: 600px;
+  max-width: 580px;
   background: var(--bg-surface);
   border: 1px solid var(--border-hover);
   border-radius: var(--radius-md);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
   overflow: hidden;
-  transform: scale(0.97) translateY(-8px);
+  transform: scale(0.98) translateY(-6px);
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -212,7 +220,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--border-subtle);
   background: var(--bg-surface-elevated);
 }
@@ -226,7 +234,7 @@
   background: transparent;
   border: none;
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--text-primary);
   outline: none;
@@ -256,13 +264,13 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 20px;
+  padding: 10px 18px;
   cursor: pointer;
   transition: background 0.12s ease;
 }
 
 .cp-result-item:hover, .cp-result-item.selected {
-  background: rgba(224, 90, 71, 0.08);
+  background: var(--accent-terracotta-soft);
 }
 
 .cp-result-left {
@@ -302,7 +310,7 @@
 }
 
 .cp-footer-hint {
-  padding: 10px 20px;
+  padding: 10px 18px;
   border-top: 1px solid var(--border-subtle);
   background: var(--bg-surface-elevated);
   font-family: var(--font-mono);
@@ -314,23 +322,15 @@
 }
 
 html[data-theme="light"] .command-palette-modal {
-  box-shadow: 0 24px 60px rgba(45, 40, 32, 0.16);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
 }
 
 html[data-theme="light"] .cp-result-badge {
-  background: rgba(45, 40, 32, 0.05);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 html[data-theme="light"] .cp-shortcut-badge {
-  background: rgba(45, 40, 32, 0.05);
-}
-
-html[data-theme="light"] .btn-magnetic.secondary {
-  background: rgba(45, 40, 32, 0.05);
-}
-
-html[data-theme="light"] .btn-magnetic.secondary:hover {
-  background: rgba(45, 40, 32, 0.09);
+  background: rgba(0, 0, 0, 0.05);
 }
 
 /* 6. View Transitions API (Theme & View State Smooth Cross-Fade) */
@@ -358,44 +358,183 @@ html[data-theme="light"] .btn-magnetic.secondary:hover {
   to { opacity: 1; }
 }
 
-/* 7. Tactical CRT Scanlines & Analog Degradation (Industrial Brutalism) */
+/* 7. Clean Atmospheric Surfaces: Scanlines disabled for minimal clarity */
 .bg-crt-scanlines {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 2;
-  background: repeating-linear-gradient(
-    0deg,
-    rgba(0, 0, 0, 0.16) 0px,
-    rgba(0, 0, 0, 0.16) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  opacity: 0.65;
-}
-
-html[data-theme="light"] .bg-crt-scanlines {
   display: none;
 }
 
-/* Tactical Corner Framing Brackets & Crosshairs (+) */
+/* Tactical Corner Framing Brackets: Clean and muted */
 .tactical-frame {
   position: relative;
 }
 
 .tactical-corner {
-  position: absolute;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--border-accent);
-  pointer-events: none;
-  user-select: none;
+  display: none;
 }
 
-.tactical-corner.top-left { top: 6px; left: 8px; }
-.tactical-corner.top-right { top: 6px; right: 8px; }
-.tactical-corner.bottom-left { bottom: 6px; left: 8px; }
-.tactical-corner.bottom-right { bottom: 6px; right: 8px; }
+/* ==========================================================================
+   8. UI-MODERN v2.0 FORENSIC MOTION, HAPTICS & SURFACE EXTENSIONS
+   ========================================================================== */
+
+/* Noise Grain Film Texture (Linear/Raycast Anti-Banding Layer) */
+.ui-noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 99998;
+  opacity: 0.034;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Specular Laser Border Beam (Conic Laser Sheen) */
+@keyframes ui-beam-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ui-border-beam {
+  position: relative;
+  border-radius: var(--card-radius-outer);
+  overflow: hidden;
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+}
+
+.ui-border-beam::after {
+  content: '';
+  position: absolute;
+  inset: -150%;
+  background: conic-gradient(
+    from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(225, 29, 72, 0.6) 30deg,
+    rgba(255, 110, 140, 0.85) 60deg,
+    transparent 90deg
+  );
+  animation: ui-beam-rotate 5s linear infinite;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.ui-border-beam-inner {
+  position: relative;
+  z-index: 2;
+  margin: 1px;
+  background-color: var(--surface-card);
+  border-radius: calc(var(--card-radius-outer) - 1px);
+  height: calc(100% - 2px);
+  overflow: hidden;
+}
+
+/* 50ms Tactile Depress Physics */
+.ui-tactile,
+.btn-magnetic,
+.nav-pill-btn,
+.dock-tab-btn,
+.filter-pill-btn,
+.dock-icon-action,
+.btn-action,
+.theme-toggle-btn,
+.cmd-palette-trigger {
+  transition: transform var(--duration-press) var(--ease-snappy),
+              background-color var(--duration-instant) var(--ease-snappy),
+              border-color var(--duration-instant) var(--ease-snappy),
+              box-shadow var(--duration-instant) var(--ease-snappy);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.ui-tactile:active:not(:disabled),
+.btn-magnetic:active,
+.nav-pill-btn:active,
+.dock-tab-btn:active,
+.filter-pill-btn:active,
+.dock-icon-action:active,
+.btn-action:active,
+.theme-toggle-btn:active,
+.cmd-palette-trigger:active {
+  transform: scale(0.97) !important;
+}
+
+/* Spotlight Card Ambient Reflection */
+.ui-spotlight-card {
+  position: relative;
+  background-color: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--card-radius-outer);
+  overflow: hidden;
+}
+
+.ui-spotlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    var(--spotlight-size) circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    var(--spotlight-color),
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-snappy);
+}
+
+.ui-spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Optimistic UI Shimmer Wave */
+@keyframes ui-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-ui-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-ui-shimmer::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: var(--shimmer-gradient);
+  animation: ui-shimmer 1.8s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Data Mutation Micro-Flash */
+@keyframes ui-data-flash {
+  0% {
+    background-color: rgba(16, 185, 129, 0.25);
+    color: #10b981;
+  }
+  100% {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+.ui-flash-active {
+  animation: ui-data-flash 500ms var(--ease-snappy) forwards;
+}
+
+/* High-Craft Hairline and Glassmorphism Helpers */
+.ui-hairline-border {
+  border: 1px solid var(--border-hairline);
+}
+
+.ui-glassmorphism {
+  background-color: var(--surface-overlay);
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
+}
 

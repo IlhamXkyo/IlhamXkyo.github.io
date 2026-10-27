@@ -1,228 +1,328 @@
 /**
- * BERSERK KINETIC RESONANCE DESIGN TOKENS
- * Deep Eclipse obsidian void, forged iron steel, and Brand of Sacrifice blood crimson.
- * High-contrast dark fantasy aesthetics: blood red pigments, cold blade steel, and burning ash embers.
- * Pure craft and architectural restraint. Zero AI slop neon.
+ * UI-MODERN v2.0 DESIGN TOKENS
+ * Reverse engineered from Linear, Raycast, Vercel, and Dub.co
+ * 4-Layer Surface Elevation Ladder, Hairline Luminance Borders,
+ * Negative Tracking Typography, Concentric Geometry, and Snappy Motion Physics.
  */
 
 :root {
   /* ==========================================================================
-     TIER 1: PRIMITIVES (OKLCH COLOR MATRIX & SPATIAL PRIMITIVES)
+     1. COLOR PRIMITIVES & ELEVATION LADDER (DARK OBSIDIAN / LINEAR-STYLE)
      ========================================================================== */
-  /* Abyssal Obsidian Primitives */
-  --raw-obsidian-950: oklch(0.11 0.015 270);
-  --raw-obsidian-900: oklch(0.14 0.018 270);
-  --raw-obsidian-850: oklch(0.18 0.022 270);
+  /* Abyssal Obsidian & Charcoal Primitives */
+  --raw-obsidian-950: #010102;
+  --raw-obsidian-900: #08090a;
+  --raw-obsidian-850: #0e0f12;
 
-  /* Brand Blood Crimson Primitives */
-  --raw-crimson-base: oklch(0.57 0.235 25);
-  --raw-crimson-glow: oklch(0.62 0.245 27);
-  --raw-crimson-deep: oklch(0.42 0.210 22);
+  /* High-Signal Crimson & Amber Accents */
+  --raw-crimson-base: #e11d48;
+  --raw-crimson-glow: rgba(225, 29, 72, 0.35);
+  --raw-crimson-deep: #be123c;
 
-  /* Cold Steel & Ash Inks */
-  --raw-steel-100: oklch(0.97 0.005 260);
-  --raw-steel-300: oklch(0.78 0.012 260);
-  --raw-steel-500: oklch(0.58 0.015 260);
-  --raw-steel-700: oklch(0.38 0.018 260);
+  /* Muted Editorial Slate Primitives */
+  --raw-steel-100: #f7f8f8;
+  --raw-steel-300: #d0d6e0;
+  --raw-steel-500: #8a8f98;
+  --raw-steel-700: #5d6169;
 
   /* Typographic Stacks */
   --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
   --font-serif: 'Playfair Display', Georgia, serif;
 
+  /* Negative Tracking Mathematics */
+  --tracking-hero: -0.045em;
+  --tracking-display: -0.035em;
+  --tracking-headline: -0.025em;
+  --tracking-card-title: -0.018em;
+  --tracking-body: -0.011em;
+  --tracking-eyebrow: +0.035em;
+
   /* Modular Typographic Scale */
-  --font-hero: clamp(3.8rem, 9.5vw, 7.5rem);
-  --font-h1: clamp(2.3rem, 4.8vw, 3.8rem);
-  --font-h2: clamp(1.55rem, 3.2vw, 2.3rem);
-  --font-h3: clamp(1.15rem, 2vw, 1.45rem);
+  --font-hero: clamp(3.2rem, 8vw, 6.4rem);
+  --font-h1: clamp(2rem, 4.2vw, 3.4rem);
+  --font-h2: clamp(1.45rem, 2.8vw, 2.1rem);
+  --font-h3: clamp(1.1rem, 1.8vw, 1.38rem);
   --font-body: 1rem;
   --font-small: 0.85rem;
   --font-micro: 0.72rem;
 
-  /* Geometry and Crisp Radii */
+  /* Geometry and Concentric Radii */
   --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+  --radius-2xl: 24px;
   --radius-full: 9999px;
+  --radius-pill: 9999px;
+
+  /* Standard Card Exterior Radius & Padding Default */
+  --card-radius-outer: var(--radius-lg);
+  --card-padding: 20px;
+
+  /* Concentric Inner Radius Formula: R_inner = max(0, R_outer - Padding) */
+  --card-radius-inner: max(0px, calc(var(--card-radius-outer) - var(--card-padding)));
+
+  /* Motion Physics & Exact Curves */
+  --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out-quad: cubic-bezier(0.45, 0, 0.55, 1);
+
+  /* Micro-Interaction Timing */
+  --duration-press: 50ms;
+  --duration-instant: 120ms;
+  --duration-fast: 180ms;
+  --duration-normal: 260ms;
+  --duration-slow: 380ms;
 
   /* Grid and Frame */
-  --max-width: 1200px;
-  --header-height: 64px;
+  --max-width: 1160px;
+  --header-height: 58px;
 
   /* Masterbuild Accessibility & Focus Tokens */
-  --focus-ring: #ef233c;
+  --focus-ring: #e11d48;
   --focus-ring-offset: 2px;
-  --status-ok: #ef233c;
-  --status-warn: #ff5722;
-  --status-err: #d90429;
+  --status-ok: #10b981;
+  --status-warn: #f59e0b;
+  --status-err: #e11d48;
 }
 
 /* ==========================================================================
-   DARK THEME (DEFAULT BERSERK ECLIPSE OBSIDIAN & BLOOD CRIMSON)
-   TIER 2 (SEMANTICS) & TIER 3 (COMPONENTS)
+   DARK THEME (DEFAULT 4-LAYER SURFACE ELEVATION LADDER)
    ========================================================================== */
 :root,
 html[data-theme="dark"] {
-  /* Tier 2: Semantics */
-  --canvas: #060609;
-  --surface-1: #0a0b10;
-  --surface-2: #12131b;
-  --hairline: rgba(239, 35, 60, 0.18);
-  --hairline-subtle: rgba(239, 35, 60, 0.10);
-  --hairline-hover: rgba(239, 35, 60, 0.44);
-  --ink: #f6f6f9;
-  --ink-secondary: #abaab8;
-  --ink-muted: #737385;
-  --primary: #ef233c;
-  --primary-hover: #ff334b;
-  --status: #ef233c;
+  /* Layer 0: Canvas Base - The deepest grounded surface */
+  --bg-canvas: #010102;
+  --canvas: #010102;
+  --surface-canvas: #010102;
+  --surface-canvas-subtle: #08090a;
 
-  /* Abyssal Surface Depths (Backwards Compatibility) */
-  --bg-canvas: #060609;
-  --bg-surface: #0a0b10;
-  --bg-surface-elevated: #12131b;
-  --bg-surface-card: #0d0e14;
-  --bg-surface-glass: rgba(10, 11, 16, 0.94);
-  --bg-input: #07080c;
+  /* Layer 1: Elevated Card / Section Surface */
+  --bg-surface-card: #0e0f12;
+  --surface-card: #0e0f12;
+  --surface-card-hover: #14151a;
+  --bg-surface: #0e0f12;
+  --surface-1: #0e0f12;
 
-  /* Architectural Hairline Borders (Forged Iron & Crimson Steel) */
-  --border-subtle: rgba(239, 35, 60, 0.10);
-  --border-default: rgba(239, 35, 60, 0.18);
-  --border-hover: rgba(239, 35, 60, 0.44);
-  --border-accent: rgba(239, 35, 60, 0.75);
+  /* Layer 2: Interactive / Input / Secondary Panel */
+  --bg-surface-elevated: #16181e;
+  --surface-elevated: #16181e;
+  --surface-elevated-hover: #1c1f26;
+  --surface-active: #22252e;
+  --surface-2: #16181e;
+  --bg-input: #16181e;
 
-  /* Cold Steel & Ash Typography Inks */
-  --text-primary: #f6f6f9;
-  --text-secondary: #abaab8;
-  --text-muted: #737385;
-  --text-dim: #4f4f60;
+  /* Layer 3: Floating Overlay / Modal / Dock / Command Palette */
+  --bg-surface-glass: rgba(19, 21, 26, 0.88);
+  --surface-overlay: rgba(19, 21, 26, 0.88);
+  --surface-scrim: rgba(0, 0, 0, 0.72);
+  --dock-bg: rgba(19, 21, 26, 0.90);
+  --dock-tabs-bg: rgba(255, 255, 255, 0.04);
+  --dock-tabs-border: rgba(255, 255, 255, 0.07);
+  --dock-pill-bg: rgba(255, 255, 255, 0.08);
+  --dock-pill-border: rgba(255, 255, 255, 0.15);
+  --dock-meta-btn-bg: rgba(255, 255, 255, 0.05);
+  --overlay-bg: rgba(0, 0, 0, 0.75);
+  --terminal-bg: rgba(14, 15, 21, 0.96);
 
-  /* Berserk Blood & Forge Inks */
-  --accent-terracotta: #ef233c;
-  --accent-terracotta-soft: rgba(239, 35, 60, 0.15);
-  --accent-saffron: #ff5722;
-  --accent-saffron-soft: rgba(255, 87, 34, 0.15);
-  --accent-slate: #d90429;
-  --accent-slate-soft: rgba(217, 4, 41, 0.15);
-  --accent-sage: #e11d48;
-  --accent-sage-soft: rgba(225, 29, 72, 0.15);
-  --accent-plum: #8d0801;
-  --accent-plum-soft: rgba(141, 8, 1, 0.15);
+  /* Hairline Borders (Subtle Luminance Formula) */
+  --border-hairline: rgba(255, 255, 255, 0.07);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-default: rgba(255, 255, 255, 0.09);
+  --border-hover: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.22);
+  --border-focus: rgba(225, 29, 72, 0.65);
+  --border-accent: rgba(225, 29, 72, 0.65);
+  --hairline: rgba(255, 255, 255, 0.07);
+  --hairline-subtle: rgba(255, 255, 255, 0.05);
+  --hairline-hover: rgba(255, 255, 255, 0.18);
+  --card-border: rgba(255, 255, 255, 0.07);
+
+  /* Clean Typography / Ink Hierarchy */
+  --text-primary: #f7f8f8;
+  --text-secondary: #d0d6e0;
+  --text-muted: #8a8f98;
+  --text-dim: #5d6169;
+  --ink: #f7f8f8;
+  --ink-secondary: #d0d6e0;
+  --ink-muted: #8a8f98;
+  --ink-primary: #f7f8f8;
+  --ink-inverse: #050506;
+
+  /* Primary Brand Signal */
+  --primary: #e11d48;
+  --primary-hover: #f43f5e;
+  --status: #e11d48;
+
+  /* Refined Accent Inks */
+  --accent-terracotta: #e11d48;
+  --accent-terracotta-soft: rgba(225, 29, 72, 0.12);
+  --accent-saffron: #f59e0b;
+  --accent-saffron-soft: rgba(245, 158, 11, 0.12);
+  --accent-slate: #38bdf8;
+  --accent-slate-soft: rgba(56, 189, 248, 0.12);
+  --accent-sage: #10b981;
+  --accent-sage-soft: rgba(16, 185, 129, 0.12);
+  --accent-plum: #be185d;
+  --accent-plum-soft: rgba(190, 24, 93, 0.12);
 
   /* Semantic Compatibility Mappings */
-  --accent-azure: #ff2a4b;
-  --accent-azure-soft: rgba(255, 42, 75, 0.15);
-  --accent-emerald: #ef233c;
-  --accent-emerald-soft: rgba(239, 35, 60, 0.15);
-  --accent-amber: #ff5722;
-  --accent-amber-soft: rgba(255, 87, 34, 0.15);
-  --accent-purple: #8d0801;
-  --accent-purple-soft: rgba(141, 8, 1, 0.15);
+  --accent-azure: #38bdf8;
+  --accent-azure-soft: rgba(56, 189, 248, 0.12);
+  --accent-emerald: #10b981;
+  --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+  --accent-amber: #f59e0b;
+  --accent-amber-soft: rgba(245, 158, 11, 0.12);
+  --accent-purple: #be185d;
+  --accent-purple-soft: rgba(190, 24, 93, 0.12);
 
-  /* Tactile Shadows & Blood Ember Glows */
-  --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.7);
-  --shadow-md: 0 16px 44px rgba(0, 0, 0, 0.85);
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(239, 35, 60, 0.12);
-  --shadow-glow: 0 4px 34px rgba(239, 35, 60, 0.32);
+  /* Spotlight & Shimmer Tokens */
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  --spotlight-color: rgba(255, 255, 255, 0.06);
+  --spotlight-size: 600px;
+  --shimmer-gradient: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+
+  /* Glassmorphism Filters */
+  --backdrop-blur: blur(16px) saturate(180%);
+  --backdrop-blur-sm: blur(8px) saturate(140%);
+
+  /* Ambient Rim Lighting & Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 0 0 1px var(--border-hairline), 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-overlay: 0 0 0 1px var(--border-strong), 0 24px 60px -12px rgba(0, 0, 0, 0.85);
+  --shadow-glow: none;
 
   /* Tier 3: Component Tokens */
-  --btn-primary-bg: #ef233c;
+  --btn-primary-bg: #e11d48;
   --btn-primary-ink: #ffffff;
-  --card-border: rgba(239, 35, 60, 0.18);
   --pill-bg: rgba(255, 255, 255, 0.04);
-  --pill-bg-hover: rgba(239, 35, 60, 0.12);
-  --dock-bg: rgba(10, 11, 16, 0.96);
-  --dock-tabs-bg: rgba(255, 255, 255, 0.04);
-  --dock-tabs-border: rgba(239, 35, 60, 0.14);
-  --dock-pill-bg: rgba(239, 35, 60, 0.18);
-  --dock-pill-border: rgba(239, 35, 60, 0.35);
-  --dock-meta-btn-bg: rgba(255, 255, 255, 0.05);
-  --overlay-bg: rgba(6, 6, 9, 0.92);
-  --terminal-bg: rgba(10, 11, 16, 0.98);
-  --glare-color: rgba(239, 35, 60, 0.08);
-  --badge-bg: rgba(239, 35, 60, 0.08);
+  --pill-bg-hover: rgba(255, 255, 255, 0.08);
+  --glare-color: rgba(255, 255, 255, 0.03);
+  --badge-bg: rgba(255, 255, 255, 0.05);
 }
 
 /* ==========================================================================
-   LIGHT THEME (BERSERK MANGA INKED ON RAW TEXTURED PARCHMENT)
+   LIGHT THEME (VERCEL / STRIPE PRECISION LADDER)
    ========================================================================== */
 html[data-theme="light"] {
-  /* Tier 2: Semantics */
-  --canvas: #f6f5ef;
-  --surface-1: #ffffff;
-  --surface-2: #ebe9e1;
-  --hairline: rgba(20, 20, 26, 0.16);
-  --hairline-subtle: rgba(20, 20, 26, 0.09);
-  --hairline-hover: rgba(186, 24, 27, 0.42);
-  --ink: #111116;
-  --ink-secondary: #484854;
-  --ink-muted: #757585;
-  --primary: #ba181b;
-  --primary-hover: #a4161a;
-  --status: #ba181b;
+  /* Layer 0: Canvas Base */
+  --bg-canvas: #ffffff;
+  --canvas: #ffffff;
+  --surface-canvas: #ffffff;
+  --surface-canvas-subtle: #fafafa;
 
-  /* Surface Depths */
-  --bg-canvas: #f6f5ef;
-  --bg-surface: #ffffff;
-  --bg-surface-elevated: #ebe9e1;
+  /* Layer 1: Elevated Card / Section Surface */
   --bg-surface-card: #ffffff;
-  --bg-surface-glass: rgba(246, 245, 239, 0.94);
-  --bg-input: #eae8df;
+  --surface-card: #ffffff;
+  --surface-card-hover: #fcfcfc;
+  --bg-surface: #ffffff;
+  --surface-1: #ffffff;
 
-  /* Architectural Hairline Borders */
-  --border-subtle: rgba(20, 20, 26, 0.09);
-  --border-default: rgba(20, 20, 26, 0.16);
-  --border-hover: rgba(186, 24, 27, 0.42);
-  --border-accent: rgba(186, 24, 27, 0.65);
+  /* Layer 2: Interactive / Input / Secondary Panel */
+  --bg-surface-elevated: #f4f4f5;
+  --surface-elevated: #f4f4f5;
+  --surface-elevated-hover: #ebebef;
+  --surface-active: #e4e4e7;
+  --surface-2: #f4f4f5;
+  --bg-input: #f4f4f5;
 
-  /* Deep Sumi Ink Typography */
-  --text-primary: #111116;
-  --text-secondary: #484854;
-  --text-muted: #757585;
-  --text-dim: #9e9ea8;
+  /* Layer 3: Floating Overlay / Modal / Dock */
+  --bg-surface-glass: rgba(255, 255, 255, 0.92);
+  --surface-overlay: rgba(255, 255, 255, 0.92);
+  --surface-scrim: rgba(0, 0, 0, 0.4);
+  --dock-bg: rgba(255, 255, 255, 0.94);
+  --dock-tabs-bg: rgba(0, 0, 0, 0.04);
+  --dock-tabs-border: rgba(0, 0, 0, 0.06);
+  --dock-pill-bg: rgba(0, 0, 0, 0.06);
+  --dock-pill-border: rgba(0, 0, 0, 0.12);
+  --dock-meta-btn-bg: rgba(0, 0, 0, 0.04);
+  --overlay-bg: rgba(0, 0, 0, 0.45);
+  --terminal-bg: rgba(255, 255, 255, 0.98);
 
-  /* Blood Red & Charcoal Inks for Light Mode */
-  --accent-terracotta: #ba181b;
-  --accent-terracotta-soft: rgba(186, 24, 27, 0.12);
-  --accent-saffron: #a4161a;
-  --accent-saffron-soft: rgba(164, 22, 26, 0.12);
-  --accent-slate: #660708;
-  --accent-slate-soft: rgba(102, 7, 8, 0.12);
-  --accent-sage: #8b0000;
-  --accent-sage-soft: rgba(139, 0, 0, 0.12);
-  --accent-plum: #480ca8;
-  --accent-plum-soft: rgba(72, 12, 168, 0.12);
+  /* Hairline Borders */
+  --border-hairline: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-default: rgba(0, 0, 0, 0.10);
+  --border-hover: rgba(0, 0, 0, 0.20);
+  --border-strong: rgba(0, 0, 0, 0.22);
+  --border-focus: rgba(0, 0, 0, 0.85);
+  --border-accent: rgba(225, 29, 72, 0.5);
+  --hairline: rgba(0, 0, 0, 0.08);
+  --hairline-subtle: rgba(0, 0, 0, 0.04);
+  --hairline-hover: rgba(0, 0, 0, 0.20);
+  --card-border: rgba(0, 0, 0, 0.08);
+
+  /* Typography / Ink Hierarchy */
+  --text-primary: #09090b;
+  --text-secondary: #3f3f46;
+  --text-muted: #71717a;
+  --text-dim: #a1a1aa;
+  --ink: #09090b;
+  --ink-secondary: #3f3f46;
+  --ink-muted: #71717a;
+  --ink-primary: #09090b;
+  --ink-inverse: #ffffff;
+
+  /* Primary Brand Signal */
+  --primary: #e11d48;
+  --primary-hover: #be123c;
+  --status: #e11d48;
+
+  /* Muted Pastels for Light Mode */
+  --accent-terracotta: #be123c;
+  --accent-terracotta-soft: rgba(190, 18, 60, 0.08);
+  --accent-saffron: #b45309;
+  --accent-saffron-soft: rgba(180, 83, 9, 0.08);
+  --accent-slate: #0369a1;
+  --accent-slate-soft: rgba(3, 105, 161, 0.08);
+  --accent-sage: #047857;
+  --accent-sage-soft: rgba(4, 120, 87, 0.08);
+  --accent-plum: #7e22ce;
+  --accent-plum-soft: rgba(126, 34, 206, 0.08);
 
   /* Semantic Compatibility Mappings */
-  --accent-azure: #ba181b;
-  --accent-azure-soft: rgba(186, 24, 27, 0.12);
-  --accent-emerald: #a4161a;
-  --accent-emerald-soft: rgba(164, 22, 26, 0.12);
-  --accent-amber: #660708;
-  --accent-amber-soft: rgba(102, 7, 8, 0.12);
-  --accent-purple: #480ca8;
-  --accent-purple-soft: rgba(72, 12, 168, 0.12);
+  --accent-azure: #0369a1;
+  --accent-azure-soft: rgba(3, 105, 161, 0.08);
+  --accent-emerald: #047857;
+  --accent-emerald-soft: rgba(4, 120, 87, 0.08);
+  --accent-amber: #b45309;
+  --accent-amber-soft: rgba(180, 83, 9, 0.08);
+  --accent-purple: #7e22ce;
+  --accent-purple-soft: rgba(126, 34, 206, 0.08);
 
-  /* Tactile Shadows */
-  --shadow-sm: 0 2px 8px rgba(20, 20, 26, 0.08);
-  --shadow-md: 0 14px 34px rgba(20, 20, 26, 0.14);
-  --shadow-card: 0 4px 18px rgba(20, 20, 26, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --shadow-glow: 0 4px 22px rgba(186, 24, 27, 0.16);
+  /* Spotlight & Shimmer Tokens */
+  --spotlight-color: rgba(0, 0, 0, 0.03);
+  --shimmer-gradient: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  /* Subtle Minimalist Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 6px 18px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 0 0 1px var(--border-hairline), 0 4px 16px -2px rgba(0, 0, 0, 0.06);
+  --shadow-overlay: 0 0 0 1px var(--border-subtle), 0 20px 48px -8px rgba(0, 0, 0, 0.14);
+  --shadow-glow: none;
 
   /* Component and Pill Tokens */
-  --pill-bg: rgba(20, 20, 26, 0.05);
-  --pill-bg-hover: rgba(20, 20, 26, 0.09);
-  --dock-bg: rgba(255, 255, 255, 0.96);
-  --dock-tabs-bg: rgba(20, 20, 26, 0.05);
-  --dock-tabs-border: rgba(20, 20, 26, 0.08);
-  --dock-pill-bg: rgba(186, 24, 27, 0.12);
-  --dock-pill-border: rgba(186, 24, 27, 0.25);
-  --dock-meta-btn-bg: rgba(20, 20, 26, 0.05);
-  --overlay-bg: rgba(20, 20, 26, 0.6);
-  --terminal-bg: rgba(246, 245, 239, 0.98);
-  --glare-color: rgba(20, 20, 26, 0.04);
-  --badge-bg: rgba(20, 20, 26, 0.05);
+  --btn-primary-bg: #18181b;
+  --btn-primary-ink: #ffffff;
+  --pill-bg: rgba(0, 0, 0, 0.04);
+  --pill-bg-hover: rgba(0, 0, 0, 0.07);
+  --glare-color: rgba(0, 0, 0, 0.02);
+  --badge-bg: rgba(0, 0, 0, 0.04);
 }
 
 *, *::before, *::after {
@@ -276,7 +376,8 @@ p, li, blockquote {
 .telemetry-val,
 .term-output,
 .routine-num,
-.dock-tab-index {
+.dock-tab-index,
+.ui-tabular {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum" 1;
 }
@@ -289,12 +390,12 @@ p, li, blockquote {
 
 /* Custom Architectural Scrollbar */
 html {
-  scrollbar-color: rgba(239, 35, 60, 0.3) var(--bg-canvas);
+  scrollbar-color: rgba(225, 29, 72, 0.25) var(--bg-canvas);
   scrollbar-width: thin;
 }
 
 html[data-theme="light"] {
-  scrollbar-color: rgba(186, 24, 27, 0.3) var(--bg-canvas);
+  scrollbar-color: rgba(0, 0, 0, 0.2) var(--bg-canvas);
 }
 
 ::-webkit-scrollbar {
@@ -304,11 +405,11 @@ html[data-theme="light"] {
   background: var(--bg-canvas);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(239, 35, 60, 0.28);
+  background: rgba(225, 29, 72, 0.2);
   border-radius: var(--radius-full);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(239, 35, 60, 0.55);
+  background: rgba(225, 29, 72, 0.4);
 }
 
 /* Accessibility: Respect Reduced Motion Preference */

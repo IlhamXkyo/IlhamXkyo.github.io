@@ -1,6 +1,7 @@
 /**
- * 3D PERSPECTIVE TILT & SPECULAR GLARE ENGINE
- * Implements smooth 3D rotational tilt and radial glare following cursor position.
+ * 3D PERSPECTIVE TILT, SPECULAR SPOTLIGHT & GLARE ENGINE
+ * Reverse engineered for UI-Modern v2.0
+ * Implements smooth 3D rotational tilt and radial spotlight following cursor position.
  */
 
 export class TiltEngine {
@@ -22,7 +23,7 @@ export class TiltEngine {
   }
 
   refresh() {
-    const targets = document.querySelectorAll('.tilt-card, .project-card, .workbench-card, .routine-card');
+    const targets = document.querySelectorAll('.tilt-card, .project-card, .workbench-card, .routine-card, .featured-case-card, .ui-spotlight-card');
     targets.forEach((card) => {
       if (card.dataset.tiltAttached) return;
       card.dataset.tiltAttached = 'true';
@@ -46,9 +47,11 @@ export class TiltEngine {
 
       card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) translateY(-4px)`;
 
-      // Set card-level mouse positions for glare
+      // Set card-level mouse positions for glare and UI-Modern spotlight
       card.style.setProperty('--mouse-card-x', `${x}px`);
       card.style.setProperty('--mouse-card-y', `${y}px`);
+      card.style.setProperty('--spotlight-x', `${x}px`);
+      card.style.setProperty('--spotlight-y', `${y}px`);
     });
 
     card.addEventListener('mouseleave', () => {

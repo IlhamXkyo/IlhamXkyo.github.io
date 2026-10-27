@@ -5,7 +5,7 @@
  */
 
 import { DEVELOPER_PROFILE, REPOSITORIES } from './data.js';
-import { sound } from './audio.js';
+import { sound, playTactileClick } from './audio.js';
 import { FluidSimulator } from './fluid-canvas.js';
 import { ConstellationSimulator } from './constellation-canvas.js';
 import { HarmonicWaveSimulator } from './harmonic-canvas.js';
@@ -322,6 +322,14 @@ class App {
     }
 
     this.renderCards(filtered);
+
+    // Micro-flash feedback on active filter pill count
+    const activePill = document.querySelector('.filter-pill-btn.active .pill-count');
+    if (activePill) {
+      activePill.classList.remove('ui-flash-active');
+      void activePill.offsetWidth;
+      activePill.classList.add('ui-flash-active');
+    }
   }
 
   renderCards(repos) {
@@ -343,7 +351,7 @@ class App {
         const catClass = r.category || 'tools';
 
         return `
-          <article class="project-card tilt-card reveal-on-scroll" data-id="${r.id}">
+          <article class="project-card tilt-card ui-spotlight-card reveal-on-scroll" data-id="${r.id}">
             <div class="tilt-glare"></div>
             <div>
               <div class="card-top-row">
@@ -683,6 +691,7 @@ class App {
             requestAnimationFrame(tick);
           } else {
             item.el.textContent = `${item.target}${item.suffix}`;
+            item.el.classList.add('ui-flash-active');
           }
         };
         requestAnimationFrame(tick);

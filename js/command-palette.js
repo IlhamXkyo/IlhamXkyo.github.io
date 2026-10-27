@@ -163,7 +163,7 @@ export class CommandPalette {
       .map((item, idx) => `
         <div class="cp-result-item ${idx === this.selectedIndex ? 'selected' : ''}" data-idx="${idx}">
           <div class="cp-result-left">
-            <span class="cp-result-icon">${item.type === 'action' ? '⚡' : '▹'}</span>
+            <span class="cp-result-icon">${item.type === 'action' ? '◈' : '▹'}</span>
             <div>
               <span class="cp-result-name">${item.name}</span>
               <span class="cp-result-desc">${item.desc ? item.desc.slice(0, 55) : ''}</span>

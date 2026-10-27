@@ -1,7 +1,7 @@
 /**
  * KYOTERM INTERACTIVE TERMINAL DRAWER
  * Authentic UNIX shell presentation with ANSI telemetry and keyboard interaction.
- * Clean stone borders, sage clay prompts, zero neon slop.
+ * Clean hairline borders, subtle prompts, zero artificial neon slop.
  */
 
 .terminal-drawer {
@@ -9,7 +9,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 480px;
+  height: 460px;
   background: var(--terminal-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -19,7 +19,7 @@
   flex-direction: column;
   transform: translateY(100%);
   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.45);
 }
 
 .terminal-drawer.active {
@@ -27,7 +27,7 @@
 }
 
 .term-header {
-  padding: 10px 20px;
+  padding: 10px 18px;
   background: var(--bg-surface-elevated);
   border-bottom: 1px solid var(--border-subtle);
   display: flex;
@@ -42,11 +42,10 @@
 }
 
 .term-led {
-  width: 7px;
-  height: 7px;
-  background: var(--accent-terracotta);
+  width: 6px;
+  height: 6px;
+  background: var(--status-ok);
   border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent-terracotta);
 }
 
 .term-title-text {
@@ -73,8 +72,8 @@
   border-radius: var(--radius-xs);
   color: var(--text-secondary);
   font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 2px 8px;
+  font-size: 10.5px;
+  padding: 2px 7px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
@@ -82,15 +81,15 @@
 .term-close-btn:hover {
   border-color: var(--border-default);
   color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--pill-bg-hover);
 }
 
 .term-output {
   flex-grow: 1;
-  padding: 16px 20px;
+  padding: 14px 18px;
   overflow-y: auto;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 1.5;
   color: var(--text-secondary);
 }
@@ -98,7 +97,7 @@
 .term-line {
   white-space: pre-wrap;
   word-break: break-all;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .term-input-row,
@@ -106,14 +105,14 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 20px;
+  padding: 8px 18px;
   background: var(--bg-canvas);
   border-top: 1px solid var(--border-subtle);
 }
 
 .term-prompt {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: var(--accent-sage);
   white-space: nowrap;
@@ -124,25 +123,12 @@
   background: transparent;
   border: none;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 11.5px;
   color: var(--text-primary);
 }
 
 .term-input:focus {
   outline: none;
-}
-
-/* CRT Scanline micro-texture */
-.terminal-drawer::after {
-  content: " ";
-  display: block;
-  position: absolute;
-  top: 0; left: 0; bottom: 0; right: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
-  background-size: 100% 4px;
-  z-index: 2;
-  pointer-events: none;
-  opacity: 0.15;
 }
 
 @media (max-width: 640px) {
@@ -162,7 +148,7 @@
     text-overflow: ellipsis;
   }
   .term-output {
-    padding: 12px 14px;
+    padding: 10px 14px;
     font-size: 11px;
   }
   .term-input-row,
@@ -178,11 +164,7 @@
 }
 
 html[data-theme="light"] .terminal-drawer {
-  box-shadow: 0 -12px 40px rgba(45, 40, 32, 0.15);
-}
-
-html[data-theme="light"] .terminal-drawer::after {
-  opacity: 0.04;
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.08);
 }
 
 html[data-theme="light"] .term-shortcut-hint {

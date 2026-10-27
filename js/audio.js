@@ -1,6 +1,7 @@
 /**
- * Procedural Web Audio API Sound Generator
- * Generates tactile mechanical clicks, interface acoustic feedback, and telemetry blips.
+ * Procedural Web Audio API Sound Generator & Haptics Engine
+ * Reverse engineered for UI-Modern v2.0
+ * Generates tactile mechanical clicks (<15ms), interface acoustic feedback, and telemetry blips.
  * Zero external audio files required.
  */
 
@@ -61,31 +62,30 @@ class SoundEngine {
     return this.enabled;
   }
 
-  // Tactile mechanical key click (narrow impulse + high bandpass)
-  click() {
+  // UI-Modern v2.0 Procedural Web Audio Micro-Haptic Click (<15ms)
+  click(options = {}) {
     if (!this.ensureContext()) return;
+    const { freq = 820, duration = 0.014, volume = 0.14 } = options;
     const t = this.ctx.currentTime;
-    const osc = this.ctx.createOscillator();
-    const gain = this.ctx.createGain();
-    const filter = this.ctx.createBiquadFilter();
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
 
-    osc.type = 'triangle';
-    osc.frequency.setValueAtTime(1400, t);
-    osc.frequency.exponentialRampToValueAtTime(300, t + 0.03);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, t);
+      osc.frequency.exponentialRampToValueAtTime(80, t + duration);
 
-    filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(2200, t);
-    filter.Q.setValueAtTime(3.0, t);
+      gain.gain.setValueAtTime(volume, t);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + duration);
 
-    gain.gain.setValueAtTime(0.25, t);
-    gain.gain.exponentialRampToValueAtTime(0.001, t + 0.035);
+      osc.connect(gain);
+      gain.connect(this.masterGain);
 
-    osc.connect(filter);
-    filter.connect(gain);
-    gain.connect(this.masterGain);
-
-    osc.start(t);
-    osc.stop(t + 0.04);
+      osc.start(t);
+      osc.stop(t + duration);
+    } catch (e) {
+      // Audio autoplay policy guard
+    }
   }
 
   // Mode change chirp
@@ -214,3 +214,7 @@ class SoundEngine {
 }
 
 export const sound = new SoundEngine();
+
+export function playTactileClick(options = {}) {
+  sound.click(options);
+}
