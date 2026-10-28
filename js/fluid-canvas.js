@@ -298,9 +298,9 @@ export class FluidSimulator {
       // Transfer interactive motion momentum directly into background fluid particles
       this.injectForce(mx, my, dx, dy);
 
-      // 1. Beast of Darkness Rage trigger: rapid slashing cursor triggers bloodlust flare
-      if (dist > 30 * (this.dpr || 1)) {
-        this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.26);
+      // 1. Beast of Darkness Rage trigger: only extreme high-speed slashes trigger crimson bloodlust
+      if (dist > 95 * (this.dpr || 1)) {
+        this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.40);
       }
     }
 
@@ -332,18 +332,17 @@ export class FluidSimulator {
     // 4. Shockwave ripple on click (Dragonslayer blow pressure)
     this.triggerShockwave(mx, my);
 
-    // 1. Double click or rapid clicking triggers furious crimson rage
+    // 1. Rapid frantic triple-clicking triggers furious crimson rage
     const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
-    if (now - this.lastClickTime < 340) {
+    if (now - this.lastClickTime < 240) {
       this.clickCountRecent++;
-      if (this.clickCountRecent >= 2) {
+      if (this.clickCountRecent >= 3) {
         this.rageIntensity = 1.0;
       }
     } else {
       this.clickCountRecent = 1;
     }
     this.lastClickTime = now;
-    this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.16);
   }
 
   onMouseUp() {
@@ -363,16 +362,15 @@ export class FluidSimulator {
       this.triggerShockwave(mx, my);
 
       const now = (typeof performance !== 'undefined' && performance.now) ? performance.now() : Date.now();
-      if (now - this.lastClickTime < 340) {
+      if (now - this.lastClickTime < 240) {
         this.clickCountRecent++;
-        if (this.clickCountRecent >= 2) {
+        if (this.clickCountRecent >= 3) {
           this.rageIntensity = 1.0;
         }
       } else {
         this.clickCountRecent = 1;
       }
       this.lastClickTime = now;
-      this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.20);
     }
   }
 
@@ -387,8 +385,8 @@ export class FluidSimulator {
       const dist = Math.sqrt(dx * dx + dy * dy);
 
       this.injectForce(mx, my, dx, dy);
-      if (dist > 28 * (this.dpr || 1)) {
-        this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.24);
+      if (dist > 95 * (this.dpr || 1)) {
+        this.rageIntensity = Math.min(1.0, this.rageIntensity + 0.40);
       }
 
       this.mouse.x = mx;
@@ -628,11 +626,13 @@ export class FluidSimulator {
     const leftX = eyeCenterX - eyeDistance * 0.5;
     const rightX = eyeCenterX + eyeDistance * 0.5;
 
-    // 1. Outer Crimson Aura: Multi-stage deep breathing halo surrounding both eye sockets (flares with rage)
+    // 1. Outer Crimson Aura: Multi-stage deep breathing halo surrounding both eye sockets (flares only during extreme rage)
+    const isRageActive = this.rageIntensity > 0.75;
+    const rageFactor = isRageActive ? (this.rageIntensity - 0.75) / 0.25 : 0.0;
     const auraPulse = 0.94 + 0.06 * Math.sin(this.time * 2.0);
-    const auraRadiusX = (155 + 45 * this.rageIntensity) * scale;
-    const auraRadiusY = (100 + 28 * this.rageIntensity) * scale;
-    const auraAlphaMult = (1.0 + 0.75 * this.rageIntensity) * this.sectionDim;
+    const auraRadiusX = (155 + 40 * rageFactor) * scale;
+    const auraRadiusY = (100 + 25 * rageFactor) * scale;
+    const auraAlphaMult = (1.0 + 0.65 * rageFactor) * this.sectionDim;
 
     if (!isLight) {
       [leftX, rightX].forEach((ex) => {
@@ -694,20 +694,22 @@ export class FluidSimulator {
       ctx.closePath();
     };
 
-    // Berserker Miasma: Subtle dark smoke tendrils drifting from the outer canthus (intensifies with rage)
+    // Berserker Miasma: Subtle dark smoke tendrils drifting from the outer canthus (intensifies only during high-speed rage)
+    const isRageActive = this.rageIntensity > 0.75;
+    const rageFactor = isRageActive ? (this.rageIntensity - 0.75) / 0.25 : 0.0;
     if (!isLight && !isClosed) {
-      const numTendrils = 3 + Math.floor(this.rageIntensity * 2.5);
+      const numTendrils = 3 + (isRageActive ? 2 : 0);
       for (let m = 0; m < numTendrils; m++) {
-        const mPhase = this.time * (1.8 + 1.2 * this.rageIntensity) + m * 2.1;
-        const mLen = (26 + m * 14) * s * (1.0 + 0.65 * this.rageIntensity);
-        const mX = -58 * s - Math.sin(mPhase) * (8 * s + 6 * s * this.rageIntensity) - m * 6 * s;
+        const mPhase = this.time * (1.8 + 1.2 * rageFactor) + m * 2.1;
+        const mLen = (26 + m * 14) * s * (1.0 + 0.65 * rageFactor);
+        const mX = -58 * s - Math.sin(mPhase) * (8 * s + 6 * s * rageFactor) - m * 6 * s;
         const mY = -4 * s - mLen;
         ctx.beginPath();
         ctx.moveTo(-58 * s, -4 * s);
         ctx.quadraticCurveTo(-65 * s - Math.cos(mPhase) * 10 * s, -12 * s - mLen * 0.5, mX, mY);
-        const mAlpha = Math.max(0.04, (0.20 + 0.30 * this.rageIntensity - m * 0.035) * this.sectionDim);
+        const mAlpha = Math.max(0.04, (0.20 + 0.30 * rageFactor - m * 0.035) * this.sectionDim);
         ctx.strokeStyle = `rgba(220, 20, 30, ${mAlpha})`;
-        ctx.lineWidth = (3.5 - m * 0.6 + this.rageIntensity * 1.5) * s;
+        ctx.lineWidth = (3.5 - m * 0.6 + rageFactor * 1.5) * s;
         ctx.lineCap = 'round';
         ctx.stroke();
       }
@@ -769,12 +771,13 @@ export class FluidSimulator {
       const ix = lx;
       const iy = ly;
 
-      // Ocular Bloom: Radiant light scattering onto surrounding sclera (flares during rage)
+      // Ocular Bloom: Radiant light scattering onto surrounding sclera (flares only during extreme rage)
       const rI = this.rageIntensity;
+      const isRageActive = rI > 0.75;
       const irisBloom = ctx.createRadialGradient(ix, iy, ir * 0.35, ix, iy, ir * 2.1);
       if (!isLight) {
-        irisBloom.addColorStop(0.0, rI > 0.45 ? `rgba(255, 60, 60, ${0.65 * this.sectionDim})` : `rgba(255, 235, 60, ${0.52 * this.sectionDim})`);
-        irisBloom.addColorStop(0.42, rI > 0.45 ? `rgba(220, 20, 30, ${0.42 * this.sectionDim})` : `rgba(245, 158, 11, ${0.32 * this.sectionDim})`);
+        irisBloom.addColorStop(0.0, isRageActive ? `rgba(255, 60, 60, ${0.65 * this.sectionDim})` : `rgba(255, 235, 60, ${0.52 * this.sectionDim})`);
+        irisBloom.addColorStop(0.42, isRageActive ? `rgba(220, 20, 30, ${0.42 * this.sectionDim})` : `rgba(245, 158, 11, ${0.32 * this.sectionDim})`);
         irisBloom.addColorStop(0.75, `rgba(225, 29, 72, ${0.15 * this.sectionDim})`);
         irisBloom.addColorStop(1.0, 'rgba(186, 24, 27, 0)');
       } else {
@@ -793,20 +796,20 @@ export class FluidSimulator {
       ctx.fillStyle = !isLight ? '#120002' : '#3d0508';
       ctx.fill();
 
-      // 1. Iris Stroma Body: Dynamic morphing between Golden Demonic and Beast of Darkness Crimson Rage
+      // 1. Iris Stroma Body: Golden Demonic by default, morphs to Beast of Darkness Bloodlust on extreme slashing
       const irisGrad = ctx.createRadialGradient(ix, iy, 0, ix, iy, ir * 0.98);
       if (!isLight) {
         irisGrad.addColorStop(0.00, '#ffffff'); // Blinding incandescent white pupil edge
-        irisGrad.addColorStop(0.12, rI > 0.45 ? '#ff7070' : '#ffff70'); // Electric yellow or scarlet flare
-        irisGrad.addColorStop(0.32, rI > 0.45 ? '#ff1a2e' : '#fff01f'); // Golden fire or blood crimson
-        irisGrad.addColorStop(0.55, rI > 0.45 ? '#dc2626' : '#f59e0b'); // Amber stroma or deep blood red
-        irisGrad.addColorStop(0.76, rI > 0.45 ? '#991b1b' : '#d97706'); // Deep golden-orange or crimson collarette
+        irisGrad.addColorStop(0.12, isRageActive ? '#ff7070' : '#ffff70'); // Electric yellow or scarlet flare
+        irisGrad.addColorStop(0.32, isRageActive ? '#ff1a2e' : '#fff01f'); // Golden fire or blood crimson
+        irisGrad.addColorStop(0.55, isRageActive ? '#dc2626' : '#f59e0b'); // Amber stroma or deep blood red
+        irisGrad.addColorStop(0.76, isRageActive ? '#991b1b' : '#d97706'); // Deep golden-orange or crimson collarette
         irisGrad.addColorStop(0.90, '#7f1d1d'); // Blood-crimson limbal border
         irisGrad.addColorStop(1.00, '#1c0205'); // Dark rim boundary
       } else {
         irisGrad.addColorStop(0.00, '#fffbeb');
-        irisGrad.addColorStop(0.20, rI > 0.45 ? '#f87171' : '#fde047');
-        irisGrad.addColorStop(0.60, rI > 0.45 ? '#dc2626' : '#d97706');
+        irisGrad.addColorStop(0.20, isRageActive ? '#f87171' : '#fde047');
+        irisGrad.addColorStop(0.60, isRageActive ? '#dc2626' : '#d97706');
         irisGrad.addColorStop(0.90, '#991b1b');
         irisGrad.addColorStop(1.00, '#380407');
       }
@@ -817,8 +820,8 @@ export class FluidSimulator {
 
       // Internal Caustics (Subsurface scattering: light refracts warmly to lower-right iris)
       const causticGlow = ctx.createRadialGradient(ix + 9 * s, iy + 10 * s, 2 * s, ix + 9 * s, iy + 10 * s, ir * 0.72);
-      causticGlow.addColorStop(0.0, rI > 0.45 ? 'rgba(255, 140, 140, 0.60)' : 'rgba(255, 245, 140, 0.55)');
-      causticGlow.addColorStop(0.6, rI > 0.45 ? 'rgba(239, 68, 68, 0.32)' : 'rgba(251, 191, 36, 0.28)');
+      causticGlow.addColorStop(0.0, isRageActive ? 'rgba(255, 140, 140, 0.60)' : 'rgba(255, 245, 140, 0.55)');
+      causticGlow.addColorStop(0.6, isRageActive ? 'rgba(239, 68, 68, 0.32)' : 'rgba(251, 191, 36, 0.28)');
       causticGlow.addColorStop(1.0, 'rgba(217, 119, 6, 0)');
       ctx.fillStyle = causticGlow;
       ctx.beginPath();
@@ -846,7 +849,7 @@ export class FluidSimulator {
         );
       }
       ctx.strokeStyle = !isLight
-        ? (rI > 0.45 ? 'rgba(255, 120, 130, 0.55)' : 'rgba(255, 245, 120, 0.45)')
+        ? (isRageActive ? 'rgba(255, 120, 130, 0.55)' : 'rgba(255, 245, 120, 0.45)')
         : 'rgba(180, 83, 9, 0.38)';
       ctx.lineWidth = 1.2 * s;
       ctx.stroke();
@@ -870,7 +873,7 @@ export class FluidSimulator {
         );
       }
       ctx.strokeStyle = !isLight
-        ? (rI > 0.45 ? 'rgba(220, 38, 38, 0.40)' : 'rgba(245, 158, 11, 0.30)')
+        ? (isRageActive ? 'rgba(220, 38, 38, 0.40)' : 'rgba(245, 158, 11, 0.30)')
         : 'rgba(220, 38, 38, 0.25)';
       ctx.lineWidth = 0.8 * s;
       ctx.stroke();
@@ -888,7 +891,7 @@ export class FluidSimulator {
       // 5. Breathing Demonic Slit Pupil with Sphincter Rim & Impact Constriction
       // Slit pupil constricts during focused gaze, impact shocks, and rapid rage
       const pupilBreath = 0.92 + 0.08 * Math.sin(this.time * 1.6);
-      const pw = Math.max(1.8 * s, (5.4 * (1 - 0.42 * this.rageIntensity) - 1.4 * this.pupilTwitch) * s * pupilBreath);
+      const pw = Math.max(1.8 * s, (5.4 * (1 - 0.38 * (isRageActive ? 1.0 : 0.0)) - 1.4 * this.pupilTwitch) * s * pupilBreath);
       const ph = 39 * s * Math.max(0.42, effOpen);
 
       // Dark red pupil sphincter margin
