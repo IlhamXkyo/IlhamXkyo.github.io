@@ -1020,21 +1020,71 @@ export class FluidSimulator {
     ctx.strokeStyle = !isLight ? '#010001' : '#1a0408';
     ctx.stroke();
 
-    // 6 Sculpted Tapered Individual Lash Spikes along the upper rim
+    // 8b. Authentic Berserk Anime Upper Eyelash Clumps (Tapered spikes rooted directly on eyelid curve)
     if (!isClosed) {
-      const lashOffsets = [-36, -24, -12, 2, 16, 30];
-      for (let l = 0; l < lashOffsets.length; l++) {
-        const lx0 = lashOffsets[l] * s;
-        const ly0 = upperY1 + Math.sin((l / lashOffsets.length) * Math.PI) * (4 * s);
-        const lAngle = -0.5 - (l / lashOffsets.length) * 0.45;
-        const lLen = (6 + (5 - l) * 1.5) * s;
+      // Mathematical evaluator for upper eyelid cubic Bezier curve: P0=(-58, -4), P1=(-40, upperY1), P2=(14, upperY2), P3=(54, 14)
+      const evalUpperCurve = (t) => {
+        const u = 1 - t;
+        const tt = t * t;
+        const uu = u * u;
+        const uuu = uu * u;
+        const ttt = tt * t;
+
+        const x = (uuu * -58 + 3 * uu * t * -40 + 3 * u * tt * 14 + ttt * 54) * s;
+        const y = uuu * (-4 * s) + 3 * uu * t * upperY1 + 3 * u * tt * upperY2 + ttt * (14 * s);
+
+        const dx = 3 * uu * ((-40 - -58) * s) + 6 * u * t * ((14 - -40) * s) + 3 * tt * ((54 - 14) * s);
+        const dy = 3 * uu * (upperY1 - (-4 * s)) + 6 * u * t * (upperY2 - upperY1) + 3 * tt * ((14 * s) - upperY2);
+
+        const dLen = Math.hypot(dx, dy) || 1;
+        // Upward outward normal (pointing away from eyeball)
+        const nx = dy / dLen;
+        const ny = -dx / dLen;
+        const tx = dx / dLen;
+        const ty = dy / dLen;
+
+        return { x, y, nx, ny, tx, ty };
+      };
+
+      // 5 Sculpted anime lash spikes rooted seamlessly into the upper eyelid
+      const lashSpecs = [
+        { t: 0.10, len: 9.5, base: 4.2, sweep: -2.2 },
+        { t: 0.22, len: 12.0, base: 4.8, sweep: -1.6 },
+        { t: 0.36, len: 9.2, base: 4.0, sweep: -0.6 },
+        { t: 0.50, len: 6.8, base: 3.2, sweep: 0.4 },
+        { t: 0.65, len: 4.6, base: 2.4, sweep: 0.8 }
+      ];
+
+      ctx.fillStyle = !isLight ? '#010001' : '#1a0408';
+      for (let l = 0; l < lashSpecs.length; l++) {
+        const spec = lashSpecs[l];
+        const pt = evalUpperCurve(spec.t);
+        const halfBase = (spec.base * 0.5) * s;
+        const lashLen = spec.len * s;
+        const lashSweep = spec.sweep * s;
+
+        // Base vertices anchored exactly on eyelid curve
+        const b1x = pt.x - pt.tx * halfBase;
+        const b1y = pt.y - pt.ty * halfBase;
+        const b2x = pt.x + pt.tx * halfBase;
+        const b2y = pt.y + pt.ty * halfBase;
+
+        // Tapered sharp tip pointing outward in normal direction
+        const tipX = pt.x + pt.nx * lashLen + pt.tx * lashSweep;
+        const tipY = pt.y + pt.ny * lashLen + pt.ty * lashSweep;
+
+        // Mid-curve control points for organic anime flare
+        const midCtrl1X = pt.x + pt.nx * lashLen * 0.45 - pt.tx * halfBase * 0.4;
+        const midCtrl1Y = pt.y + pt.ny * lashLen * 0.45 - pt.ty * halfBase * 0.4;
+        const midCtrl2X = pt.x + pt.nx * lashLen * 0.45 + pt.tx * halfBase * 0.4;
+        const midCtrl2Y = pt.y + pt.ny * lashLen * 0.45 + pt.ty * halfBase * 0.4;
 
         ctx.beginPath();
-        ctx.moveTo(lx0, ly0);
-        ctx.lineTo(lx0 + Math.cos(lAngle) * lLen, ly0 + Math.sin(lAngle) * lLen);
-        ctx.strokeStyle = !isLight ? '#010001' : '#1a0408';
-        ctx.lineWidth = (2.2 - l * 0.2) * s;
-        ctx.stroke();
+        ctx.moveTo(b1x, b1y);
+        ctx.quadraticCurveTo(midCtrl1X, midCtrl1Y, tipX, tipY);
+        ctx.quadraticCurveTo(midCtrl2X, midCtrl2Y, b2x, b2y);
+        ctx.closePath();
+        ctx.fill();
       }
     }
 
@@ -1046,6 +1096,34 @@ export class FluidSimulator {
       ctx.lineWidth = 1.8 * s;
       ctx.strokeStyle = !isLight ? 'rgba(186, 24, 27, 0.70)' : 'rgba(186, 24, 27, 0.45)';
       ctx.stroke();
+
+      // Lower subtle outer micro-lashes rooted on lower rim
+      const evalLowerCurve = (t) => {
+        const u = 1 - t;
+        const tt = t * t;
+        const uu = u * u;
+        const uuu = uu * u;
+        const ttt = tt * t;
+
+        const x = (uuu * 54 + 3 * uu * t * 24 + 3 * u * tt * -32 + ttt * -58) * s;
+        const y = uuu * (14 * s) + 3 * uu * t * lowerY1 + 3 * u * tt * lowerY2 + ttt * (-4 * s);
+        return { x, y };
+      };
+
+      const lowLashes = [
+        { t: 0.82, len: 4.2 * s, angle: 1.1 },
+        { t: 0.92, len: 3.5 * s, angle: 1.3 }
+      ];
+      ctx.strokeStyle = !isLight ? 'rgba(186, 24, 27, 0.85)' : 'rgba(100, 15, 20, 0.7)';
+      ctx.lineWidth = 1.1 * s;
+      ctx.lineCap = 'round';
+      for (let kl = 0; kl < lowLashes.length; kl++) {
+        const lp = evalLowerCurve(lowLashes[kl].t);
+        ctx.beginPath();
+        ctx.moveTo(lp.x, lp.y);
+        ctx.lineTo(lp.x - Math.cos(lowLashes[kl].angle) * lowLashes[kl].len, lp.y + Math.sin(lowLashes[kl].angle) * lowLashes[kl].len);
+        ctx.stroke();
+      }
 
       // Crease above upper eyelid (Anime double-fold sulcus)
       ctx.beginPath();
